@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEventSimulation", "SimpleEventSimulation\SimpleEventSimulation.csproj", "{FD2FE003-D958-43EF-BF8C-F54E71E5124D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationLibrary", "SimulationLibrary\SimulationLibrary.csproj", "{D0FBD202-F7E2-451B-83D0-1D4ED7C43D8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralLibrary", "GeneralLibrary\GeneralLibrary.csproj", "{EA8E016B-DAB0-4249-8DE6-86C25976073A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerators", "RandomGenerators\RandomGenerators.csproj", "{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD2FE003-D958-43EF-BF8C-F54E71E5124D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD2FE003-D958-43EF-BF8C-F54E71E5124D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD2FE003-D958-43EF-BF8C-F54E71E5124D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD2FE003-D958-43EF-BF8C-F54E71E5124D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0FBD202-F7E2-451B-83D0-1D4ED7C43D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0FBD202-F7E2-451B-83D0-1D4ED7C43D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0FBD202-F7E2-451B-83D0-1D4ED7C43D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0FBD202-F7E2-451B-83D0-1D4ED7C43D8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA8E016B-DAB0-4249-8DE6-86C25976073A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA8E016B-DAB0-4249-8DE6-86C25976073A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA8E016B-DAB0-4249-8DE6-86C25976073A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA8E016B-DAB0-4249-8DE6-86C25976073A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
