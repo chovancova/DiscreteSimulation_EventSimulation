@@ -35,7 +35,7 @@ namespace RandomGenerators.Generators
 
         public double DensityDistribution()
         {
-            throw new NotImplementedException();
+            return 0.0;
         }
 
         public double Mean()

@@ -14,12 +14,17 @@ namespace SimpleEventSimulation.ShopSimulation
         public bool IsServed { get; set; }
 
         public LinkedList<Customer> WaitingQueue { get; set; }
-        
+        public new Statistics Statistic { get; set; }
+        public int Customers { get; set; }
+
         public SimCoreShop(IGenerators[] generators) : base(generators)
         {  
             IsServed = false;
             WaitingQueue = new LinkedList<Customer>();
-       }
+            this.Statistic = new Statistics();
+            Customers = 0;
+
+        }
 
         public SimCoreShop(double exp1, double exp2) : base()
         {
@@ -32,6 +37,10 @@ namespace SimpleEventSimulation.ShopSimulation
             IGenerators[] generatorses = new[] { d1, d2 };
 
             this.Generators = generatorses;
+            this.Statistic = new Statistics();
+            IsServed = false;
+            WaitingQueue = new LinkedList<Customer>();
+            Customers = 0; 
         }
     }
 }
