@@ -11,69 +11,52 @@ namespace SimulationLibrary
 {
     public class SimCore
     {
-        public float CurrentTime { get; set; }
-        public FastPriorityQueue<SimEvent> TimeLine { get; set; }
+        public double CurrentTime { get; set; }
+        private SimplePriorityQueue<SimEvent, double> _timeLine;
 
         public IGenerators[] Generators { get; set; }
-        public Statistics Statistic { get; set; }
         public virtual event EventHandler Refresh;
         public bool IsRunning { get; set; }
         public Double TimeEnd { get; set; }
-        public Double Time { get; set; }
 
         public SimCore(IGenerators[] generators)
         {
-            TimeLine = new FastPriorityQueue<SimEvent>(2144);
+            _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
             Generators = generators;
-            Statistic = new Statistics();
             TimeEnd = 0;
-            IsRunning = false;
+            IsRunning = true;
         }
 
         protected SimCore()
         {
-            TimeLine = new FastPriorityQueue<SimEvent>(2147);
+            _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
-            Statistic = new Statistics();
             TimeEnd = 0;
-            IsRunning = false;
+            IsRunning = true;
         }
 
-        public void PlanEvent(SimEvent eSimEvent)
+        public void ScheduleEvent(SimEvent eSimEvent, double time)
         {
-            TimeLine.Enqueue(eSimEvent, CurrentTime);
+            if (CurrentTime > time) throw new Exception("Scheadule Event is not possible. Current time > time.");
+            var priority = _timeLine.Count;
+            _timeLine.Enqueue(eSimEvent, priority);
         }
 
-        public void Simulate(double maxSimulationRunTime = float.MaxValue/2)
+        public void Simulate()
         {
             SimEvent currentEvent;
-            CurrentTime = 0.0f;
 
-            while (CurrentTime <= maxSimulationRunTime)
+            while (_timeLine.Count > 0 && CurrentTime < TimeEnd && IsRunning)
             {
-                 if (TimeLine.Count == 0)
-                {
-                    break;
-                }
-                 //initialization of current event, time
-                currentEvent = TimeLine.First();
+                //initialization of current event, time
+                currentEvent = _timeLine.First();
+                CurrentTime = currentEvent.EventTime;
+                currentEvent.Execute(); //virtual method. 
 
-                if (CurrentTime <= maxSimulationRunTime)
-                {
-                    //execution of event
-                    currentEvent.Execute(); //virtual method. 
-                    CurrentTime = currentEvent.EventTime;
-                    Time = currentEvent.EventTime;
-                }
-                else
-                {
-                    break;
-                }
-               
                 //here add - acceleration, deceleration, suspension, animation
-               // OnRefresh();
-               // Stop();
+                // OnRefresh();
+                // Stop();
             }
         }
 
@@ -81,10 +64,10 @@ namespace SimulationLibrary
         {
             while (true)
             {
-                if (TimeLine.Count == 0) break;
+                if (_timeLine.Count == 0) break;
                 if (simulationTime <= CurrentTime) break;
 
-                helpEvent = TimeLine.First;
+                helpEvent = _timeLine.First;
                 CurrentTime = helpEvent.EventTime;
                 helpEvent.Execute();
             }
@@ -98,12 +81,10 @@ namespace SimulationLibrary
 
         public void Stop()
         {
-            TimeLine = new FastPriorityQueue<SimEvent>(214748364);
+            _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
-            Statistic = new Statistics();
             TimeEnd = 0;
             IsRunning = false;
         }
-
     }
 }

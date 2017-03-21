@@ -4,11 +4,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimulationLibrary;
 
 namespace SimpleEventSimulation.ShopSimulation.Events
 {
     class Exit : SimEventShop
     {
+        public Exit(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, simulation, currentCustomer)
+        {
+        }
         /**
          * Odchod zákazníka
          * - môžu nastať tieto dve situácie
@@ -18,32 +22,15 @@ namespace SimpleEventSimulation.ShopSimulation.Events
         public override void Execute()
         {
             SimCoreShop core = ((SimCoreShop) (this.ReferenceSimCore));
+            Customer customer = core.NextCustomer();
+            core.IsServed = false;
 
-            //customer is leaving, so cash is free
-            if (core.WaitingQueue.Count == 0)
+            if (customer != null)
             {
-                core.IsServed = false;
-                Console.WriteLine(core.CurrentTime + "\tCustomer is leaving.");
-
+                StartPayment st = new StartPayment(EventTime, ReferenceSimCore, customer);
+                ReferenceSimCore.ScheduleEvent(st, EventTime);
+                core.IsServed = true; 
             }
-            else
-            {
-                //new customer start paying for .. 
-                StartPayment sp = new StartPayment();
-                sp.CurrentCustomer = core.WaitingQueue.First();
-                core.WaitingQueue.RemoveFirst();
-                sp.EventTime = this.EventTime;
-                this.ReferenceSimCore.PlanEvent(sp);
-
-                Console.WriteLine(core.CurrentTime + "\tCustomer started paying.");
-
-
-                //core.Customers--;
-                //core.Statistic.Decrement(sp.EventTime);
-            }
-            //for all
-            this.CurrentCustomer.ArrivalTimeToSystem = this.EventTime - this.CurrentCustomer.ArrivalTimeToSystem;
-
         }
     }
 }

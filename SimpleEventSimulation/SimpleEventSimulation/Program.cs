@@ -19,7 +19,7 @@ namespace SimpleEventSimulation
             //{
             //    Console.Write(ex.GenerateDouble() + "\t");
             //}
-            
+
             /**
              * Pred simuláciou
                 1. Inicializujem čerpaciu stanicu
@@ -27,22 +27,17 @@ namespace SimpleEventSimulation
                 3. Naplánujem príchod zákazníka. 
                 4. Začnem simulovať. 
              */
-             //1.
-            SimCoreShop shop = new SimCoreShop(4.0, 5.0);
             //2.
             int simTime = 1000000;
-            //3.
-            Arrival a = new Arrival();
-            a.CurrentCustomer = new Customer();
-            a.ReferenceSimCore = shop;
-            shop.PlanEvent(a);
-            a.Execute();
-            //4. 
-            shop.Simulate(simTime);
+            //1.
+            SimCoreShop shop = new SimCoreShop(simTime, 4.0, 5.0);
             
-            double avarage = shop.Statistic.MeanAvarage;
-            avarage = avarage / shop.CurrentTime;
-            Console.WriteLine(avarage);
+            //3.
+            Arrival a = new Arrival(0, shop, new Customer());
+            shop.ScheduleEvent(a, 0);
+           //4. 
+            shop.Simulate();
+        
             Console.ReadLine();
         }
     }

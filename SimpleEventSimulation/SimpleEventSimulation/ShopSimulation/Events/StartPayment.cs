@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimulationLibrary;
 
 namespace SimpleEventSimulation.ShopSimulation.Events
 {
     class StartPayment : SimEventShop
     {
+    
+
         /** Začiatk platenia
               1. Vytvorím si inštanciu Exit.
               2. Nastavím si simulačný čas. 
@@ -25,33 +29,26 @@ namespace SimpleEventSimulation.ShopSimulation.Events
         public override void Execute()
         {
             SimCoreShop core = ((SimCoreShop) (this.ReferenceSimCore));
-            //new event - exit of customer
-            //1.
-            Exit ex = new Exit();
-            Console.WriteLine(this.EventTime);
-            //2.
-            //3. 
-            //set time of event -> genrate from random number 
-            ex.EventTime = (float)(this.EventTime + core.Generators[0].GenerateDouble());
-
-            if (this.CurrentCustomer?.ArrivalTimeToSystem==0)
-                Console.WriteLine("StartPayment - Current Customer has arrival time to system to set to zero. ");
-            //4.
-            core.CurrentTime += ex.EventTime;
-            //5.
-            //6.
-            //put on timeline
-            core.PlanEvent(ex);
-            //7.
-            Customer customer = new Customer();
-            customer.ArrivalTimeToSystem = core.CurrentTime;
-            ex.CurrentCustomer = customer;
-            //
-            ex.ReferenceSimCore = this.ReferenceSimCore;
-            Console.WriteLine(core.CurrentTime + "\tCustomer exit event.");
-
             //set is served to true
             core.IsServed = true;
+            //1.
+            //2.
+            var waitingTime = CurrentCustomer.EndWaiting(EventTime);
+            //for statistics
+            core.AddStatisticsWaitingTimeStat(waitingTime);
+            //3. 
+            //4.
+            //set time of event -> genrate from random number 
+            var time = this.EventTime + core.Generators[0].GenerateDouble();
+            //5.
+            //6. 
+            //7. 
+            Exit ex = new Exit(time, ReferenceSimCore, CurrentCustomer);
+            ReferenceSimCore.ScheduleEvent(ex,time);
+         }
+
+        public StartPayment(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, simulation, currentCustomer)
+        {
         }
     }
 }

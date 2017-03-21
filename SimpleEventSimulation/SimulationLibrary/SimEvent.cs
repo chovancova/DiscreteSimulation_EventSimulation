@@ -7,10 +7,16 @@ using Priority_Queue;
 
 namespace SimulationLibrary
 {
-  public abstract class SimEvent : FastPriorityQueueNode
+  public abstract class SimEvent 
     {
-        public float EventTime { get; set; }
+        public double EventTime { get; set; }
         public abstract void Execute();
         public SimCore ReferenceSimCore { get; set; }
+
+        protected SimEvent(double eventTime, SimCore simulation)
+        {
+            EventTime =  eventTime;
+            ReferenceSimCore = simulation;
+        }
     }
 }

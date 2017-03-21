@@ -6,28 +6,27 @@ using System.Threading.Tasks;
 
 namespace SimpleEventSimulation.ShopSimulation
 {
-    public class Customer 
+    public class Customer
     {
-        public int IdCustomer { get; set; }
-        public double ArrivalTimeToSystem { get; set; }
+        private double _arrivalTimeToSystem;
+
+        public Customer()
+        {
+            _arrivalTimeToSystem = -1; 
+        }
 
         //Statistics
-
         #region Statistics
-        private int _count { get; set; }
-        public void Increment()
+
+        public void StartWaiting(double time)
         {
-            _count++;
+            _arrivalTimeToSystem = time;
         }
 
-        public void Decrement()
+        public double EndWaiting(double time)
         {
-            _count--;
-        }
-
-        public bool Empty()
-        {
-            return _count == 0; 
+            if (_arrivalTimeToSystem < 0) return 0;
+            return time - _arrivalTimeToSystem; 
         }
 
         #endregion
