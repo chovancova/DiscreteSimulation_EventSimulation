@@ -11,9 +11,6 @@ namespace SimpleEventSimulation.ShopSimulation.Events
     {
         public Arrival(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, simulation, currentCustomer)
         {
-            EventTime = eventTime;
-            ReferenceSimCore = simulation;
-            CurrentCustomer = currentCustomer;
         }
         /**
           * Príchod zákazníka
@@ -61,7 +58,7 @@ namespace SimpleEventSimulation.ShopSimulation.Events
             {
                 //b.
                 //b.1.
-                core.IsServed = true;
+              //  core.IsServed = true;
                 //b.2.
                 //do other event    
                 //customer is paying for his newspapers
