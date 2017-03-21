@@ -10,9 +10,7 @@ namespace SimpleEventSimulation.ShopSimulation.Events
 {
     class StartPayment : SimEventShop
     {
-    
-
-        /** Začiatk platenia
+    /** Začiatk platenia
               1. Vytvorím si inštanciu Exit.
               2. Nastavím si simulačný čas. 
               3. Zavolám si generátor => Vygenerujem 5 minút. 
@@ -28,18 +26,17 @@ namespace SimpleEventSimulation.ShopSimulation.Events
         */
         public override void Execute()
         {
-            SimCoreShop core = ((SimCoreShop) (this.ReferenceSimCore));
             //set is served to true
-            core.IsServed = true;
+            ((SimCoreShop)(this.ReferenceSimCore)).IsServed = true;
             //1.
             //2.
             var waitingTime = CurrentCustomer.EndWaiting(EventTime);
             //for statistics
-            core.AddStatisticsWaitingTimeStat(waitingTime);
+            ((SimCoreShop)(this.ReferenceSimCore)).AddStatisticsWaitingTimeStat(waitingTime);
             //3. 
             //4.
             //set time of event -> genrate from random number 
-            var time = this.EventTime + core.Generators[0].GenerateDouble();
+            var time = this.EventTime + ((SimCoreShop)(this.ReferenceSimCore)).Generators[0].GenerateDouble();
             //5.
             //6. 
             //7. 

@@ -39,8 +39,7 @@ namespace SimulationLibrary
         public void ScheduleEvent(SimEvent eSimEvent, double time)
         {
             if (CurrentTime > time) throw new Exception("Scheadule Event is not possible. Current time > time.");
-            var priority = _timeLine.Count;
-            _timeLine.Enqueue(eSimEvent, priority);
+            _timeLine.Enqueue(eSimEvent, time);
         }
 
         public void Simulate()

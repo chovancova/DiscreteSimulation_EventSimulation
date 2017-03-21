@@ -74,7 +74,7 @@ namespace SimpleEventSimulation.ShopSimulation
             NumberOfCustomers++;
             TotalWaitingTime += waitingtime;
             _iteration++;
-            if (_iteration == 1000000)
+            if (_iteration == 10000)
             {
                 _iteration = 0;
                 Console.WriteLine(TotalWaitingTime / NumberOfCustomers);
