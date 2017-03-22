@@ -12,7 +12,7 @@ namespace SimpleEventSimulation.ShopSimulation
         //Customer in event
         public Customer CurrentCustomer { get; set; }
 
-        public SimEventShop(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, simulation)
+        public SimEventShop(double eventTime, Customer currentCustomer, SimCore simulation) : base(eventTime, simulation)
         {
             CurrentCustomer = currentCustomer;
         }

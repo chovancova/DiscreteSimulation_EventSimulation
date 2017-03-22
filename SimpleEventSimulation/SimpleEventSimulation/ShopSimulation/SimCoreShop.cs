@@ -12,7 +12,8 @@ namespace SimpleEventSimulation.ShopSimulation
 {
     public class SimCoreShop : SimCore
     {
-        public bool IsServed { get; set; }
+
+    public bool IsServed { get; set; }
         private Queue<Customer> WaitingQueue { get; set; }
         //for statistics
         public int NumberOfCustomers { get; set; }
@@ -21,9 +22,47 @@ namespace SimpleEventSimulation.ShopSimulation
         public int LastCount { get; set;  }
         public double LastChangedTime { get; set;  }
         private int _iteration;
-        public SimCoreShop(double maxSimulationTime, IGenerators[] generators) : base(generators)
+        //public SimCoreShop(double maxSimulationMaximumSimulationTime, IGenerators[] generators) 
+        //{
+        //    MaximumSimulationTime = maxSimulationMaximumSimulationTime;
+        //    IsServed = false;
+        //    WaitingQueue = new Queue<Customer>();
+        //    //statistics
+        //    NumberOfCustomers = 0;
+        //    TotalWaitingTime = 0;
+        //    LastCount = -1;
+        //    _iteration = 0;
+        //    LengthOfFront = 0;
+        //    LastChangedTime = 0; 
+        //}
+
+        //public SimCoreShop(double maxSimulationMaximumSimulationTime, double exp1, double exp2) : base()
+        //{
+        //    MaximumSimulationTime = maxSimulationMaximumSimulationTime;
+
+        //    GeneratorSeed seed = new GeneratorSeed();
+        //    //Mo
+        //    ExponencionalDistribution d1 = new ExponencionalDistribution(seed.GetRandomSeed(), exp1);
+        //    //Mp
+        //    ExponencionalDistribution d2 = new ExponencionalDistribution(seed.GetRandomSeed(), exp2);
+
+        //    IGenerators[] generatorses = new[] { d1, d2 };
+
+        //    this.Generators = generatorses;
+        //    IsServed = false;
+        //    WaitingQueue = new Queue<Customer>();
+        //    //statistics
+        //    NumberOfCustomers = 0;
+        //    TotalWaitingTime = 0;
+        //    LastCount = -1;
+        //    _iteration = 0;
+        //    LengthOfFront = 0;
+        //    LastChangedTime = 0;
+        //}
+
+        public SimCoreShop(IGenerators[] generators, double maxTime) : base(generators, maxTime)
         {
-            TimeEnd = maxSimulationTime;
+            MaximumSimulationTime = maxTime;
             IsServed = false;
             WaitingQueue = new Queue<Customer>();
             //statistics
@@ -32,20 +71,32 @@ namespace SimpleEventSimulation.ShopSimulation
             LastCount = -1;
             _iteration = 0;
             LengthOfFront = 0;
-            LastChangedTime = 0; 
+            LastChangedTime = 0;
         }
 
-        public SimCoreShop(double maxSimulationTime, double exp1, double exp2) : base()
+        protected SimCoreShop(double maxTime) : base(maxTime)
         {
-            TimeEnd = maxSimulationTime;
+            IsServed = false;
+            WaitingQueue = new Queue<Customer>();
+            //statistics
+            NumberOfCustomers = 0;
+            TotalWaitingTime = 0;
+            LastCount = -1;
+            _iteration = 0;
+            LengthOfFront = 0;
+            LastChangedTime = 0;
+        }
+        public SimCoreShop(double maxTime, double exp1, double exp2) : base(maxTime)
+        {
+            MaximumSimulationTime = maxTime;
 
             GeneratorSeed seed = new GeneratorSeed();
-            //Mo
-            ExponencionalDistribution d1 = new ExponencionalDistribution(seed.GetRandomSeed(), exp1);
-            //Mp
-            ExponencionalDistribution d2 = new ExponencionalDistribution(seed.GetRandomSeed(), exp2);
+        //Mo
+        ExponencionalDistribution d1 = new ExponencionalDistribution(seed.GetRandomSeed(), exp1);
+        //Mp
+        ExponencionalDistribution d2 = new ExponencionalDistribution(seed.GetRandomSeed(), exp2);
 
-            IGenerators[] generatorses = new[] { d1, d2 };
+        IGenerators[] generatorses = { d1, d2 };
 
             this.Generators = generatorses;
             IsServed = false;
@@ -58,8 +109,9 @@ namespace SimpleEventSimulation.ShopSimulation
             LengthOfFront = 0;
             LastChangedTime = 0;
         }
-        //for statistics
-        public void AddStatisticsChangeOfFront()
+
+      //for statistics
+    public void AddStatisticsChangeOfFront()
         {
             if (LastCount >= 0)
             {

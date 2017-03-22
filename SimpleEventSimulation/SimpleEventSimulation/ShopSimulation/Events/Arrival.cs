@@ -9,7 +9,7 @@ namespace SimpleEventSimulation.ShopSimulation.Events
 {
     class Arrival : SimEventShop
     {
-        public Arrival(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, simulation, currentCustomer)
+       public Arrival(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, currentCustomer, simulation)
         {
         }
         /**
@@ -36,21 +36,20 @@ namespace SimpleEventSimulation.ShopSimulation.Events
             //2.
             //planning of event on timeline
             ReferenceSimCore.ScheduleEvent(newEvent, time);
-            var core = ReferenceSimCore as SimCoreShop; //toto aby som nemusela vsade pretypovovat
-            
+           
             //////////3.
             //////////set current customer time of his/her arrival to the system. 
             ////////this.
 
             //4.
             //a.
-            if (core.IsServed)
+            if (((SimCoreShop)ReferenceSimCore).IsServed)
             {
                 //3.
                 //set current customer time of his/her arrival to the system. 
                 CurrentCustomer.StartWaiting(EventTime);
                 //add him to waiting queue as last 
-                core.AddCustomer(this.CurrentCustomer);
+                ((SimCoreShop)ReferenceSimCore).AddCustomer(this.CurrentCustomer);
 
              //   Console.WriteLine(core.CurrentTime+"\tCustomer is wainting in queue." );
             }
@@ -64,10 +63,10 @@ namespace SimpleEventSimulation.ShopSimulation.Events
                 //customer is paying for his newspapers
                 //initialization of new event - start of payment
                 StartPayment sp = new StartPayment(EventTime, ReferenceSimCore, CurrentCustomer);
-              
+
                 //b.3.
                 //plan this event
-                core.ScheduleEvent(sp, EventTime);
+                ((SimCoreShop)ReferenceSimCore).ScheduleEvent(sp, EventTime);
 
               //  Console.WriteLine(core.CurrentTime + "\tCustomer started paying.");
             }

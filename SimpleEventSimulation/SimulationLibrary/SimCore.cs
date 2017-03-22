@@ -17,22 +17,22 @@ namespace SimulationLibrary
         public IGenerators[] Generators { get; set; }
         public virtual event EventHandler Refresh;
         public bool IsRunning { get; set; }
-        public Double TimeEnd { get; set; }
+        public double MaximumSimulationTime { get; set; }
 
-        public SimCore(IGenerators[] generators)
+        public SimCore(IGenerators[] generators, double maxTime)
         {
             _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
             Generators = generators;
-            TimeEnd = 0;
+            MaximumSimulationTime = maxTime;
             IsRunning = true;
         }
 
-        protected SimCore()
+        protected SimCore(double maxTime)
         {
             _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
-            TimeEnd = 0;
+            MaximumSimulationTime = maxTime;
             IsRunning = true;
         }
 
@@ -44,14 +44,14 @@ namespace SimulationLibrary
 
         public void Simulate()
         {
-            SimEvent currentEvent;
+            SimEvent hlpEvt;
 
-            while (_timeLine.Count > 0 && CurrentTime < TimeEnd && IsRunning)
+            while (_timeLine.Count > 0 &&  MaximumSimulationTime > CurrentTime && IsRunning)
             {
                 //initialization of current event, time
-                currentEvent = _timeLine.First();
-                CurrentTime = currentEvent.EventTime;
-                currentEvent.Execute(); //virtual method. 
+                hlpEvt = _timeLine.Dequeue();
+                CurrentTime = hlpEvt.EventTime;
+                hlpEvt.Execute(); //virtual method. 
 
                 //here add - acceleration, deceleration, suspension, animation
                 // OnRefresh();
@@ -82,7 +82,7 @@ namespace SimulationLibrary
         {
             _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
-            TimeEnd = 0;
+            MaximumSimulationTime = 0;
             IsRunning = false;
         }
     }

@@ -44,7 +44,7 @@ namespace SimpleEventSimulation.ShopSimulation.Events
             ReferenceSimCore.ScheduleEvent(ex,time);
          }
 
-        public StartPayment(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, simulation, currentCustomer)
+        public StartPayment(double eventTime, SimCore simulation, Customer currentCustomer) : base(eventTime, currentCustomer, simulation)
         {
         }
     }

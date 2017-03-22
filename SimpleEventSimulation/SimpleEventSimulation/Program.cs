@@ -28,9 +28,9 @@ namespace SimpleEventSimulation
                 4. Začnem simulovať. 
              */
             //2.
-            int simTime = 1000000;
+            double simTime = 1000000.0;
             //1.
-            SimCoreShop shop = new SimCoreShop(simTime, 4.0, 5.0);
+            SimCoreShop shop = new SimCoreShop(simTime, 5.0, 6.0);
             
             //3.
             Arrival a = new Arrival(0, shop, new Customer());
