@@ -14,11 +14,7 @@ namespace SimpleEventSimulation
     {
         static void Main(string[] args)
         {
-            //ExponencionalDistribution ex = new ExponencionalDistribution(342342434, 5);
-            //for (int i = 0; i < 46288; i++)
-            //{
-            //    Console.Write(ex.GenerateDouble() + "\t");
-            //}
+            TestDistributionsToFile();
 
             /**
              * Pred simuláciou
@@ -40,5 +36,35 @@ namespace SimpleEventSimulation
         
             Console.ReadLine();
         }
+
+        static void TestDistributionsToFile()
+        {
+            GeneratorSeed seed = new GeneratorSeed();
+            int numbers = 1000000; 
+             using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"exponencionalne_test_data.txt"))
+            {
+                ExponencionalDistribution ex = new ExponencionalDistribution(seed.GetRandomSeed(), 6);
+
+                for (int i = 0; i < numbers; i++)
+                {
+                    file.WriteLine((ex.GenerateDouble().ToString().Replace(',', '.')) + "\t");
+                }
+            }
+
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"diskretne_test_data.txt"))
+            {
+                DiscreteUniformDistribution ex = new DiscreteUniformDistribution(seed.GetRandomSeed(), 3,6);
+
+                for (int i = 0; i < numbers; i++)
+                {
+                    file.WriteLine((ex.GenerateDouble().ToString().Replace(',', '.')) + "\t");
+                }
+            }
+
+
+        }
+
     }
 }
