@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RandomGenerators.Generators
 {
-    public class DiscreteUniformDistribution : IGenerators
+    //The uniform distribution models a situation where a fixed number of outcomes all have an equal probability of occurring.
+   public class DiscreteUniformDistribution : IGenerators
     {
         public Random RandomNumberGenerator { get; }
         //trvanie v dnoch - minimalne
@@ -15,27 +16,28 @@ namespace RandomGenerators.Generators
 
         public DiscreteUniformDistribution(int seed, int min, int max)
         {
-
             RandomNumberGenerator = new Random(seed);
-            if (min < max)
-            {
-                this.Tmin = min;
-                this.Tmax = max;
-            }
-            else
-            {
-                this.Tmin = max;
-                this.Tmax = min;
-            }
+            //if (min < max)
+            //{
+            this.Tmin = min;
+            this.Tmax = max;
+            //}
+            //else
+            //{
+            //    this.Tmin = max;
+            //    this.Tmax = min;
+            //}
         }
 
         //Tmax kvoli zatvorke 
         public int GenerateInt()
         {
             if (Tmin == Tmax) return Tmin;
-            return (RandomNumberGenerator.Next((Tmin), (Tmax+1)));
+           return (RandomNumberGenerator.Next((Tmin), (Tmax+1)));
         //x = r * (b-a) + a
-          //  return ((int) (RandomNumberGenerator.NextDouble()*(Tmax - Tmin) + Tmin));
+        //   return (int) ((1-RandomNumberGenerator.NextDouble())*(Tmax+1 - Tmin) + Tmin);
+
+          //  return RandomNumberGenerator.Next(Tmax+1) + Tmin ;
         }
 
         //Pravdepodobnost vyskytu kazdehoh mozneho javu X

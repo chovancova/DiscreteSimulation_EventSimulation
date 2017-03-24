@@ -22,15 +22,19 @@ namespace TestGenerators
             GeneratorSeed seed = new GeneratorSeed();
             generator1(seed);
 
+
             generator2(seed);
 
-            generator3(seed);
+            //generator3(seed);
+            generator3b(seed);
 
-            generator4(seed);
+            // generator4(seed);
+            generator4b(seed);
 
             generator5(seed);
 
-            generator6(seed);
+            //    generator6(seed);
+            generator6b(seed);
 
             generator7(seed);
 
@@ -99,9 +103,16 @@ namespace TestGenerators
             DiscreteUniformDistribution gen6 = new DiscreteUniformDistribution(seed.GetRandomSeed() + seed.GetRandomSeed(), 123,
                 257);
             TestDistributionsToFileInt(gen6, "generator_6_diskretne_uniform_min_123_max_257.dst");
+        }
+        private static void generator6b(GeneratorSeed seed)
+        {
+            //prevzatie opraveneho auta trva s = 190 s +- 67s
+            //diskretne uniform = <123, 257>
 
-            NormalDistribution gen6b = new NormalDistribution(seed.GetRandomSeed(), 123, 257);
-            TestDistributionsToFileInt(gen6b, "generator_6b_normalne_123-257.dst");
+           // NormalDistribution gen6b = new NormalDistribution(seed.GetRandomSeed(), 123, 257);
+            NormalDistribution gen6b = new NormalDistribution(seed.GetRandomSeed(), seed.GetRandomSeed(), 190, 67);
+            //TestDistributionsToFileInt(gen6b, "generator_6b_normalne_190-67.dst");
+            TestDistributionsToFileDouble(gen6b, "generator_6b_normalne_190-67.dst");
         }
 
         private static void generator5(GeneratorSeed seed)
@@ -121,8 +132,20 @@ namespace TestGenerators
             DiscreteUniformDistribution gen4 = new DiscreteUniformDistribution(seed.GetRandomSeed(), 80, 160);
             TestDistributionsToFileInt(gen4, "generator_4_diskretne_uniform_min_80_max_160.dst");
 
-            NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), 80, 160);
+           // NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), 80, 160);
+            NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), seed.GetRandomSeed(), 120, 40);
             TestDistributionsToFileInt(gen4b, "generator_4b_normalne_80_-160.dst");
+        }
+
+        private static void generator4b(GeneratorSeed seed)
+        {
+            //cas potrebny na prevzatie auta od zakaznika 
+            //p = 120s +- 40 s
+            // = <80, 160> 
+            // NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), 80, 160);
+            NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), seed.GetRandomSeed(), 120, 40);
+            //TestDistributionsToFileInt(gen4b, "generator_4b_normalne_120_-40.dst");
+            TestDistributionsToFileDouble(gen4b, "generator_4b_normalne_120_-40.dst");
         }
 
         private static void generator3(GeneratorSeed seed)
@@ -133,8 +156,18 @@ namespace TestGenerators
             DiscreteUniformDistribution gen3 = new DiscreteUniformDistribution(seed.GetRandomSeed(), 70, 310);
             TestDistributionsToFileInt(gen3, "generator_3_diskretne_uniform_min_70_max_310.dst");
 
-            NormalDistribution gen3b = new NormalDistribution(seed.GetRandomSeed(), 70, 310);
-            TestDistributionsToFileInt(gen3b, "generator_3b_normalne_70-310.dst");
+           
+        }
+        private static void generator3b(GeneratorSeed seed)
+        {
+            //Cas potrebny na prevzatie objednavky od zakaznika
+            //o = 190 s +- 120 s  
+            //Diskretne uniform - <70, 310>
+
+           // NormalDistribution gen3b = new NormalDistribution(seed.GetRandomSeed(), 70, 310);
+            NormalDistribution gen3b = new NormalDistribution(seed.GetRandomSeed(),seed.GetRandomSeed(), 190, 120);
+            //TestDistributionsToFileInt(gen3b, "generator_3b_normalne_190-120.dst");
+            TestDistributionsToFileDouble(gen3b, "generator_3b_double_normalne_190-120.dst");
         }
 
         private static void generator2(GeneratorSeed seed)
@@ -162,6 +195,7 @@ namespace TestGenerators
         }
 
 
+
         static void TestDistributionsToFileDouble(IGenerators generator, string filename = "data.dst")
         {
             int numbers = 1000000;
@@ -170,7 +204,7 @@ namespace TestGenerators
             {
                 for (int i = 0; i < numbers; i++)
                 {
-                    file.Write((generator.GenerateDouble().ToString().Replace(',', '.')) + "\t");
+                   file.Write((generator.GenerateDouble().ToString().Replace(',', '.')) + "\t");
                 }
             }
             Console.WriteLine(filename);
@@ -183,7 +217,7 @@ namespace TestGenerators
             {
                 for (int i = 0; i < numbers; i++)
                 {
-                    file.Write(generator.GenerateInt().ToString() + "\t");
+                    file.Write(generator.GenerateInt().ToString() + "\n");
                 }
             }
             Console.WriteLine(filename);
