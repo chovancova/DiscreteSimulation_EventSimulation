@@ -15,6 +15,7 @@ namespace RandomGenerators.Generators
 
         public DiscreteUniformDistribution(int seed, int min, int max)
         {
+
             RandomNumberGenerator = new Random(seed);
             if (min < max)
             {
@@ -31,7 +32,10 @@ namespace RandomGenerators.Generators
         //Tmax kvoli zatvorke 
         public int GenerateInt()
         {
-            return RandomNumberGenerator.Next(Tmin, Tmax + 1);
+            if (Tmin == Tmax) return Tmin;
+            return (RandomNumberGenerator.Next((Tmin), (Tmax+1)));
+        //x = r * (b-a) + a
+          //  return ((int) (RandomNumberGenerator.NextDouble()*(Tmax - Tmin) + Tmin));
         }
 
         //Pravdepodobnost vyskytu kazdehoh mozneho javu X
@@ -44,9 +48,10 @@ namespace RandomGenerators.Generators
     
         public double GenerateDouble()
         {
-            return (double) GenerateInt();
+            throw new NotImplementedException();
+            //return RandomNumberGenerator.NextDouble() * (Tmax - Tmin) + Tmin;
         }
-        
+
         //Stredna hodnota
         //E(X) = (n + 1) / 2
         public double Mean()

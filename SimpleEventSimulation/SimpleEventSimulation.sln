@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEventSimulation", "SimpleEventSimulation\SimpleEventSimulation.csproj", "{FD2FE003-D958-43EF-BF8C-F54E71E5124D}"
 EndProject
@@ -11,7 +11,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralLibrary", "GeneralLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomGenerators", "RandomGenerators\RandomGenerators.csproj", "{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{98D176A0-63E8-4D51-B378-E07687E73D45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationGUI", "SimulationGUI\SimulationGUI.csproj", "{5E8B587A-3B9B-46F8-848B-3AF87F5C5537}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simple Event Simulation", "Simple Event Simulation", "{EDA5307C-5F55-4ACC-A45B-A97FA563B525}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "General Library", "General Library", "{40B4B4B0-656E-40C3-B9E1-16549D952222}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autoservice Simulation", "Autoservice Simulation", "{32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGenerators", "TestGenerators\TestGenerators.csproj", "{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +43,24 @@ Global
 		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{98D176A0-63E8-4D51-B378-E07687E73D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98D176A0-63E8-4D51-B378-E07687E73D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98D176A0-63E8-4D51-B378-E07687E73D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98D176A0-63E8-4D51-B378-E07687E73D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8B587A-3B9B-46F8-848B-3AF87F5C5537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8B587A-3B9B-46F8-848B-3AF87F5C5537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8B587A-3B9B-46F8-848B-3AF87F5C5537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8B587A-3B9B-46F8-848B-3AF87F5C5537}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FD2FE003-D958-43EF-BF8C-F54E71E5124D} = {EDA5307C-5F55-4ACC-A45B-A97FA563B525}
+		{D0FBD202-F7E2-451B-83D0-1D4ED7C43D8C} = {40B4B4B0-656E-40C3-B9E1-16549D952222}
+		{EA8E016B-DAB0-4249-8DE6-86C25976073A} = {40B4B4B0-656E-40C3-B9E1-16549D952222}
+		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F} = {40B4B4B0-656E-40C3-B9E1-16549D952222}
+		{5E8B587A-3B9B-46F8-848B-3AF87F5C5537} = {EDA5307C-5F55-4ACC-A45B-A97FA563B525}
+		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316} = {32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}
 	EndGlobalSection
 EndGlobal

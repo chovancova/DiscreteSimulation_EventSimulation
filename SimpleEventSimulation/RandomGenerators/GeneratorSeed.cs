@@ -9,14 +9,14 @@ namespace RandomGenerators
     public class GeneratorSeed
     {
         private Random seed { get; set; }
-        private int generatorSeed { get; set; }
+      //  private int generatorSeed { get; set; }
         private List<int> Seeds { get; set; }
 
         public GeneratorSeed()
         {
             Seeds = new List<int>();
-            generatorSeed = Guid.NewGuid().GetHashCode();
-            seed = new Random(generatorSeed);
+            //generatorSeed = Guid.NewGuid().GetHashCode();
+            seed = new Random();
         }
         public int GetRandomSeed()
         {

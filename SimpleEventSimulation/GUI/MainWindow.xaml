@@ -8,32 +8,26 @@
         mc:Ignorable="d"
         Title="Simple Event Simulation" Height="740" Width="1200">
     <Grid>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="689" Margin="10,10,0,0" VerticalAlignment="Top" Width="1172" FontSize="21.333" SelectionChanged="tabControl_SelectionChanged">
-            <TabItem Header="Settings">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="709" VerticalAlignment="Top" Width="1192" FontSize="21.333" SelectionChanged="tabControl_SelectionChanged">
+            <TabItem Header="Settings" Margin="0,0,-4,-2">
                 <Grid>
-                    <Border Margin="233,97,230,318" BorderThickness="0">
-                        <Grid>
-                            <Label x:Name="label1" Content="Number of cash machine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="273"/>
-                            <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="38" Margin="426,0,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
-                            <Label x:Name="label2" Content="Number of employees" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Width="260"/>
-                            <TextBox x:Name="textBox1_Copy" HorizontalAlignment="Left" Height="38" Margin="426,57,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
-                            <Label x:Name="label3" Content="Arrival of customers in minutes" HorizontalAlignment="Left" Margin="0,141,0,0" VerticalAlignment="Top" Width="354"/>
-                            <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="34" Margin="426,141,0,0" TextWrapping="Wrap" Text="6" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
-                            <Label x:Name="label4" Content="Service time in minutes" HorizontalAlignment="Left" Margin="0,195,0,0" VerticalAlignment="Top" Width="338"/>
-                            <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="35" Margin="426,199,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
-                        </Grid>
-                    </Border>
+                    <Label x:Name="label1" Content="Number of cash machine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="273" Margin="236,99,0,0"/>
+                    <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="38" Margin="662,99,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
+                    <Label x:Name="label2" Content="Number of employees" HorizontalAlignment="Left" Margin="236,156,0,0" VerticalAlignment="Top" Width="260"/>
+                    <TextBox x:Name="textBox1_Copy" HorizontalAlignment="Left" Height="38" Margin="662,156,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
+                    <Label x:Name="label3" Content="Arrival of customers in minutes" HorizontalAlignment="Left" Margin="236,240,0,0" VerticalAlignment="Top" Width="354"/>
+                    <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="34" Margin="662,240,0,0" TextWrapping="Wrap" Text="6" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
+                    <Label x:Name="label4" Content="Service time in minutes" HorizontalAlignment="Left" Margin="236,294,0,0" VerticalAlignment="Top" Width="338"/>
+                    <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="35" Margin="662,298,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="277" TextAlignment="Center"/>
+
                     <Button x:Name="button" Background="Azure" Content="Run Simulation" HorizontalAlignment="Left" Height="73" Margin="233,541,0,0" VerticalAlignment="Top" Width="703"/>
-                    <Border Margin="233,355,230,144">
-                        <Grid>
-                            <Label x:Name="label5" Content="Maximal simulation time in minutes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="367"/>
-                            <TextBox x:Name="textBox3_Copy" HorizontalAlignment="Left" Height="35" Margin="426,0,0,0" TextWrapping="Wrap" Text="999999999" VerticalAlignment="Top" Width="277" TextAlignment="Right" FontStretch="ExtraExpanded"/>
-                            <Label x:Name="label5_Copy" Content="Warm-up time" HorizontalAlignment="Left" Margin="0,58,0,0" VerticalAlignment="Top" Width="367"/>
-                            <TextBox x:Name="textBox3_Copy1" HorizontalAlignment="Left" Height="35" Margin="426,58,0,0" TextWrapping="Wrap" Text=" 10000" VerticalAlignment="Top" Width="277" TextAlignment="Right" FontStretch="ExtraExpanded"/>
-                            <Label x:Name="label5_Copy1" Content="Plotting frequency (no. points in plot)" HorizontalAlignment="Left" Margin="0,112,0,0" VerticalAlignment="Top" Width="367"/>
-                            <TextBox x:Name="textBox3_Copy2" HorizontalAlignment="Left" Height="35" Margin="426,112,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="277" TextAlignment="Right" FontStretch="ExtraExpanded"/>
-                        </Grid>
-                    </Border>
+
+                    <Label x:Name="label5" Content="Maximal simulation time in minutes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="367" Margin="233,361,0,0"/>
+                    <TextBox x:Name="textBox3_Copy" HorizontalAlignment="Left" Height="35" Margin="659,361,0,0" TextWrapping="Wrap" Text="999999999" VerticalAlignment="Top" Width="277" TextAlignment="Right" FontStretch="ExtraExpanded"/>
+                    <Label x:Name="label5_Copy" Content="Warm-up time" HorizontalAlignment="Left" Margin="233,419,0,0" VerticalAlignment="Top" Width="367"/>
+                    <TextBox x:Name="textBox3_Copy1" HorizontalAlignment="Left" Height="35" Margin="659,419,0,0" TextWrapping="Wrap" Text=" 10000" VerticalAlignment="Top" Width="277" TextAlignment="Right" FontStretch="ExtraExpanded"/>
+                    <Label x:Name="label5_Copy1" Content="Plotting frequency (no. points in plot)" HorizontalAlignment="Left" Margin="233,473,0,0" VerticalAlignment="Top" Width="367"/>
+                    <TextBox x:Name="textBox3_Copy2" HorizontalAlignment="Left" Height="35" Margin="659,473,0,0" TextWrapping="Wrap" Text="1000" VerticalAlignment="Top" Width="277" TextAlignment="Right" FontStretch="ExtraExpanded"/>
                     <Label x:Name="label1_Copy" Content="Simple Event Simulation " HorizontalAlignment="Left" VerticalAlignment="Top" Width="338" Margin="419,24,0,0" FontSize="26.667" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
@@ -53,10 +47,6 @@
                     </oxy:Plot>
                 </Grid>
             </TabItem>
-            <TabItem Header="Results" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="87">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
         </TabControl>
-
     </Grid>
 </Window>

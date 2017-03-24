@@ -129,8 +129,8 @@ namespace SimpleEventSimulation.ShopSimulation
             if (_iteration == 10000)
             {
                 _iteration = 0;
-                Console.WriteLine(TotalWaitingTime / NumberOfCustomers);
-                Console.WriteLine(LengthOfFront/CurrentTime);
+                Console.WriteLine("Average Time spent in row:\t"+ TotalWaitingTime / NumberOfCustomers);
+                Console.WriteLine("Average number of customers:\t"+LengthOfFront/CurrentTime);
                 Console.WriteLine();
             }
         }
