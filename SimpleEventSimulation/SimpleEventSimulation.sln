@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autoservice Simulation", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGenerators", "TestGenerators\TestGenerators.csproj", "{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoserviceLibrary", "AutoserviceLibrary\AutoserviceLibrary.csproj", "{7BE01B3E-E257-4514-808D-1569E157E441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BE01B3E-E257-4514-808D-1569E157E441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BE01B3E-E257-4514-808D-1569E157E441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BE01B3E-E257-4514-808D-1569E157E441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BE01B3E-E257-4514-808D-1569E157E441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +68,6 @@ Global
 		{E978D58D-2F44-40E1-A6DB-1CCFE948CB6F} = {40B4B4B0-656E-40C3-B9E1-16549D952222}
 		{5E8B587A-3B9B-46F8-848B-3AF87F5C5537} = {EDA5307C-5F55-4ACC-A45B-A97FA563B525}
 		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316} = {32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}
+		{7BE01B3E-E257-4514-808D-1569E157E441} = {32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}
 	EndGlobalSection
 EndGlobal

@@ -20,27 +20,23 @@ namespace TestGenerators
         {
             //SIMULACNY CAS SU SEKUNDY
             GeneratorSeed seed = new GeneratorSeed();
-            generator1(seed);
+            //generator1(seed);
 
-
-            generator2(seed);
+            //generator2(seed);
 
             //generator3(seed);
-            generator3b(seed);
 
-            // generator4(seed);
-            generator4b(seed);
+            //generator4(seed);
 
-            generator5(seed);
+            //generator5(seed);
 
-            //    generator6(seed);
-            generator6b(seed);
+            //generator6(seed);
 
-            generator7(seed);
+            //generator7(seed);
 
-            generator8(seed);
+            //generator8(seed);
 
-            generator9(seed);
+            //generator9(seed);
 
             generator10(seed);
         }
@@ -50,7 +46,7 @@ namespace TestGenerators
             //VYGENEROVANY TYP OPRAVY
             Duration[] d3 =
             {
-                new Duration(0, 0, 0.1), new Duration(0, 0, 0.6), new Duration(0, 0, 0.3)
+                new Duration(0, 0, 0.7), new Duration(0, 0, 0.2), new Duration(0, 0, 0.1)
             };
             IGenerators[] generators = new IGenerators[]
             {
@@ -100,21 +96,11 @@ namespace TestGenerators
         {
             //prevzatie opraveneho auta trva s = 190 s +- 67s
             //diskretne uniform = <123, 257>
-            UniformDiscreteDistribution gen6 = new UniformDiscreteDistribution(seed.GetRandomSeed() + seed.GetRandomSeed(), 123,
+            UniformContinuousDistribution gen6 = new UniformContinuousDistribution(seed.GetRandomSeed() + seed.GetRandomSeed(), 123,
                 257);
-            TestDistributionsToFileInt(gen6, "generator_6_diskretne_uniform_min_123_max_257.dst");
+            TestDistributionsToFileDouble(gen6, "generator_6_spojite_uniform_min_123_max_257.dst");
         }
-        private static void generator6b(GeneratorSeed seed)
-        {
-            //prevzatie opraveneho auta trva s = 190 s +- 67s
-            //diskretne uniform = <123, 257>
-
-           // NormalDistribution gen6b = new NormalDistribution(seed.GetRandomSeed(), 123, 257);
-            NormalDistribution gen6b = new NormalDistribution(seed.GetRandomSeed(), seed.GetRandomSeed(), 190, 67);
-            //TestDistributionsToFileInt(gen6b, "generator_6b_normalne_190-67.dst");
-            TestDistributionsToFileDouble(gen6b, "generator_6b_normalne_190-67.dst");
-        }
-
+      
         private static void generator5(GeneratorSeed seed)
         {
             //preparkovanie auta z parkoviska do dielne alebo naspat ssa riadi 
@@ -129,47 +115,21 @@ namespace TestGenerators
             //cas potrebny na prevzatie auta od zakaznika 
             //p = 120s +- 40 s
             // diskretne uniform = <80, 160> 
-            UniformDiscreteDistribution gen4 = new UniformDiscreteDistribution(seed.GetRandomSeed(), 80, 160);
-            TestDistributionsToFileInt(gen4, "generator_4_diskretne_uniform_min_80_max_160.dst");
+            UniformContinuousDistribution gen4 = new UniformContinuousDistribution(seed.GetRandomSeed(), 80, 160);
+            TestDistributionsToFileDouble(gen4, "generator_4_spojite_uniform_min_80_max_160.dst");
 
-           // NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), 80, 160);
-            NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), seed.GetRandomSeed(), 120, 40);
-            TestDistributionsToFileInt(gen4b, "generator_4b_normalne_80_-160.dst");
         }
 
-        private static void generator4b(GeneratorSeed seed)
-        {
-            //cas potrebny na prevzatie auta od zakaznika 
-            //p = 120s +- 40 s
-            // = <80, 160> 
-            // NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), 80, 160);
-            NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), seed.GetRandomSeed(), 120, 40);
-            //TestDistributionsToFileInt(gen4b, "generator_4b_normalne_120_-40.dst");
-            TestDistributionsToFileDouble(gen4b, "generator_4b_normalne_120_-40.dst");
-        }
-
+   
         private static void generator3(GeneratorSeed seed)
         {
             //Cas potrebny na prevzatie objednavky od zakaznika
             //o = 190 s +- 120 s  
-            //Diskretne uniform - <70, 310>
-            UniformDiscreteDistribution gen3 = new UniformDiscreteDistribution(seed.GetRandomSeed(), 70, 310);
-            TestDistributionsToFileInt(gen3, "generator_3_diskretne_uniform_min_70_max_310.dst");
-
-           
+            //Spojite rovnomerne - <70, 310>
+            UniformContinuousDistribution gen3 = new UniformContinuousDistribution(seed.GetRandomSeed(), 70, 310);
+            TestDistributionsToFileDouble(gen3, "generator_3_spojite_uniform_min_70_max_310.dst");
         }
-        private static void generator3b(GeneratorSeed seed)
-        {
-            //Cas potrebny na prevzatie objednavky od zakaznika
-            //o = 190 s +- 120 s  
-            //Diskretne uniform - <70, 310>
-
-           // NormalDistribution gen3b = new NormalDistribution(seed.GetRandomSeed(), 70, 310);
-            NormalDistribution gen3b = new NormalDistribution(seed.GetRandomSeed(),seed.GetRandomSeed(), 190, 120);
-            //TestDistributionsToFileInt(gen3b, "generator_3b_normalne_190-120.dst");
-            TestDistributionsToFileDouble(gen3b, "generator_3b_double_normalne_190-120.dst");
-        }
-
+  
         private static void generator2(GeneratorSeed seed)
         {
             //Pravdepodobnosti poctu oprav, tkore bude zakaznik pozadovat
@@ -204,7 +164,7 @@ namespace TestGenerators
             {
                 for (int i = 0; i < numbers; i++)
                 {
-                   file.Write((generator.GenerateDouble().ToString().Replace(',', '.')) + "\t");
+                   file.Write((generator.GenerateDouble().ToString().Replace(',', '.')) + "\n");
                 }
             }
             Console.WriteLine(filename);

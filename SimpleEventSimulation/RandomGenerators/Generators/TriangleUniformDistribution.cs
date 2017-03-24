@@ -8,52 +8,37 @@ namespace RandomGenerators.Generators
 {
    public class TriangleUniformDistribution : IGenerators
     {
-        public Random RandomNumberGenerator { get; }
-        public int Max { get; private set; }
-        public int Min { get; private set; }
-        public int Modus { get; private set; }
+        private readonly Random _randomNumberGenerator;
+        private readonly int _max;
+        private readonly int _min;
+        private readonly int _modus;
         public TriangleUniformDistribution(int seed, int min, int max, int modus)
         {
-            RandomNumberGenerator = new Random(seed);
-            Min = min;
-            Max = max;
-            Modus = modus; 
+            _randomNumberGenerator = new Random(seed);
+            _min = min;
+            _max = max;
+            _modus = modus; 
         }
 
         public int GenerateInt()
         {
-            return (int) Math.Ceiling(GenerateDouble());
+            throw new NotImplementedException();
         }
 
         public double GenerateDouble()
         {
-            double v = RandomNumberGenerator.NextDouble();
-            double c = Modus - Min;
-            double m = Max - Min;
+            double v = _randomNumberGenerator.NextDouble();
+            double c = _modus - _min;
+            double m = _max - _min;
             if (v <= (c / m))
             {
-                return Min + Math.Sqrt(v * m * c);
+                return _min + Math.Sqrt(v * m * c);
 
             }
             else
             {
-                return Max - Math.Sqrt((1 - v) * m * (Max - Modus));
+                return _max - Math.Sqrt((1 - v) * m * (_max - _modus));
             }
         }
-
-        public double DensityDistribution()
-        {
-            throw new NotImplementedException();
-        }
-
-        public double Mean()
-        {
-            return Modus; 
-        }
-
-        public double Spread()
-        {
-            throw new NotImplementedException();
-        }
-    }
+     }
 }

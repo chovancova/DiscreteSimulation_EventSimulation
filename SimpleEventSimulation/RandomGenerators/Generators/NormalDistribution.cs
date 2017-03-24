@@ -11,16 +11,16 @@ namespace RandomGenerators.Generators
     public class NormalDistribution : IGenerators
     {
 
-        public Random RandomNumberGenerator { get; }
-        private Random RandomNumberGenerator2 { get; }
-        private double _mean;
-        private double _standardDeviation;
+        private readonly Random _randomNumberGenerator;
+        private readonly Random _randomNumberGenerator2;
+        private readonly double _mean;
+        private readonly double _standardDeviation;
 
 
         public NormalDistribution(int seed,int seed2, double mean, double stdev)
         {
-            RandomNumberGenerator = new Random(seed);
-            RandomNumberGenerator2 = new Random(seed2);
+            _randomNumberGenerator = new Random(seed);
+            _randomNumberGenerator2 = new Random(seed2);
 
             _mean = mean; //190
             _standardDeviation = stdev;//120
@@ -35,8 +35,8 @@ namespace RandomGenerators.Generators
             //http://www.java2s.com/Code/Java/Development-Class/ReturnasamplefromtheGammaPoissionGaussiandistributionwithparameterIA.htm
             if (!_haveNextGaussian)
             {
-                double v1 = 1 - RandomNumberGenerator.NextDouble();
-                double v2 = 1 - RandomNumberGenerator2.NextDouble();
+                double v1 = 1 - _randomNumberGenerator.NextDouble();
+                double v2 = 1 - _randomNumberGenerator2.NextDouble();
 
                 double x1, x2;
                 x1 = Math.Sqrt(-2 * Math.Log(v1)) * Math.Cos(2 * Math.PI * v2);
@@ -68,8 +68,8 @@ namespace RandomGenerators.Generators
             //https://gist.github.com/tansey/1444070
             // The method requires sampling from a uniform random of (0,1]
             // but Random.NextDouble() returns a sample of [0,1).
-            double x1 = 1 - RandomNumberGenerator.NextDouble();
-            double x2 = 1 - RandomNumberGenerator2.NextDouble();
+            double x1 = 1 - _randomNumberGenerator.NextDouble();
+            double x2 = 1 - _randomNumberGenerator2.NextDouble();
 
             double y1 = Math.Sqrt(-2.0 * Math.Log(x1)) * Math.Cos(2.0 * Math.PI * x2);
 

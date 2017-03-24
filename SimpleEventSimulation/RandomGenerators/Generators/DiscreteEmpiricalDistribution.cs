@@ -23,44 +23,44 @@ namespace RandomGenerators.Generators
 
     public class DiscreteEmpiricalDistribution : IGenerators
     {
-        public Random RandomNumberGenerator { get;  set; }
+        private readonly Random _randomNumberGenerator;
         //hodnota, pravdepodobnost 
-        public Duration[] Values { get; set; }
-        public IGenerators[] Generators { get; private set; }
-        private bool _onlyOneValue;
+        private readonly Duration[] _values;
+        private readonly IGenerators[] _generators;
+        private readonly bool _onlyOneValue;
         public DiscreteEmpiricalDistribution(int seed, Duration[] duration, bool onlyOneValue = false)
         {
-            RandomNumberGenerator = new Random(seed);
-            Values = duration;
+            _randomNumberGenerator = new Random(seed);
+            _values = duration;
             _onlyOneValue = onlyOneValue;
             if (!_onlyOneValue)
             {
-                Generators = new UniformDiscreteDistribution[duration.Length];
-                for (int i = 0; i < Generators.Length; i++)
+                _generators = new UniformDiscreteDistribution[duration.Length];
+                for (int i = 0; i < _generators.Length; i++)
                 {
-                    Generators[i] = new UniformDiscreteDistribution(RandomNumberGenerator.Next(), Values[i].Min,
-                        Values[i].Max);
+                    _generators[i] = new UniformDiscreteDistribution(_randomNumberGenerator.Next(), _values[i].Min,
+                        _values[i].Max);
                 }
             }
             else
             {
-                Generators = null; 
+                _generators = null; 
             }
         }
 
         public DiscreteEmpiricalDistribution(int seed, Duration[] duration, IGenerators[] generators)
         {
             _onlyOneValue = false;
-            RandomNumberGenerator = new Random(seed);
-            Values = duration;
-            Generators = generators;
+            _randomNumberGenerator = new Random(seed);
+            _values = duration;
+            _generators = generators;
         }
 
 
         public int GenerateInt()
         {
             int value = 0;
-            double p = RandomNumberGenerator.NextDouble(); //pravdepodobnost v rozsahu od 0 - 1  
+            double p = _randomNumberGenerator.NextDouble(); //pravdepodobnost v rozsahu od 0 - 1  
             double tempPr = 0;
             //napr. mam pravdepodobnosti 0.2,  0.5.,  0.3
             //pravdepodobnostne rozsahy
@@ -70,19 +70,19 @@ namespace RandomGenerators.Generators
             //3. 	  	0.7 -  1				0.3
             //ak je p napr. 0.4 tak to znamena, ze patri value 2 
             // ak je 0.
-            for (int i = 0; i < Values.Length; i++)
+            for (int i = 0; i < _values.Length; i++)
             {
-                tempPr += Values[i].P;
+                tempPr += _values[i].P;
                 if (p < tempPr)
                 {
                     if (_onlyOneValue)
                     {
-                        value = Values[i].Min;
+                        value = _values[i].Min;
                     }
                     else
                     {
                           //< >
-                          value = Generators[i].GenerateInt();
+                          value = _generators[i].GenerateInt();
                          break;
                     }
                 }
@@ -92,23 +92,9 @@ namespace RandomGenerators.Generators
 
         public double GenerateDouble()
         {
-       throw new NotImplementedException();
-
+             throw new NotImplementedException();
         }
 
-        public double DensityDistribution()
-        {
-            throw new NotImplementedException();
-        }
-
-        public double Mean()
-        {
-            throw new NotImplementedException();
-        }
-
-        public double Spread()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

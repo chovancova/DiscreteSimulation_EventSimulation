@@ -9,11 +9,8 @@ namespace RandomGenerators.Generators
 {
    public interface IGenerators
    {
-       Random RandomNumberGenerator { get; }
        int GenerateInt();
        double GenerateDouble();
-       double DensityDistribution();
-       double Mean();
-       double Spread();
+      
    }
 }

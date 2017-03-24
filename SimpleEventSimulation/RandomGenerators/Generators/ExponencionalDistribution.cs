@@ -8,44 +8,22 @@ namespace RandomGenerators.Generators
 {
    public class ExponencionalDistribution : IGenerators
     {
-        public Random RandomNumberGenerator { get; }
-
-        public double lamda { get; set; }
-        private double median;
+        private readonly Random _randomNumberGenerator;
+        private readonly double _lambda;
 
         public ExponencionalDistribution(int seed, double median)
         {
-            RandomNumberGenerator = new Random(seed);
-            lamda = 1.0 / median;
+            _randomNumberGenerator = new Random(seed);
+            _lambda = 1.0 / median;
         }
-        public double GetValue()
-        {
-            return Math.Log((1 - RandomNumberGenerator.NextDouble())) / (-lamda);
-        }
-
         public double GenerateDouble()
         {
-            return Math.Log((1 - RandomNumberGenerator.NextDouble())) / (-lamda);
+            return Math.Log((1 - _randomNumberGenerator.NextDouble())) / (-_lambda);
         }
 
         public int GenerateInt()
         {
-            return (int)(Math.Log((1 - RandomNumberGenerator.NextDouble())) / (-lamda));
-        }
-
-        public double DensityDistribution()
-        {
-            return 0.0;
-        }
-
-        public double Mean()
-        {
-            return median;
-        }
-
-        public double Spread()
-        {
-            return lamda;
+            return (int)(Math.Log((1 - _randomNumberGenerator.NextDouble())) / (-_lambda));
         }
     }
 }

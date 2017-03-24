@@ -15,8 +15,8 @@ namespace RandomGenerators
         public GeneratorSeed()
         {
             Seeds = new List<int>();
-            //generatorSeed = Guid.NewGuid().GetHashCode();
-            seed = new Random();
+            int s = (int)DateTime.Now.Ticks;
+            seed = new Random(s);
         }
         public int GetRandomSeed()
         {
