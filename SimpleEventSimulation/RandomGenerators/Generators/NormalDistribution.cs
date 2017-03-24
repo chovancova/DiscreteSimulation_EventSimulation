@@ -25,28 +25,30 @@ namespace RandomGenerators.Generators
         public NormalDistribution(int seed, int min, int max)
         {
             RandomNumberGenerator = new Random(seed);
-            max = max + 2;
+           max = max + 1;
             this.Min = min;
             this.Max = max;
             // Assume random normal distribution from [min..max]
             // Calculate mean. For [4 .. 6] the mean is 5.
             this.Mean1 = ((max - min) / 2) + min;
+            ///Mean1 = mean;
+
 
             // Calculate standard deviation
             int xMinusMyuSquaredSum = 0;
-            for (int i = min; i < max; i++)
+            for (int i = min; i <= max; i++)
             {
                 xMinusMyuSquaredSum += (int)Math.Pow(i - this.Mean1, 2);
             }
 
-            this.StandardDeviation = Math.Sqrt(xMinusMyuSquaredSum / (max - min + 1));
+            this.StandardDeviation =( Math.Sqrt(xMinusMyuSquaredSum / (max - min + 1)));
             // Flat, uniform distros tend to have a stdev that's too high; for example,
             // for 1-10, stdev is 3, meaning the ranges are 68% in 2-8, and 95% in -1 to 11...
             // So we cut this down to create better statistical variation. We now
             // get numbers like: 1dev=68%, 2dev=95%, 3dev=99% (+= 1%). w00t!
             this.StandardDeviation *= (0.5);
 
-            for (int i = min; i < max; i++)
+            for (int i = min; i <= max; i++)
             {
                 probabilities[i] = calculatePdf(i);
                 // Eg. if we have: 1 (20%), 2 (60%), 3 (20%), we want to see
@@ -58,6 +60,7 @@ namespace RandomGenerators.Generators
                     probabilities[i] += probabilities[i - 1];
                 }
             }
+           
 
             this._minToGenerateForProbability = this.probabilities.Values.Min();
             this._maxToGenerateForProbability = this.probabilities.Values.Max();
