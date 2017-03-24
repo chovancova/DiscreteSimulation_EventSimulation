@@ -41,9 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeneratorSeed.cs" />
-    <Compile Include="Generators\ContinuousDistribution.cs" />
+    <Compile Include="Generators\UniformContinuousDistribution.cs" />
     <Compile Include="Generators\DiscreteEmpiricalDistribution.cs" />
-    <Compile Include="Generators\DiscreteUniformDistribution.cs" />
+    <Compile Include="Generators\UniformDiscreteDistribution.cs" />
     <Compile Include="Generators\ExponencionalDistribution.cs" />
     <Compile Include="Generators\IGenerators.cs" />
     <Compile Include="Generators\NormalDistribution.cs" />

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace RandomGenerators.Generators
 {
     //The uniform distribution models a situation where a fixed number of outcomes all have an equal probability of occurring.
-   public class DiscreteUniformDistribution : IGenerators
+   public class UniformDiscreteDistribution : IGenerators
     {
         public Random RandomNumberGenerator { get; }
         //trvanie v dnoch - minimalne
         public int Tmin { get; private set; }
         public int Tmax { get; private set; }
 
-        public DiscreteUniformDistribution(int seed, int min, int max)
+        public UniformDiscreteDistribution(int seed, int min, int max)
         {
             RandomNumberGenerator = new Random(seed);
             //if (min < max)

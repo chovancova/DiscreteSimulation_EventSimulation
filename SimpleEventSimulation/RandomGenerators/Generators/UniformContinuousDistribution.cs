@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace RandomGenerators.Generators
 {
-   public class ContinuousDistribution : IGenerators
+   public class UniformContinuousDistribution : IGenerators
     {
         public Random RandomNumberGenerator { get; set; }
         //trvanie v dnoch - minimalne
         public int Tmin { get; private set; }
         public int Tmax { get; private set; }
 
-        public ContinuousDistribution(int seed, int min, int max)
+        public UniformContinuousDistribution(int seed, int min, int max)
         {
             RandomNumberGenerator = new Random(seed);
             if (min < max)
@@ -30,7 +30,9 @@ namespace RandomGenerators.Generators
 
         public int GenerateInt()
         {
-            return (int)(RandomNumberGenerator.NextDouble() * (Tmax - Tmin) + Tmin);
+            throw new NotImplementedException();
+
+            // return (int)(RandomNumberGenerator.NextDouble() * (Tmax - Tmin) + Tmin);
         }
 
         public int GenerateRounded()

@@ -35,10 +35,10 @@ namespace RandomGenerators.Generators
             _onlyOneValue = onlyOneValue;
             if (!_onlyOneValue)
             {
-                Generators = new DiscreteUniformDistribution[duration.Length];
+                Generators = new UniformDiscreteDistribution[duration.Length];
                 for (int i = 0; i < Generators.Length; i++)
                 {
-                    Generators[i] = new DiscreteUniformDistribution(RandomNumberGenerator.Next(), Values[i].Min,
+                    Generators[i] = new UniformDiscreteDistribution(RandomNumberGenerator.Next(), Values[i].Min,
                         Values[i].Max);
                 }
             }
@@ -92,29 +92,7 @@ namespace RandomGenerators.Generators
 
         public double GenerateDouble()
         {
-            //double value = 0;
-            //double p = RandomNumberGenerator.NextDouble(); //pravdepodobnost v rozsahu od 0 - 1  
-            //double tempPr = 0;
-            ////napr. mam pravdepodobnosti 0.2,  0.5.,  0.3
-            ////pravdepodobnostne rozsahy
-            ////value  	rozsah pravd. 		probalibility		
-            ////1.	  	0   - 0.2     			0.2
-            ////2.	 	0.2 - 0.7 				0.5
-            ////3. 	  	0.7 -  1				0.3
-            ////ak je p napr. 0.4 tak to znamena, ze patri value 2 
-            //// ak je 0.
-            //for (int i = 0; i < Values.Length; i++)
-            //{
-            //    tempPr += Values[i].P;
-            //    if (p < tempPr)
-            //    {
-            //        //< >
-            //        value = Generators[i].GenerateDouble();
-            //        break;
-            //    }
-            //}
-            //return value;
-            throw new NotImplementedException();
+       throw new NotImplementedException();
 
         }
 

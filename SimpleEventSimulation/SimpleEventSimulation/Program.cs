@@ -55,7 +55,7 @@ namespace SimpleEventSimulation
             using (System.IO.StreamWriter file =
             new System.IO.StreamWriter(@"diskretne_test_data.txt"))
             {
-                DiscreteUniformDistribution ex = new DiscreteUniformDistribution(seed.GetRandomSeed(), 3,6);
+                UniformDiscreteDistribution ex = new UniformDiscreteDistribution(seed.GetRandomSeed(), 3,6);
 
                 for (int i = 0; i < numbers; i++)
                 {

@@ -54,10 +54,10 @@ namespace TestGenerators
             };
             IGenerators[] generators = new IGenerators[]
             {
-                new DiscreteUniformDistribution(seed.GetRandomSeed(), 2, 20),
+                new UniformDiscreteDistribution(seed.GetRandomSeed(), 2, 20),
                 new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
                     new[] {new Duration(10, 40, 0.1), new Duration(41, 61, 0.6), new Duration(62, 100, 0.3)}),
-                new DiscreteUniformDistribution(seed.GetRandomSeed(), 120, 260)
+                new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
             };
 
             DiscreteEmpiricalDistribution gen10 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), d3, generators);
@@ -68,7 +68,7 @@ namespace TestGenerators
         {
             //ZLOZITA OPRAVA
             //diskretne rovnomerne Tmin = 120, Tmax = 260
-            DiscreteUniformDistribution gen9 = new DiscreteUniformDistribution(seed.GetRandomSeed(), 120, 260);
+            UniformDiscreteDistribution gen9 = new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260);
             TestDistributionsToFileInt(gen9, "generator_9_diskretne_uniform_min_120_max_260.dst");
         }
 
@@ -92,7 +92,7 @@ namespace TestGenerators
             //pravdepodobnosti jednotlivych oprav a ich trvanie
             // JEDNODUCHA OPRAVA
             //diskretne rovnomerne = Tmin = 2, Tmax = 20
-            DiscreteUniformDistribution gen7 = new DiscreteUniformDistribution(seed.GetRandomSeed(), 2, 20);
+            UniformDiscreteDistribution gen7 = new UniformDiscreteDistribution(seed.GetRandomSeed(), 2, 20);
             TestDistributionsToFileInt(gen7, "generator_7_diskretne_uniform_min_2_max_20.dst");
         }
 
@@ -100,7 +100,7 @@ namespace TestGenerators
         {
             //prevzatie opraveneho auta trva s = 190 s +- 67s
             //diskretne uniform = <123, 257>
-            DiscreteUniformDistribution gen6 = new DiscreteUniformDistribution(seed.GetRandomSeed() + seed.GetRandomSeed(), 123,
+            UniformDiscreteDistribution gen6 = new UniformDiscreteDistribution(seed.GetRandomSeed() + seed.GetRandomSeed(), 123,
                 257);
             TestDistributionsToFileInt(gen6, "generator_6_diskretne_uniform_min_123_max_257.dst");
         }
@@ -129,7 +129,7 @@ namespace TestGenerators
             //cas potrebny na prevzatie auta od zakaznika 
             //p = 120s +- 40 s
             // diskretne uniform = <80, 160> 
-            DiscreteUniformDistribution gen4 = new DiscreteUniformDistribution(seed.GetRandomSeed(), 80, 160);
+            UniformDiscreteDistribution gen4 = new UniformDiscreteDistribution(seed.GetRandomSeed(), 80, 160);
             TestDistributionsToFileInt(gen4, "generator_4_diskretne_uniform_min_80_max_160.dst");
 
            // NormalDistribution gen4b = new NormalDistribution(seed.GetRandomSeed(), 80, 160);
@@ -153,7 +153,7 @@ namespace TestGenerators
             //Cas potrebny na prevzatie objednavky od zakaznika
             //o = 190 s +- 120 s  
             //Diskretne uniform - <70, 310>
-            DiscreteUniformDistribution gen3 = new DiscreteUniformDistribution(seed.GetRandomSeed(), 70, 310);
+            UniformDiscreteDistribution gen3 = new UniformDiscreteDistribution(seed.GetRandomSeed(), 70, 310);
             TestDistributionsToFileInt(gen3, "generator_3_diskretne_uniform_min_70_max_310.dst");
 
            
