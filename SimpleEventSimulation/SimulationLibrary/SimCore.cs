@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Priority_Queue;
-using RandomGenerators;
 using RandomGenerators.Generators;
 
 namespace SimulationLibrary
@@ -18,6 +13,8 @@ namespace SimulationLibrary
         public virtual event EventHandler Refresh;
         public bool IsRunning { get; set; }
         public double MaximumSimulationTime { get; set; }
+        private int _numberOfStatistic = 4;
+        public double[] Result { get; set; }
 
         public SimCore(IGenerators[] generators, double maxTime)
         {
@@ -84,6 +81,35 @@ namespace SimulationLibrary
             CurrentTime = 0.0f;
             MaximumSimulationTime = 0;
             IsRunning = false;
+        }
+
+        public bool StopReplications;
+        public void DoReplications(int n)
+        {
+            long[] sumResults = new long[_numberOfStatistic];
+
+            int i = 0;
+            StopReplications = false;
+            for (; i < n; i++)
+            {
+                if (StopReplications)
+                {
+                    break;
+                }
+                OnRefresh();
+             }
+           // Result = DoStatistics(0, i);
+        }
+
+
+        public double[] DoStatistics(long[] sum, int countExperiments)
+        {
+            double[] averages = new double[_numberOfStatistic];
+            for (int i = 0; i < _numberOfStatistic; i++)
+            {
+                averages[i] = ((double)sum[i] / countExperiments);
+            }
+            return averages;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SimpleEventSimulation
     {
         static void Main(string[] args)
         {
-            TestDistributionsToFile();
+           // TestDistributionsToFile();
 
             /**
              * Pred simuláciou
@@ -52,16 +52,16 @@ namespace SimpleEventSimulation
                 }
             }
 
-            using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter(@"diskretne_test_data.txt"))
-            {
-                UniformDiscreteDistribution ex = new UniformDiscreteDistribution(seed.GetRandomSeed(), 3,6);
+            //using (System.IO.StreamWriter file =
+            //new System.IO.StreamWriter(@"diskretne_test_data.txt"))
+            //{
+            //    UniformDiscreteDistribution ex = new UniformDiscreteDistribution(seed.GetRandomSeed(), 3,6);
 
-                for (int i = 0; i < numbers; i++)
-                {
-                    file.WriteLine((ex.GenerateDouble().ToString().Replace(',', '.')) + "\t");
-                }
-            }
+            //    for (int i = 0; i < numbers; i++)
+            //    {
+            //        file.WriteLine((ex.GenerateDouble().ToString().Replace(',', '.')) + "\t");
+            //    }
+            //}
 
 
         }
