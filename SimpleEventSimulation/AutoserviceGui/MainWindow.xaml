@@ -236,6 +236,12 @@
                                 <Label x:Name="label28" Content="Priemerný čas potrebný na prevzatie auta od zákazníka" HorizontalAlignment="Left" Margin="51,134,0,0" VerticalAlignment="Top" Width="569"/>
                                 <Label x:Name="label29" Content="Priemerný čas preparkovania auta z parkoviska do dielne" HorizontalAlignment="Left" Margin="51,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.854,0.786" Width="569"/>
                                 <Label x:Name="label29_Copy" Content="Priemerný čas preparkovania auta z dielne na parkovisko" HorizontalAlignment="Left" Margin="51,192,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.854,0.786" Width="569"/>
+                                <Label x:Name="label30" Content="Priemerný čas prevzatia opraveného auta" HorizontalAlignment="Left" Margin="51,221,0,0" VerticalAlignment="Top"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Fronty" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="61">
+                            <Grid Background="#FFE5E5E5">
+                                <Label x:Name="label31" Content="Priemerný počet ludí vo fronte " HorizontalAlignment="Left" Margin="44,44,0,0" VerticalAlignment="Top"/>
                             </Grid>
                         </TabItem>
                     </TabControl>
