@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace AutoserviceLibrary.Entities
 {
-    class Zakaznik
+    public class Zakaznik
     {
         private double _arrivalTimeToSystem;
+
+        public bool JeAutoOpravene { get; set; }
+        public bool JeAutoVOprave { get; set; }
+        public int PocetOprav { get; set; }
+        public int[] DobaOpravy { get; set; }
+        public int CelkovaDobaOpravy { get; set; }
 
         public Zakaznik()
         {
@@ -17,16 +23,19 @@ namespace AutoserviceLibrary.Entities
 
         //Statistics
 
-        public void StartWaiting(double time)
+        public void ZacniCakat(double time)
         {
             _arrivalTimeToSystem = time;
         }
 
-        public double EndWaiting(double time)
+        public double SkonciCakanie(double time)
         {
             if (_arrivalTimeToSystem < 0) return 0;
             return time - _arrivalTimeToSystem;
         }
+
+
+
 
     }
 }

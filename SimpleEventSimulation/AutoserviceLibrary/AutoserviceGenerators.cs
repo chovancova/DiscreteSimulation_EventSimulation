@@ -70,7 +70,7 @@ namespace AutoserviceLibrary
         ///     modelujem exp.rozdelenim  300 s
         /// </summary>
         /// <returns></returns>
-        public double Generator1()
+        public double Generator1_ZakazniciPrichod()
         {
             return _gen1.GenerateDouble();
         }
@@ -82,7 +82,7 @@ namespace AutoserviceLibrary
         ///     Empiricke rozdelenie
         /// </summary>
         /// <returns></returns>
-        public int Generator2()
+        public int Generator2_PocetOprav()
         {
             return _gen2.GenerateInt();
         }
@@ -93,7 +93,7 @@ namespace AutoserviceLibrary
         ///     Spojite rovnomerne - 70, 310
         /// </summary>
         /// <returns></returns>
-        public double Generator3()
+        public double Generator3_PrevzatieObjednavky()
         {
             return _gen3.GenerateDouble();
         }
@@ -104,7 +104,7 @@ namespace AutoserviceLibrary
         ///     diskretne uniform = 80, 160
         /// </summary>
         /// <param name="seed"></param>
-        public double Generator4()
+        public double Generator4_PrevzatieAuta()
         {
             return _gen4.GenerateDouble();
         }
@@ -115,7 +115,7 @@ namespace AutoserviceLibrary
         ///     min = 120 s, max 540, a modus = 240 s
         /// </summary>
         /// <param name="seed"></param>
-        public double Generator5()
+        public double Generator5_Preparkovanie()
         {
             return _gen5.GenerateDouble();
         }
@@ -125,7 +125,7 @@ namespace AutoserviceLibrary
         ///     diskretne uniform = <123, 257>
         /// </summary>
         /// <param name="seed"></param>
-        public double Generator6()
+        public double Generator6_Prevzatie()
         {
             return _gen6.GenerateDouble();
         }
@@ -143,7 +143,7 @@ namespace AutoserviceLibrary
         ///     diskretne rovnomerne Tmin = 120, Tmax = 260
         /// </summary>
         /// <returns></returns>
-        public int Generator7()
+        public int Generator7_DobaOpravy()
         {
             return _gen7.GenerateInt();
         }

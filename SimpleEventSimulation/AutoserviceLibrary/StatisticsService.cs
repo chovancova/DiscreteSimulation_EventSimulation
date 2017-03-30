@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutoserviceLibrary.Entities
+namespace AutoserviceLibrary
 {
-    public class PracovnikSkupiny1
+    public class StatisticsService
     {
+
+
     }
 }

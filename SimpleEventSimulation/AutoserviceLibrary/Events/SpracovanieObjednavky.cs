@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoserviceLibrary.Entities;
 using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
-    class VytvorenieObjednavkyPrevzatieAuta : AutoserviceEvent
+    class SpracovanieObjednavky : AutoserviceEvent
     {
-        public VytvorenieObjednavkyPrevzatieAuta(double eventTime, SimCore simulation) : base(eventTime, simulation)
+        public SpracovanieObjednavky(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
 

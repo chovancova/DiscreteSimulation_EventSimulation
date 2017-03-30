@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace AutoserviceLibrary.Entities
 {
-    class PracovnikSkupiny2
+    public class PracovnikSkupiny2
     {
+
     }
 }
