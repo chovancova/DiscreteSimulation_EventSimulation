@@ -41,20 +41,45 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Autoservice.cs" />
+    <Compile Include="AutoserviceCore.cs" />
     <Compile Include="AutoserviceGenerators.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities\Auto.cs" />
+    <Compile Include="Entities\PracovnikSkupiny1.cs" />
+    <Compile Include="Entities\PracovnikSkupiny2.cs" />
+    <Compile Include="Entities\Zakaznik.cs" />
+    <Compile Include="Events\AutoserviceEvent.cs" />
+    <Compile Include="Events\KoniecDnaEvent.cs" />
+    <Compile Include="Events\KoniecOpravyEvent.cs" />
+    <Compile Include="Events\OdchodZakaznikaEvent.cs" />
+    <Compile Include="Events\PreparkovanieAutaSpatEvent.cs" />
+    <Compile Include="Events\PreparkovanieAutoEvent.cs" />
+    <Compile Include="Events\PrichodZakaznikaEvent.cs" />
+    <Compile Include="Events\VytvorenieObjednavkyPrevzatieAuta.cs" />
+    <Compile Include="Events\ZaciatokOpravyEvent.cs" />
+    <Compile Include="Events\ZaciatokSimulacieEvent.cs" />
+    <Compile Include="Events\ZaciatokZadaniaObjednavkyEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GeneralLibrary\GeneralLibrary.csproj">
+      <Project>{ea8e016b-dab0-4249-8de6-86c25976073a}</Project>
+      <Name>GeneralLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RandomGenerators\RandomGenerators.csproj">
       <Project>{e978d58d-2f44-40e1-a6db-1ccfe948cb6f}</Project>
       <Name>RandomGenerators</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SimpleEventSimulation\SimpleEventSimulation.csproj">
+      <Project>{fd2fe003-d958-43ef-bf8c-f54e71e5124d}</Project>
+      <Name>SimpleEventSimulation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimulationLibrary\SimulationLibrary.csproj">
+      <Project>{d0fbd202-f7e2-451b-83d0-1d4ed7c43d8c}</Project>
+      <Name>SimulationLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

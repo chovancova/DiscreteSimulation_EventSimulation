@@ -24,7 +24,7 @@ namespace SimpleEventSimulation
                 4. Začnem simulovať. 
              */
             //2.
-            double simTime = 1000000.0;
+            double simTime = 100000000.0;
             //1.
             SimCoreShop shop = new SimCoreShop(simTime, 5.0, 6.0);
             

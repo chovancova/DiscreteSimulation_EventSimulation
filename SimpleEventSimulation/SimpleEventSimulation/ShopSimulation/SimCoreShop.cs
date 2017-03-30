@@ -111,7 +111,7 @@ namespace SimpleEventSimulation.ShopSimulation
         }
 
       //for statistics
-    public void AddStatisticsChangeOfFront()
+      public void AddStatisticsChangeOfFront()
         {
             if (LastCount >= 0)
             {

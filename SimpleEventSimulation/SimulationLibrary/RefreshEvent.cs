@@ -22,7 +22,6 @@ namespace SimulationLibrary
             ReferenceSimCore.ScheduleEvent(refreshEvent, refresh);
 
             Thread.Sleep((int) Math.Round(ReferenceSimCore.SleepingTime));
-
         }
     }
 }

@@ -28,6 +28,8 @@
                                     <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="3,75,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="40" RenderTransformOrigin="3.142,0.589" Grid.Column="2"/>
                                     <Label x:Name="label13" Content="Pracovná doba servisu v hodinách:" HorizontalAlignment="Left" Margin="37,110,0,0" VerticalAlignment="Top" Height="29" Width="230" Grid.Column="1"/>
                                     <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="3,109,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="40" Grid.Column="2"/>
+                                    <TextBox x:Name="pocetPracovnikov1_Copy" HorizontalAlignment="Left" Height="23" Margin="3,6,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="40" RenderTransformOrigin="1.422,0.5" Grid.Column="2"/>
+                                    <TextBox x:Name="pocetPracovnikov2_Copy2" HorizontalAlignment="Left" Height="23" Margin="3,43,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="2"/>
                                 </Grid>
                                 <Grid Margin="140,257,124,176" Background="#FFE5FFE2">
                                     <Grid.ColumnDefinitions>
@@ -149,28 +151,25 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Simulation" FontSize="14">
-                <Grid Background="#FFE5E5E5">
-                    <Label x:Name="label1" Content="Aktuálny simulačný čas" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="12"/>
-                    <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="23" Margin="196,14,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" IsReadOnly="True" FontSize="12"/>
-                    <Label x:Name="label2" Content="Double simulačný čas" HorizontalAlignment="Left" Margin="363,8,0,0" VerticalAlignment="Top" FontSize="12"/>
-                    <TextBox x:Name="textBox4_Copy" HorizontalAlignment="Left" Height="23" Margin="524,8,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="110" IsReadOnly="True" FontSize="12"/>
+                <Grid Background="#fff">
+                    <Label x:Name="label1" Content="Aktuálny simulačný čas hh:mm:ss" HorizontalAlignment="Left" Margin="25,5,0,0" VerticalAlignment="Top" FontSize="12"/>
+                    <TextBox x:Name="textBox4" HorizontalAlignment="Left" Height="23" Margin="215,4,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="83" IsReadOnly="True" FontSize="12"/>
+                    <Label x:Name="label2" Content="Double simulačný čas v sekundach" HorizontalAlignment="Left" Margin="319,4,0,0" VerticalAlignment="Top" FontSize="12"/>
+                    <TextBox x:Name="textBox4_Copy" HorizontalAlignment="Left" Height="23" Margin="511,8,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="110" IsReadOnly="True" FontSize="12"/>
                     <Label x:Name="label4" Content="Priemerný počet čakajúcich v rade na počte pracovníkov skupiny 1" HorizontalAlignment="Left" Margin="25,47,0,0" VerticalAlignment="Top" FontSize="12"/>
                     <Label x:Name="label16" Content="Priemerný čas strávený zákazníkom v servise na počete pracvníkov skupiny 2" HorizontalAlignment="Left" Margin="25,73,0,0" VerticalAlignment="Top" FontSize="12"/>
                     <Label x:Name="label17" Content="Počet zákazníkov čakajúcich na vybavenie objednávky" HorizontalAlignment="Left" Margin="25,305,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="12"/>
-                    <Label x:Name="label18" Content="Číslo replikácie" HorizontalAlignment="Left" Margin="676,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.053,0.239" FontSize="12"/>
+                    <Label x:Name="label18" Content="Číslo dna" HorizontalAlignment="Left" Margin="676,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.053,0.239" FontSize="12"/>
                     <TextBox x:Name="textBox5" HorizontalAlignment="Left" Height="23" Margin="783,8,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="81" IsReadOnly="True" FontSize="12"/>
                     <Label x:Name="label19" Content="Počet volných pracovníkov skupiny 1" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" FontSize="12"/>
                     <Label x:Name="label19_Copy" Content="Počet volných pracovníkov skupiny 2" HorizontalAlignment="Left" Margin="25,363,0,0" VerticalAlignment="Top" FontSize="12"/>
                     <TextBox x:Name="textBox6" HorizontalAlignment="Left" Height="23" Margin="382,340,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
                     <TextBox x:Name="textBox6_Copy" HorizontalAlignment="Left" Height="23" Margin="382,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
                     <Label x:Name="label20" Content="Počet neopravených áut" HorizontalAlignment="Left" Margin="25,392,0,0" VerticalAlignment="Top" FontSize="12"/>
-                    <Label x:Name="label20_Copy" Content="Počet opravených áut čakajúcich na vyzdvihnutie" HorizontalAlignment="Left" Margin="25,421,0,0" VerticalAlignment="Top" FontSize="12"/>
-                    <TextBox x:Name="textBox6_Copy1" HorizontalAlignment="Left" Height="23" Margin="382,460,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
-                    <TextBox x:Name="textBox6_Copy2" HorizontalAlignment="Left" Height="23" Margin="382,488,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
+                    <Label x:Name="label20_Copy" Content="Počet opravených áut čakajúcich na preparkovanie" HorizontalAlignment="Left" Margin="25,421,0,0" VerticalAlignment="Top" FontSize="12"/>
                     <TextBox x:Name="textBox6_Copy3" HorizontalAlignment="Left" Height="23" Margin="382,403,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
                     <TextBox x:Name="textBox6_Copy4" HorizontalAlignment="Left" Height="23" Margin="382,432,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.492,2.467" FontSize="12" Text="0"/>
                     <Label x:Name="label20_Copy1" Content="Priemerný čas potrebný na prevzatie objednávky od zákazníka" HorizontalAlignment="Left" Margin="25,100,0,0" VerticalAlignment="Top" FontSize="12"/>
-                    <Label x:Name="label20_Copy2" Content="Počet opravených áut čakajúcich na vyzdvihnutie" HorizontalAlignment="Left" Margin="25,499,0,0" VerticalAlignment="Top" FontSize="12"/>
                     <TextBox x:Name="textBox6_Copy5" HorizontalAlignment="Left" Height="23" Margin="382,311,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
                     <Label x:Name="label21" Content="Priemerný čas potrebný na prevzatie auta od zákazníka" HorizontalAlignment="Left" Margin="26,131,0,0" VerticalAlignment="Top" Width="419" FontSize="12"/>
                     <Label x:Name="label22" Content="Priemerný čas preparkovania auta z parkoviska do dielne " HorizontalAlignment="Left" Margin="26,157,0,0" VerticalAlignment="Top" FontSize="12"/>
@@ -183,6 +182,10 @@
                     <TextBox x:Name="textBox6_Copy10" HorizontalAlignment="Left" Height="19" Margin="445,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
                     <TextBox x:Name="textBox6_Copy11" HorizontalAlignment="Left" Height="19" Margin="445,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.492,2.467" FontSize="12" Text="0"/>
                     <TextBox x:Name="textBox6_Copy12" HorizontalAlignment="Left" Height="19" Margin="445,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="12" Text="0"/>
+                    <Slider x:Name="slider" HorizontalAlignment="Left" Height="22" Margin="584,77,0,0" VerticalAlignment="Top" Width="264"/>
+                    <Slider x:Name="slider_Copy" HorizontalAlignment="Left" Height="22" Margin="584,124,0,0" VerticalAlignment="Top" Width="264"/>
+                    <Label x:Name="label32" Content="Frekvencia obnovovania simulacneho" HorizontalAlignment="Left" Margin="584,50,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label33" Content="Trvanie spania (real)" HorizontalAlignment="Left" Margin="600,99,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Results" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="65" FontSize="14">
