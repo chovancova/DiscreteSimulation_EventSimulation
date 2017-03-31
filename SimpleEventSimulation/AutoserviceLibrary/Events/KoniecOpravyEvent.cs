@@ -8,35 +8,29 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
+    /// <summary>
+    /// Koniec opravy
+    /// Naplánujem:
+    /// -	Začiatok opravy – naplánujem okamžite.Opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.  
+    /// </summary>
     class KoniecOpravyEvent : AutoserviceEvent
 
     {
         public KoniecOpravyEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
-
+        /// <summary>
+        /// Koniec opravy
+        /// Naplánujem:
+        /// -	Začiatok opravy – naplánujem okamžite.Opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.  
+        /// </summary>
         public override void Execute()
         {
-            //Ak je vo front DIELNA nejake auto
-            //naplanuj zaciatok opravy okamzite dalsieho auta
+            ((AppCore)ReferenceSimCore).PridajAuto(AktualnyZakaznik);
 
-            //ak je front aut  prazdny, tak naplanujem cakanie
-
-
-            // opravene auto 
-            //ak je v skupine 1 niekto volny, 
-            //treba dane auto preparkovat
-            // a auto ide do parametru daalsieho eventu
-            //naplanujem udalost - Preparkovanie auta spat zakaznikovi
-
-
-
-            //ak nie je ziaden volny zakaznik typu 1 volny, 
-            //tak             
-            // vlozim opravene auto do frontu OPRAVENE AUTA
-
-
-
+            //naplanujem zaciatok opravy
+            var time = EventTime + 0.0; 
+            var zaciatok = new ZaciatokOpravyEvent(time, ReferenceSimCore, new Zakaznik());
         }
     }
 }

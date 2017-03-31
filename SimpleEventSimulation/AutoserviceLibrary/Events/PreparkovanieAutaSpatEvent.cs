@@ -8,38 +8,45 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
+    /// <summary>
+    /// Preparkovanie auta späť zákazníkovi
+    /// Naplánujem: 
+    ///  -	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta.
+    ///  -	Zadanie objednávky – ak front čakajúcich zákazníkov nie je prázdni, tak naplánujem zadanie objednávky vo vygenerovanom čase Generátorom 3 – Prevzatie objednávky. 
+    ///  -	Uvoľnenie pracovníka  - ak front čakajúcich zákazníkov je prázdny, tak zvýšim počet voľných pracovníkov o jedna, a znížim počet obsluhujúcich pracovníkov skupiny1. 
+    /// </summary>
     class PreparkovanieAutaSpatEvent : AutoserviceEvent
     {
         public PreparkovanieAutaSpatEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
-
+        /// <summary>
+        /// Preparkovanie auta späť zákazníkovi
+        /// Naplánujem: 
+        ///  -	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta.
+        ///  -	Zadanie objednávky – ak front čakajúcich zákazníkov nie je prázdni, tak naplánujem zadanie objednávky vo vygenerovanom čase Generátorom 3 – Prevzatie objednávky. 
+        ///  -	Uvoľnenie pracovníka  - ak front čakajúcich zákazníkov je prázdny, tak zvýšim počet voľných pracovníkov o jedna, a znížim počet obsluhujúcich pracovníkov skupiny1. 
+        /// </summary>
         public override void Execute()
         {
-            //vygenerujem dobu oblsuhy zakaznika <123, 257>
-            //naplanujem event odchod zakaznika
+            //odchod zákazníka 
+            var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator6_Prevzatie();
+            var odchod = new OdchodZakaznikaEvent(time, ReferenceSimCore, AktualnyZakaznik);
+            ReferenceSimCore.ScheduleEvent(odchod, time);
 
-            //vypocitam statistiku pre zakaznika v systeme... 
-            //
-
-            //ak je front OPRAVENE AUTA volny... 
-                //ak je front cakajucich na zadanie objednavky prazdny, 
-                //tak vlozim pracovnika do frontu volnych pracovnikov skupiny 1
-                //inak 
-                //naplanujem zaciatok zadania objednavky
-                //vyberiem jedneho zakaznika z frontu a odstranim ho .. a nastavim ho danej udalosti
-
-            //ak je nieco vo fronte OPRAVENE AUTA
-                //zoberiem prve auto z opravenych aut
-                //naplanujem event v case 
-                //
-
-            //TODO 
-
-            //////////////////////
-            //////////////////////
-            ////////////////////// 
-
+            //zadanie objednavky
+            Zakaznik zakaznik = ((AppCore) ReferenceSimCore).DalsiZakaznik();
+            if (zakaznik != null)
+            {
+                var time2 = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator3_PrevzatieObjednavky();
+                var zadanie = new ZadanieObjednavky(time, ReferenceSimCore, zakaznik);
+                ReferenceSimCore.ScheduleEvent(zadanie, time2);
+            }
+            else
+            {
+                ((AppCore) ReferenceSimCore).PocetObsluhujucichPracovnikov1--;
+                ((AppCore) ReferenceSimCore).PocetVolnychPracovnikov1++;
+            }
         }
     }
 }
