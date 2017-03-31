@@ -8,12 +8,23 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
+    /// <summary>
+    /// Zadanie objednávky
+    /// Nastavím koniec čakania zákazníkovi a započítam čas čakania v rade do štatistiky.
+    /// Naplánujem: 
+    ///    - Spracovanie objednávky(vytvorenie objednávky a prevzatie auta od zákazníka) s vygenerovaním časom z Generátora 4 – prevzatie auta.
+    /// </summary>
     class ZadanieObjednavky : AutoserviceEvent
     {
         public ZadanieObjednavky(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
-
+        /// <summary>
+        /// Zadanie objednávky
+        /// Nastavím koniec čakania zákazníkovi a započítam čas čakania v rade do štatistiky.
+        /// Naplánujem: 
+        ///    - Spracovanie objednávky(vytvorenie objednávky a prevzatie auta od zákazníka) s vygenerovaním časom z Generátora 4 – prevzatie auta.
+        /// </summary>
         public override void Execute()
         {
             var cakanie = AktualnyZakaznik.SkonciCakanie(EventTime);
@@ -21,26 +32,10 @@ namespace AutoserviceLibrary.Events
 
             //naplanujem spracovanie objednavky 
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator4_PrevzatieAuta();
+            var spracovanie = new SpracovanieObjednavky(time, ReferenceSimCore, AktualnyZakaznik);
+            ReferenceSimCore.ScheduleEvent(spracovanie, time);
 
-
-
-
-
-
-            // Vytvorenie objednavky a Prevzatie auta od zakaznika
-
-
-            //zisti ci je volne pole volnych pracovnikov skupiny 1 
-            //ak ano, tak naplanuje cinnost vytvorenie a prevzatie auta od zakaznika
-            //vyberie daneho pracovnika z frontu volnych pracovnikov a vymaze ho frontu
-            //vyberie daneho zakaznika z frontu cakajucich na objednavku a vymaze ho z frontu
-
-            //vygenerujem cas vytvorenia objednavky <80,160>
-            //vygenerujem cas prevzatia auta od zakaznika <70.310> 
-
-            // a casy spocitam a naplanujem na dany cas event Vytvorenie objednavky a prevzatie auta od zakaznika
-
-            //zakaznikovi zapocitam to, aby bral do statistiky prvy vyg. cas - a to je vytvorenie objednavky
+            //todo Statistika - zakaznikovi zapisem tento cas, ze je v systeme.
         }
     }
 }

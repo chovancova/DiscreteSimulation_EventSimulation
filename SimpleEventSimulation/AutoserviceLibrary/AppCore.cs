@@ -78,7 +78,37 @@ namespace AutoserviceLibrary
             _cakajuciZakaznik.Enqueue(zakaznik);   
         }
 
+        public void PridajAuto(Zakaznik zakaznik)
+        {
+            //pridaj statistiku
+            _pokazeneAuto.Enqueue(zakaznik);
+        }
 
+        public Zakaznik DalsieAuto()
+        {
+            if (_pokazeneAuto.Count == 0)
+            {
+                return null;
+            }
+            //pridaj statistiku 
+            return _pokazeneAuto.Dequeue();
+        }
+
+        public void PridajOpraveneAuto(Zakaznik zakaznik)
+        {
+            //pridaj statistiku
+            _opraveneAuto.Enqueue(zakaznik);
+        }
+
+        public Zakaznik DalsieOpraveneAuto()
+        {
+            if (_opraveneAuto.Count == 0)
+            {
+                return null;
+            }
+            //pridaj statistiku 
+            return _opraveneAuto.Dequeue();
+        }
 
 
 
@@ -117,8 +147,6 @@ namespace AutoserviceLibrary
 
         #endregion
 
-
-
-
+       
     }
 }

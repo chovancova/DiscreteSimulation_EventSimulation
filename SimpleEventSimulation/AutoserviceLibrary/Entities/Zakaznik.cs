@@ -35,7 +35,9 @@ namespace AutoserviceLibrary.Entities
         }
 
 
-
-
+        public void ZacniCakatAuto(double eventTime)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

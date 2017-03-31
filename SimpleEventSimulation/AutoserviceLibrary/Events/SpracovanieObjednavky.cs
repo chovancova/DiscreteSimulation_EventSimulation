@@ -8,22 +8,44 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
+    /// <summary>
+    /// Spracovanie objednávky
+    /// Spracovanie objednávky znamená prevzatie objednávky, 
+    /// zapíše do informačného systému údaje o aute, 
+    /// popis porúch a ide so zákazníkom prevziať auto.
+    ///    Vygenerujem Generátorom 2 počet opráv zákazníkovi.
+    ///    Započítam štatistiku času potrebného na vybavenie objednávky.
+    ///
+    ///    Naplánujem: 
+    ///	       Preparkovanie auto pred dielnou s vygenerovaným časom z Generátora 5 – preparkovanie.
+    /// </summary>
     class SpracovanieObjednavky : AutoserviceEvent
     {
         public SpracovanieObjednavky(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
-
+        /// <summary>
+        /// Spracovanie objednávky
+        /// Spracovanie objednávky znamená prevzatie objednávky, 
+        /// zapíše do informačného systému údaje o aute, 
+        /// popis porúch a ide so zákazníkom prevziať auto.
+        ///    Vygenerujem Generátorom 2 počet opráv zákazníkovi.
+        ///    Započítam štatistiku času potrebného na vybavenie objednávky.
+        ///
+        ///    Naplánujem: 
+        ///	       Preparkovanie auto pred dielnou s vygenerovaným časom z Generátora 5 – preparkovanie.
+        /// </summary>
         public override void Execute()
         {
-            //zapocitam zakaznikovi statistiku casu potrebneho na vybavenie objednavky
+            var pocetOprav = ((AppCore) ReferenceSimCore).Gen.Generator2_PocetOprav();
+            AktualnyZakaznik.PocetOprav = pocetOprav; 
 
-            //vygenerujem cas prepravkovania TROJ
-            //naplanujem cinnost preparkovanie auto pred dielnou 
-
-            //zakaznika posuniem dalej s instanciou auta... 
-
-
-        }
+            //todo Statistika na zapocitanie casu potrebneho na vybavenie objednavky
+            
+            //naplanujem preparkovanie auta 
+            var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
+            var preparkovanie = new PreparkovanieAutoEvent(time,ReferenceSimCore,AktualnyZakaznik);
+            ReferenceSimCore.ScheduleEvent(preparkovanie, time);
+       }
     }
 }

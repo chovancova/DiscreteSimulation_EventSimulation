@@ -8,16 +8,15 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
-    class OdchodZakaznikaEvent : AutoserviceEvent
+    public class PrazdnyPrevozEvent : AutoserviceEvent
     {
-        public OdchodZakaznikaEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
+        public PrazdnyPrevozEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
 
         public override void Execute()
         {
-            //nastavim statistiku na odchod zakaznika zo systemu
-
+            throw new NotImplementedException();
         }
     }
 }

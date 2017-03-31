@@ -51,6 +51,7 @@
     <Compile Include="Events\KoniecDnaEvent.cs" />
     <Compile Include="Events\KoniecOpravyEvent.cs" />
     <Compile Include="Events\OdchodZakaznikaEvent.cs" />
+    <Compile Include="Events\PrazdnyPrevozEvent.cs" />
     <Compile Include="Events\PreparkovanieAutaSpatEvent.cs" />
     <Compile Include="Events\PreparkovanieAutoEvent.cs" />
     <Compile Include="Events\PrichodZakaznikaEvent.cs" />

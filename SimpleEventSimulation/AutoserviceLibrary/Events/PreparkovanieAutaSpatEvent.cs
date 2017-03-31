@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoserviceLibrary.Entities;
 using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
     class PreparkovanieAutaSpatEvent : AutoserviceEvent
     {
-        public PreparkovanieAutaSpatEvent(double eventTime, SimCore simulation) : base(eventTime, simulation)
+        public PreparkovanieAutaSpatEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
 
