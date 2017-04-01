@@ -38,12 +38,14 @@ namespace AutoserviceLibrary.Events
         public override void Execute()
         {
             var pocetOprav = ((AppCore) ReferenceSimCore).Gen.Generator2_PocetOprav();
-            AktualnyZakaznik.PocetOprav = pocetOprav; 
+            AktualnyZakaznik.PocetOprav = pocetOprav;
+
+            var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator5_Preparkovanie();
 
             //todo Statistika na zapocitanie casu potrebneho na vybavenie objednavky
-            
+            AktualnyZakaznik.ZacniCakatNaVybavenieObjednavky(time);
+
             //naplanujem preparkovanie auta 
-            var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
             var preparkovanie = new PreparkovanieAutoEvent(time,ReferenceSimCore,AktualnyZakaznik);
             ReferenceSimCore.ScheduleEvent(preparkovanie, time);
        }

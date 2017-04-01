@@ -8,7 +8,10 @@ namespace AutoserviceLibrary.Entities
 {
     public class Zakaznik
     {
-        private double _arrivalTimeToSystem;
+        private double _prichodDoSystemu;
+        private double _prichodDoSystemuPokazenych;
+        private double _cakanieNaOpravu; 
+        private double _cakanieNaVybavenieObjednavky; 
 
         public bool JeAutoOpravene { get; set; }
         public bool JeAutoVOprave { get; set; }
@@ -18,26 +21,60 @@ namespace AutoserviceLibrary.Entities
 
         public Zakaznik()
         {
-            _arrivalTimeToSystem = -1;
+            _prichodDoSystemu = -1;
         }
 
         //Statistics
-
-        public void ZacniCakat(double time)
+        public void VynulujStatistiky()
         {
-            _arrivalTimeToSystem = time;
+            _prichodDoSystemu = -1;
         }
 
-        public double SkonciCakanie(double time)
+        public void ZacniCakatVRade(double time)
         {
-            if (_arrivalTimeToSystem < 0) return 0;
-            return time - _arrivalTimeToSystem;
+            _prichodDoSystemu = time;
         }
 
-
-        public void ZacniCakatAuto(double eventTime)
+        public double SkonciCakanieVRade(double time)
         {
-            throw new NotImplementedException();
+            if (_prichodDoSystemu < 0) return 0;
+            return time - _prichodDoSystemu;
         }
+        //pri spracovani objednavky
+        public void ZacniCakatNaVybavenieObjednavky(double time)
+        {
+            _cakanieNaVybavenieObjednavky = time;
+        }
+
+        public double SkonciCakanieNaVybavenieObjednavky(double time)
+        {
+            if (_cakanieNaVybavenieObjednavky < 0)
+                return 0;
+            return time - _cakanieNaVybavenieObjednavky;
+        }
+        
+        public void ZacniCakatNaOpravu(double eventTime)
+        {
+            _cakanieNaOpravu = eventTime;
+        }
+
+        public double SkonciCakanieNaOpravu(double time)
+        {
+            if (_cakanieNaOpravu < 0)
+                return 0;
+            return time - _cakanieNaOpravu;
+        }
+
+        public void ZacniCakatVRadePokazenych(double time)
+        {
+            _prichodDoSystemuPokazenych = time;
+        }
+
+        public double SkonciCakanieVRadePokazenych(double time)
+        {
+            if (_prichodDoSystemuPokazenych < 0) return 0;
+            return time - _prichodDoSystemuPokazenych;
+        }
+
     }
 }

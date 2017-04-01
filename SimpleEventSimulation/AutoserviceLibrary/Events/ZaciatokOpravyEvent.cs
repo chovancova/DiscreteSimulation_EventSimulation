@@ -27,14 +27,14 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            var auto = ((AppCore)ReferenceSimCore).DalsieAuto();
+            var auto = ((AppCore)ReferenceSimCore).DalsiePokazeneAuto();
             if (auto != null)
             {
                 //koniec opravy
                 int sucet = 0;
                 for (int i = 0; i < auto.PocetOprav; i++)
                 {
-                    sucet += ((AppCore)ReferenceSimCore).Gen.Generator7_DobaOpravy();
+                    sucet += ((AppCore)ReferenceSimCore).Gen.Generator7_DobaOpravy()*60;
                 }
                 var time = EventTime + sucet;
                 auto.CelkovaDobaOpravy = sucet;

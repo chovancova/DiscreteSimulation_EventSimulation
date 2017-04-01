@@ -13,7 +13,7 @@ namespace AutoserviceLibrary.Events
     ///Naplánujem:
     /// -	Začiatok opravy v okamžitom čase - Ak je pracovník skupiny 2 voľný.Znížim počet voľných pracovníkov skupiny 2, a zvýšim počet obsluhujúcich pracovníkov skupiny 2 o jedna.
     /// -	Front pokazených áut – ak nie je voľný žiaden pracovník skupiny 2, tak pridám auto (zákazníka) do frontu pokazených áut.Započítam do štatistiky začiatok čakania v rade na opravu auta.
-    /// -	Prázdny prevoz – ak je front opravených áut prázdny, a zároveň front čakajúcich zákazníkov, tak sa zvýši počet voľných pracovníkov 1 o jedna, a zníži sa počet obsluhujúcich pracovníkov skupiny 1. Táto udalosť sa naplánuje v čase vygenerovaným generátorom 5 – preparkovanie.
+    /// -	Uvoľnenie pracovníka – ak je front opravených áut prázdny, a zároveň front čakajúcich zákazníkov, tak sa zvýši počet voľných pracovníkov 1 o jedna, a zníži sa počet obsluhujúcich pracovníkov skupiny 1. Táto udalosť sa vykoná okamžite. 
     /// -	Preparkovanie auta späť zákazníkovi – prioritne (pracovníci skupiny 1 uprednostňujú vrátenie opraveného auta zákazníkovi pred prijatím novej objednávky). Ak nie je front opravených prázdny, tak naplánujem udalosť s vygenerovaným časom Generátora 5 – preparkovanie s opraveným autom.Front opravených áut sa zníži o jedna.  
     /// -	Zadanie objednávky – ak nie je žiadne opravené auto v dielni, a zároveň je vo fronte čakajúci zákazník, tak sa udalosť naplánuje s časom vygenerovaným Generátorom 5 – preparkovanie späť, spočítaním spolu s časom vygenerovaním Generátorom 3 – prevzatie objednávky. Zákazník je vybraný z frontu čakajúcich zákazníkov, jeho štatistika ukončenia čakania v rade je nastavená na čas vygenerovaným Generátorom 5.  
     /// </summary>
@@ -27,11 +27,10 @@ namespace AutoserviceLibrary.Events
         ///Naplánujem:
         /// -	Začiatok opravy v okamžitom čase - Ak je pracovník skupiny 2 voľný.Znížim počet voľných pracovníkov skupiny 2, a zvýšim počet obsluhujúcich pracovníkov skupiny 2 o jedna.
         /// -	Front pokazených áut – ak nie je voľný žiaden pracovník skupiny 2, tak pridám auto (zákazníka) do frontu pokazených áut.Započítam do štatistiky začiatok čakania v rade na opravu auta.
-        /// -	Prázdny prevoz – ak je front opravených áut prázdny, a zároveň front čakajúcich zákazníkov, tak sa zvýši počet voľných pracovníkov 1 o jedna, a zníži sa počet obsluhujúcich pracovníkov skupiny 1. Táto udalosť sa naplánuje v čase vygenerovaným generátorom 5 – preparkovanie.
+        /// -	Uvoľnenie pracovníka – ak je front opravených áut prázdny, a zároveň front čakajúcich zákazníkov, tak sa zvýši počet voľných pracovníkov 1 o jedna, a zníži sa počet obsluhujúcich pracovníkov skupiny 1. Táto udalosť sa vykoná okamžite. 
         /// -	Preparkovanie auta späť zákazníkovi – prioritne (pracovníci skupiny 1 uprednostňujú vrátenie opraveného auta zákazníkovi pred prijatím novej objednávky). Ak nie je front opravených prázdny, tak naplánujem udalosť s vygenerovaným časom Generátora 5 – preparkovanie s opraveným autom.Front opravených áut sa zníži o jedna.  
         /// -	Zadanie objednávky – ak nie je žiadne opravené auto v dielni, a zároveň je vo fronte čakajúci zákazník, tak sa udalosť naplánuje s časom vygenerovaným Generátorom 5 – preparkovanie späť, spočítaním spolu s časom vygenerovaním Generátorom 3 – prevzatie objednávky. Zákazník je vybraný z frontu čakajúcich zákazníkov, jeho štatistika ukončenia čakania v rade je nastavená na čas vygenerovaným Generátorom 5.  
         /// </summary>
-
         public override void Execute()
         {
             //zaciatok opravy 
@@ -47,9 +46,8 @@ namespace AutoserviceLibrary.Events
             else 
             //front pokazenych aut
             {
-                //todo Štatistika začiatku čakania v rade na opravu auta. 
-                AktualnyZakaznik.ZacniCakatAuto(EventTime);
-                ((AppCore)ReferenceSimCore).PridajAuto(AktualnyZakaznik);
+                AktualnyZakaznik.ZacniCakatNaOpravu(EventTime);
+                ((AppCore)ReferenceSimCore).PridajPokazeneAuto(AktualnyZakaznik);
             }
 
             var auto = ((AppCore)ReferenceSimCore).DalsieOpraveneAuto();
@@ -64,19 +62,17 @@ namespace AutoserviceLibrary.Events
             else
             {
                 var zakaznik = ((AppCore) ReferenceSimCore).DalsiZakaznik();
+                ((AppCore)ReferenceSimCore).PridajStatistikuCakaniaFrontZakaznikov(time1);
 
                 if (zakaznik == null)
                 {
                     ((AppCore) ReferenceSimCore).PocetObsluhujucichPracovnikov1--;
                     ((AppCore) ReferenceSimCore).PocetVolnychPracovnikov1++;
-                    var prazdne = new PrazdnyPrevozEvent(time1, ReferenceSimCore, new Zakaznik());
-                    ReferenceSimCore.ScheduleEvent(prazdne, time1);
                 }
                 else
                 {
                     //naplanovanie zadanie objednavky
                     var time2 = time1 + ((AppCore)ReferenceSimCore).Gen.Generator3_PrevzatieObjednavky();
-                    zakaznik.SkonciCakanie(time1);
                     var zadanie = new ZadanieObjednavky(time2, ReferenceSimCore, zakaznik);
                     ReferenceSimCore.ScheduleEvent(zadanie, time2);
                 }

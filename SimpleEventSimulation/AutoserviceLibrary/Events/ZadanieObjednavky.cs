@@ -27,7 +27,7 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            var cakanie = AktualnyZakaznik.SkonciCakanie(EventTime);
+            var cakanie = AktualnyZakaznik.SkonciCakanieVRade(EventTime);
             ((AppCore)ReferenceSimCore).PridajStatistikuCakaniaFrontZakaznikov(cakanie);
 
             //naplanujem spracovanie objednavky 
@@ -36,6 +36,7 @@ namespace AutoserviceLibrary.Events
             ReferenceSimCore.ScheduleEvent(spracovanie, time);
 
             //todo Statistika - zakaznikovi zapisem tento cas, ze je v systeme.
+
         }
     }
 }

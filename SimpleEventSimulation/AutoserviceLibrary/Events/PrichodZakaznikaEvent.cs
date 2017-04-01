@@ -44,7 +44,7 @@ namespace AutoserviceLibrary.Events
             }
             else
             {
-                AktualnyZakaznik.ZacniCakat(EventTime);
+                AktualnyZakaznik.ZacniCakatVRade(EventTime);
                 ((AppCore)ReferenceSimCore).PridajZakaznika(AktualnyZakaznik);
             }
         }

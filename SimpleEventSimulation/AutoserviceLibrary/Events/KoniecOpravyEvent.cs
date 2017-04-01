@@ -26,7 +26,7 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            ((AppCore)ReferenceSimCore).PridajAuto(AktualnyZakaznik);
+            ((AppCore)ReferenceSimCore).PridajPokazeneAuto(AktualnyZakaznik);
 
             //naplanujem zaciatok opravy
             var time = EventTime + 0.0; 

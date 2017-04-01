@@ -33,6 +33,9 @@ namespace AutoserviceLibrary.Events
 
             //  -	priemerného času stráveného zákazníkom čakaním na opravu(od ukončenia prevzatia auta). 
 
+            var statistika1 = AktualnyZakaznik.SkonciCakanieNaVybavenieObjednavky(EventTime);
+           // ((AppCore)ReferenceSimCore).A
+
         }
     }
 }

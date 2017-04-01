@@ -57,7 +57,7 @@ namespace SimpleEventSimulation.ShopSimulation.Events
             {
                 //b.
                 //b.1.
-              //  core.IsServed = true;
+                //  core.IsServed = true;
                 //b.2.
                 //do other event    
                 //customer is paying for his newspapers
