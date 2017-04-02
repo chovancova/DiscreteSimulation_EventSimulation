@@ -22,43 +22,6 @@ namespace SimpleEventSimulation.ShopSimulation
         public int LastCount { get; set;  }
         public double LastChangedTime { get; set;  }
         private int _iteration;
-        //public SimCoreShop(double maxSimulationMaximumSimulationTime, IGenerators[] generators) 
-        //{
-        //    MaximumSimulationTime = maxSimulationMaximumSimulationTime;
-        //    IsServed = false;
-        //    WaitingQueue = new Queue<Customer>();
-        //    //statistics
-        //    NumberOfCustomers = 0;
-        //    TotalWaitingTime = 0;
-        //    LastCount = -1;
-        //    _iteration = 0;
-        //    LengthOfFront = 0;
-        //    LastChangedTime = 0; 
-        //}
-
-        //public SimCoreShop(double maxSimulationMaximumSimulationTime, double exp1, double exp2) : base()
-        //{
-        //    MaximumSimulationTime = maxSimulationMaximumSimulationTime;
-
-        //    GeneratorSeed seed = new GeneratorSeed();
-        //    //Mo
-        //    ExponencionalDistribution d1 = new ExponencionalDistribution(seed.GetRandomSeed(), exp1);
-        //    //Mp
-        //    ExponencionalDistribution d2 = new ExponencionalDistribution(seed.GetRandomSeed(), exp2);
-
-        //    IGenerators[] generatorses = new[] { d1, d2 };
-
-        //    this.Generators = generatorses;
-        //    IsServed = false;
-        //    WaitingQueue = new Queue<Customer>();
-        //    //statistics
-        //    NumberOfCustomers = 0;
-        //    TotalWaitingTime = 0;
-        //    LastCount = -1;
-        //    _iteration = 0;
-        //    LengthOfFront = 0;
-        //    LastChangedTime = 0;
-        //}
 
         public SimCoreShop(IGenerators[] generators, double maxTime) : base(generators, maxTime)
         {

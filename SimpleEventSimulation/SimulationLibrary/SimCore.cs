@@ -11,12 +11,34 @@ namespace SimulationLibrary
         public bool IsEnabledObserverMode { get; set; }
         public IGenerators[] Generators { get; set; }
         public virtual event EventHandler Refresh;
-        public bool IsRunning { get; set; }
         public double MaximumSimulationTime { get; set; }
         private int _numberOfStatistic = 4;
         public double[] Result { get; set; }
         public double RefreshRate { get; set; }
         public double SleepingTime { get; set; }
+
+
+        public bool IsRunning { get; set; }
+        public bool IsPaused { get; set; }
+        public bool IsStopped { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public SimCore(IGenerators[] generators, double maxTime)
         {
@@ -34,6 +56,7 @@ namespace SimulationLibrary
             MaximumSimulationTime = maxTime;
             IsRunning = true;
         }
+     
 
         public void ScheduleEvent(SimEvent eSimEvent, double time)
         {
@@ -70,6 +93,8 @@ namespace SimulationLibrary
                 helpEvent.Execute();
             }
         }
+      
+
 
         public virtual void OnRefresh()
         {

@@ -27,7 +27,7 @@ namespace AutoserviceLibrary
             _gen3 = new UniformContinuousDistribution(seed.GetRandomSeed(), 70, 310);
             _gen4 = new UniformContinuousDistribution(seed.GetRandomSeed(), 80, 160);
             _gen5 = new TriangleUniformDistribution(seed.GetRandomSeed(), 120, 540, 240);
-            _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed() + seed.GetRandomSeed(), 123, 257);
+            _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed(), 123, 257);
             _gen7 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
             {
                 new Duration(0, 0, 0.7), new Duration(0, 0, 0.2), new Duration(0, 0, 0.1)
@@ -39,6 +39,59 @@ namespace AutoserviceLibrary
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
             });
         }
+
+        public AutoserviceGenerators(int gen1,
+            double gen213,
+             double gen223,
+             double gen233,
+             double gen243,
+             double gen253,
+           double gen263,
+            int gen31, int gen32,
+            int gen41, int gen42,
+            int gen51, int gen52, int gen53,
+            int gen61, int gen62,
+            double gen71, double gen72, double gen73,
+            int gen711, int gen712,
+            int gen721, int gen722, double gen723,
+            int gen731, int gen732, double gen733,
+            int gen741, int gen742, double gen743,
+            int gen751, int gen752
+        )
+        {
+            var seed = new GeneratorSeed();
+
+            _gen1 = new ExponencionalDistribution(seed.GetRandomSeed(), gen1);
+            _gen2 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            {
+                new Duration(1, 1, gen213),
+                new Duration(2, 2, gen223),
+                new Duration(3, 3, gen233),
+                new Duration(4, 4, gen243),
+                new Duration(5, 5, gen253),
+                new Duration(6, 6, gen263)
+            });
+
+            _gen3 = new UniformContinuousDistribution(seed.GetRandomSeed(), gen31, gen32);
+            _gen4 = new UniformContinuousDistribution(seed.GetRandomSeed(), gen41, gen42);
+            _gen5 = new TriangleUniformDistribution(seed.GetRandomSeed(), gen51, gen52, gen53);
+            _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed(), gen61, gen62);
+            _gen7 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            {
+                new Duration(0, 0, gen71), new Duration(0, 0, gen72), new Duration(0, 0, gen73)
+            }, new IGenerators[]
+            {
+                new UniformDiscreteDistribution(seed.GetRandomSeed(), gen711, gen712),
+                new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
+                    new[]
+                    {
+                        new Duration(gen721, gen722, gen723), new Duration(gen731, gen732, gen733),
+                        new Duration(gen741, gen742, gen743)
+                    }),
+                new UniformDiscreteDistribution(seed.GetRandomSeed(), gen751, gen752)
+            });
+        }
+
         public AutoserviceGenerators(GeneratorSeed seed)
         {
             _gen1 = new ExponencionalDistribution(seed.GetRandomSeed(), 300);
@@ -51,7 +104,7 @@ namespace AutoserviceLibrary
             _gen3 = new UniformContinuousDistribution(seed.GetRandomSeed(), 70, 310);
             _gen4 = new UniformContinuousDistribution(seed.GetRandomSeed(), 80, 160);
             _gen5 = new TriangleUniformDistribution(seed.GetRandomSeed(), 120, 540, 240);
-            _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed() + seed.GetRandomSeed(), 123, 257);
+            _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed(), 123, 257);
             _gen7 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
             {
                 new Duration(0, 0, 0.7), new Duration(0, 0, 0.2), new Duration(0, 0, 0.1)
@@ -63,6 +116,12 @@ namespace AutoserviceLibrary
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
             });
         }
+
+        public IGenerators[] Generators()
+        {
+            return new IGenerators[] {_gen1, _gen2, _gen3, _gen4, _gen5, _gen6, _gen7};
+        }
+
 
         /// <summary>
         ///     prud zakaznikov prichadzaujucich do autoservisu je poissonovsky prud s intenzitou

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoserviceLibrary.Entities;
 using RandomGenerators;
 using RandomGenerators.Generators;
@@ -6,7 +7,7 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary
 {
-    internal class AppCore : SimCore
+    public class AppCore : SimCore
     {
         private Queue<Zakaznik> _frontCakajuciZakaznik;
         private Queue<Zakaznik> _frontOpraveneAuto;
@@ -20,25 +21,48 @@ namespace AutoserviceLibrary
         public int PocetObsluhujucichPracovnikov1 { get; private set; }
         public int PocetObsluhujucichPracovnikov2 { get; private set; }
 
-        public AppCore(IGenerators[] generators, double maxTime, int pocetVolnychPracovnikov1,
-            int pocetVolnychPracovnikov2) : base(generators, maxTime)
-        {
-            PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
-            PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
-            PocetObsluhujucichPracovnikov1 = 0;
-            PocetObsluhujucichPracovnikov2 = 0;
-            Gen = new AutoserviceGenerators(_seed);
-            _resetStatisticsRadCakajucichZakaznikov();
-        }
+        private int _dlzkaReplikacie;
+        private int _pocetReplikacii; 
 
-        protected AppCore(double maxTime, AutoserviceGenerators gen, int pocetVolnychPracovnikov1,
-            int pocetVolnychPracovnikov2) : base(maxTime)
+        public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2,  int dlzkaReplikacie, int pocetReplikacii,  double maxTime,
+            AutoserviceGenerators gen) : base(maxTime)
         {
+            _dlzkaReplikacie = dlzkaReplikacie;
+            _pocetReplikacii = pocetReplikacii;
+            Generators = gen.Generators();
             Gen = gen;
             PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
             _resetStatisticsRadCakajucichZakaznikov();
+            InitializeQueues();
         }
+
+     public AppCore(double maxTime, int pocetVolnychPracovnikov1,
+            int pocetVolnychPracovnikov2) : base(maxTime)
+        {
+            Gen = new AutoserviceGenerators(_seed);
+            PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
+            PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
+            _resetStatisticsRadCakajucichZakaznikov();
+            Generators = Gen.Generators();
+
+        }
+
+        public void UltraSimulation()
+        {
+
+        }
+
+        public void AnalyticSimulation()
+        {
+
+        }
+
+        public void NormalSimulation()
+        {
+
+        }
+
 
 
         public void InitializeQueues()
@@ -76,6 +100,8 @@ namespace AutoserviceLibrary
             return _frontCakajuciZakaznik.Dequeue();
         }
 
+        
+
         public void PridajZakaznika(Zakaznik zakaznik)
         {
             PridajStatistikuZmenuFrontuZakaznikov();
@@ -88,6 +114,7 @@ namespace AutoserviceLibrary
             _frontPokazeneAuto.Enqueue(zakaznik);
         }
 
+    
         public Zakaznik DalsiePokazeneAuto()
         {
             if (_frontPokazeneAuto.Count == 0)
