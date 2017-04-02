@@ -18,6 +18,7 @@ namespace AutoserviceLibrary.Events
 
         public Zakaznik AktualnyZakaznik { get; set; }
 
+
  
     }
 }
