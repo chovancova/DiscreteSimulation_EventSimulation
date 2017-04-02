@@ -28,5 +28,14 @@ namespace AutoserviceGui
         private void textBox1_Copy7_TextChanged(object sender, TextChangedEventArgs e)
         {
         }
+
+        private void textBox4_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
