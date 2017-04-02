@@ -9,10 +9,10 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    /// Odchod zákazníka 
-    /// Nastavím štatistiky: 
-    ///  -	priemerný čas strávený zákazníkom v servise,
-    ///  -	priemerného času stráveného zákazníkom čakaním na opravu(od ukončenia prevzatia auta). 
+    ///U9 - Odchod zákazníka
+    ///Uvoľním zákazníka zo systému. 
+    ///Štatistiky: 
+    ///-	S4b - Skončím počítanie času stráveným zákazníkom čakaním na opravu.    
     /// </summary>
     class OdchodZakaznikaEvent : AutoserviceEvent
     {
@@ -27,15 +27,9 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            //nastavim statistiku na odchod zakaznika zo systemu
-
-            //  -	priemerný čas strávený zákazníkom v servise,
-
-            //  -	priemerného času stráveného zákazníkom čakaním na opravu(od ukončenia prevzatia auta). 
-
-            var statistika1 = AktualnyZakaznik.SkonciCakanieNaVybavenieObjednavky(EventTime);
-           // ((AppCore)ReferenceSimCore).A
-
+           double statistika1 = AktualnyZakaznik.SkonciCakanieNaVybavenieObjednavky(EventTime);
+            ((AppCore) ReferenceSimCore).PridajStatistikuCakanieNaOpravu(statistika1);
+            AktualnyZakaznik = null; 
         }
     }
 }

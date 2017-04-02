@@ -9,11 +9,13 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    /// Preparkovanie auta späť zákazníkovi
-    /// Naplánujem: 
-    ///  -	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta.
-    ///  -	Zadanie objednávky – ak front čakajúcich zákazníkov nie je prázdni, tak naplánujem zadanie objednávky vo vygenerovanom čase Generátorom 3 – Prevzatie objednávky. 
-    ///  -	Uvoľnenie pracovníka  - ak front čakajúcich zákazníkov je prázdny, tak zvýšim počet voľných pracovníkov o jedna, a znížim počet obsluhujúcich pracovníkov skupiny1. 
+    ///U8 - Preparkovanie auta späť zákazníkovi
+    ///Zvýšim počet voľných pracovníkov o jedna. 
+    ///Naplánujem: 
+    ///-	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta. 
+    ///-	Začiatok spracovania objednávky – okamžite.
+    ///Štatistiky: 
+    ///-	S9b - Započítam do štatistiky počet voľných pracovníkov skupiny 1. 
     /// </summary>
     class PreparkovanieAutaSpatEvent : AutoserviceEvent
     {
@@ -21,32 +23,25 @@ namespace AutoserviceLibrary.Events
         {
         }
         /// <summary>
-        /// Preparkovanie auta späť zákazníkovi
-        /// Naplánujem: 
-        ///  -	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta.
-        ///  -	Zadanie objednávky – ak front čakajúcich zákazníkov nie je prázdni, tak naplánujem zadanie objednávky vo vygenerovanom čase Generátorom 3 – Prevzatie objednávky. 
-        ///  -	Uvoľnenie pracovníka  - ak front čakajúcich zákazníkov je prázdny, tak zvýšim počet voľných pracovníkov o jedna, a znížim počet obsluhujúcich pracovníkov skupiny1. 
+        ///U8 - Preparkovanie auta späť zákazníkovi
+        ///Zvýšim počet voľných pracovníkov o jedna. 
+        ///Naplánujem: 
+        ///-	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta. 
+        ///-	Začiatok spracovania objednávky – okamžite.
+        ///Štatistiky: 
+        ///-	S9b - Započítam do štatistiky počet voľných pracovníkov skupiny 1. 
         /// </summary>
         public override void Execute()
         {
-            //odchod zákazníka 
+            ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny1();
+            
+            //zaciatok spracovania objednavky 
+            ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, null), EventTime );
+            
+            //odchod zakaznika
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator6_Prevzatie();
             var odchod = new OdchodZakaznikaEvent(time, ReferenceSimCore, AktualnyZakaznik);
             ReferenceSimCore.ScheduleEvent(odchod, time);
-
-            //zadanie objednavky
-            Zakaznik zakaznik = ((AppCore) ReferenceSimCore).DalsiZakaznik();
-            if (zakaznik != null)
-            {
-                var time2 = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator3_PrevzatieObjednavky();
-                var zadanie = new ZadanieObjednavky(time, ReferenceSimCore, zakaznik);
-                ReferenceSimCore.ScheduleEvent(zadanie, time2);
-            }
-            else
-            {
-                ((AppCore) ReferenceSimCore).PocetObsluhujucichPracovnikov1--;
-                ((AppCore) ReferenceSimCore).PocetVolnychPracovnikov1++;
-            }
         }
     }
 }

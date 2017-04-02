@@ -9,10 +9,17 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    /// Začiatok opravy
-    /// Naplánujem: 
-    ///  -	Koniec opravy – ak nie je front pokazených áut prázdny.Zistím si počet opráv, ktoré má auto, a vygenerujem Generátorom 7 – doba opravy jednotlivé doby opravy auta.Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.
-    ///  -	Ak je front pokazených áut prázdny, tak sa zvýši počet voľných pracovníkov o jedna, a zníži počet obsadených o jedna. 
+    ///U6 - Začiatok opravy
+    ///Vyberiem auto z frontu pokazených áut.Ak je front pokazených áut prázdny, tak čakám. 
+    ///Naplánujem: 
+    ///-	Koniec opravy –  Ak je voľný pracovník skupiny 1, tak vygenerujem Generátorom 2 počet opráv, 
+    ///                      ktoré má auto, a pre každú opravu vygenerujem Generátorom 7 – dobu opravy auta.
+    ///                      Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.
+    ///                      Znížim počet voľných pracovníkov o jedna. 
+    ///Štatistiky:
+    ///-	S5b, S6b – Skončím počítanie času, počtu pre dané auto v rade pokazených áut. 
+    ///-	S10a – Započítam do štatistiky počet voľných pracovníkov skupiny 2. 
+    ///-	Skončím počítanie času čakania pokazeného auta v rade pokazených áut. 
     /// </summary>
     class ZaciatokOpravyEvent : AutoserviceEvent
     {
@@ -20,32 +27,44 @@ namespace AutoserviceLibrary.Events
         {
         }
         /// <summary>
-        /// Začiatok opravy
-        /// Naplánujem: 
-        ///  -	Koniec opravy – ak nie je front pokazených áut prázdny.Zistím si počet opráv, ktoré má auto, a vygenerujem Generátorom 7 – doba opravy jednotlivé doby opravy auta.Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.
-        ///  -	Ak je front pokazených áut prázdny, tak sa zvýši počet voľných pracovníkov o jedna, a zníži počet obsadených o jedna. 
+        ///U6 - Začiatok opravy
+        ///Vyberiem auto z frontu pokazených áut.Ak je front pokazených áut prázdny, tak čakám. 
+        ///Naplánujem: 
+        ///-	Koniec opravy –  Ak je voľný pracovník skupiny 1, tak vygenerujem Generátorom 2 počet opráv, 
+        ///                      ktoré má auto, a pre každú opravu vygenerujem Generátorom 7 – dobu opravy auta.
+        ///                      Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.
+        ///                      Znížim počet voľných pracovníkov o jedna. 
+        ///Štatistiky:
+        ///-	S5b, S6b – Skončím počítanie času, počtu pre dané auto v rade pokazených áut. 
+        ///-	S10a – Započítam do štatistiky počet voľných pracovníkov skupiny 2. 
+        ///-	Skončím počítanie času čakania pokazeného auta v rade pokazených áut. 
         /// </summary>
         public override void Execute()
         {
-            var auto = ((AppCore)ReferenceSimCore).DalsiePokazeneAuto();
-            if (auto != null)
+            if (!((AppCore) ReferenceSimCore).JeFrontPokazenychAutPrazdny() )
             {
-                //koniec opravy
-                int sucet = 0;
-                for (int i = 0; i < auto.PocetOprav; i++)
+                if (((AppCore) ReferenceSimCore).JeVolnyPracovnik2())
                 {
-                    sucet += ((AppCore)ReferenceSimCore).Gen.Generator7_DobaOpravy()*60;
+                    ((AppCore) ReferenceSimCore).ObsadPracovnikaSkupiny2();
+
+                    var auto = ((AppCore) ReferenceSimCore).DalsiePokazeneAuto();
+
+                    //koniec opravy
+                    int sucet = 0;
+                    int pocetOprav = ((AppCore) ReferenceSimCore).Gen.Generator2_PocetOprav();
+                    for (int i = 0; i < pocetOprav; i++)
+                    {
+                        sucet += ((AppCore) ReferenceSimCore).Gen.Generator7_DobaOpravy()*60;
+                    }
+
+                    var time = EventTime + sucet;
+                    var koniecOpravy = new KoniecOpravyEvent(time, ReferenceSimCore, auto);
+                    ReferenceSimCore.ScheduleEvent(koniecOpravy, time);
                 }
-                var time = EventTime + sucet;
-                auto.CelkovaDobaOpravy = sucet;
-                var koniec = new KoniecOpravyEvent(time, ReferenceSimCore, auto);
-                ReferenceSimCore.ScheduleEvent(koniec, time);
-            }
-            else
-            {
-                ((AppCore)ReferenceSimCore).PocetObsluhujucichPracovnikov2--;
-                ((AppCore)ReferenceSimCore).PocetVolnychPracovnikov2++;
-                //todo statistiky mozno
+                else
+                {
+                    //cakaj
+                }
             }
         }
     }

@@ -9,11 +9,13 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    /// Koniec dňa 
-    /// Vypočítajú sa štatistiky na konci 8 hodinového dňa.Vynuluje sa front čakajúcich zákazníkov. 
-    /// Naplánujem: 
-    ///	 -  Koniec dňa – s časom o osem hodín (28 800 sekúnd).
-    ///	 -  Príchod zákazníka – s vygenerovaním časom z Generátora 1 – Zákazníci príchod.
+    ///U0 - Koniec dňa
+    ///Vynuluje sa front čakajúcich zákazníkov. 
+    ///Naplánujem: 
+    ///-	Koniec dňa – s časom o osem hodín (28 800 sekúnd).
+    ///-	Príchod zákazníka – s vygenerovaním časom z Generátora 1 – Zákazníci príchod.
+    ///Štatistiky:
+    ///-	S11 – počet zákazníkov v rade na konci dňa.
     /// </summary>
     public class KoniecDnaEvent : AutoserviceEvent
     {
@@ -22,11 +24,13 @@ namespace AutoserviceLibrary.Events
         }
 
         /// <summary>
-        /// Koniec dňa 
-        /// Vypočítajú sa štatistiky na konci 8 hodinového dňa.Vynuluje sa front čakajúcich zákazníkov. 
-        /// Naplánujem: 
-        ///	 -  Koniec dňa – s časom o osem hodín (28 800 sekúnd).
-        ///	 -  Príchod zákazníka – s vygenerovaním časom z Generátora 1 – Zákazníci príchod.
+        ///U0 - Koniec dňa
+        ///Vynuluje sa front čakajúcich zákazníkov. 
+        ///Naplánujem: 
+        ///-	Koniec dňa – s časom o osem hodín (28 800 sekúnd).
+        ///-	Príchod zákazníka – s vygenerovaním časom z Generátora 1 – Zákazníci príchod.
+        ///Štatistiky:
+        ///-	S11 – počet zákazníkov v rade na konci dňa.
         /// </summary>
         public override void Execute()
         {
@@ -34,7 +38,7 @@ namespace AutoserviceLibrary.Events
             {
                 //pozbieram statistiky
                 //todo ŠTATISTIKY
-
+                
                 //vynulujem den 
                 ((AppCore) ReferenceSimCore).ResetFrontCakajucichZakaznikov();
 

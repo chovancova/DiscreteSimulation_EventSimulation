@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoserviceLibrary.Entities;
 using RandomGenerators;
 using RandomGenerators.Generators;
@@ -9,17 +8,25 @@ namespace AutoserviceLibrary
 {
     internal class AppCore : SimCore
     {
-        private Queue<Zakaznik> _cakajuciZakaznik;
-        private Queue<Zakaznik> _opraveneAuto;
-        private Queue<Zakaznik> _pokazeneAuto;
+        private Queue<Zakaznik> _frontCakajuciZakaznik;
+        private Queue<Zakaznik> _frontOpraveneAuto;
+        private Queue<Zakaznik> _frontPokazeneAuto;
         private readonly GeneratorSeed _seed = new GeneratorSeed();
 
+        public AutoserviceGenerators Gen { get; private set; }
+
+        public int PocetVolnychPracovnikov1 { get; private set; }
+        public int PocetVolnychPracovnikov2 { get; private set; }
+        public int PocetObsluhujucichPracovnikov1 { get; private set; }
+        public int PocetObsluhujucichPracovnikov2 { get; private set; }
 
         public AppCore(IGenerators[] generators, double maxTime, int pocetVolnychPracovnikov1,
             int pocetVolnychPracovnikov2) : base(generators, maxTime)
         {
             PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
+            PocetObsluhujucichPracovnikov1 = 0;
+            PocetObsluhujucichPracovnikov2 = 0;
             Gen = new AutoserviceGenerators(_seed);
             _resetStatisticsRadCakajucichZakaznikov();
         }
@@ -33,19 +40,12 @@ namespace AutoserviceLibrary
             _resetStatisticsRadCakajucichZakaznikov();
         }
 
-        public AutoserviceGenerators Gen { get; private set; }
-
-        public int PocetVolnychPracovnikov1 { get; set; }
-        public int PocetVolnychPracovnikov2 { get; set; }
-        public int PocetObsluhujucichPracovnikov1 { get; set; }
-        public int PocetObsluhujucichPracovnikov2 { get; set; }
-
 
         public void InitializeQueues()
         {
-            _cakajuciZakaznik = new Queue<Zakaznik>();
-            _pokazeneAuto = new Queue<Zakaznik>();
-            _opraveneAuto = new Queue<Zakaznik>();
+            _frontCakajuciZakaznik = new Queue<Zakaznik>();
+            _frontPokazeneAuto = new Queue<Zakaznik>();
+            _frontOpraveneAuto = new Queue<Zakaznik>();
         }
 
         public void Reset()
@@ -65,49 +65,100 @@ namespace AutoserviceLibrary
 
         public void ResetFrontCakajucichZakaznikov()
         {
-            _cakajuciZakaznik.Clear();
+            _frontCakajuciZakaznik.Clear();
         }
 
         public Zakaznik DalsiZakaznik()
         {
-            if (_cakajuciZakaznik.Count == 0)
+            if (_frontCakajuciZakaznik.Count == 0)
                 return null;
             PridajStatistikuZmenuFrontuZakaznikov();
-            return _cakajuciZakaznik.Dequeue();
+            return _frontCakajuciZakaznik.Dequeue();
         }
 
         public void PridajZakaznika(Zakaznik zakaznik)
         {
             PridajStatistikuZmenuFrontuZakaznikov();
-            _cakajuciZakaznik.Enqueue(zakaznik);
+            _frontCakajuciZakaznik.Enqueue(zakaznik);
         }
 
         public void PridajPokazeneAuto(Zakaznik zakaznik)
         {
             //pridaj statistiku
-            _pokazeneAuto.Enqueue(zakaznik);
+            _frontPokazeneAuto.Enqueue(zakaznik);
         }
 
         public Zakaznik DalsiePokazeneAuto()
         {
-            if (_pokazeneAuto.Count == 0)
+            if (_frontPokazeneAuto.Count == 0)
                 return null;
             //pridaj statistiku 
-            return _pokazeneAuto.Dequeue();
+            return _frontPokazeneAuto.Dequeue();
         }
 
         public void PridajOpraveneAuto(Zakaznik zakaznik)
         {
             //pridaj statistiku
-            _opraveneAuto.Enqueue(zakaznik);
+            _frontOpraveneAuto.Enqueue(zakaznik);
         }
 
         public Zakaznik DalsieOpraveneAuto()
         {
-            if (_opraveneAuto.Count == 0)
+            if (_frontOpraveneAuto.Count == 0)
                 return null;
             //pridaj statistiku 
-            return _opraveneAuto.Dequeue();
+            return _frontOpraveneAuto.Dequeue();
+        }
+
+        public bool JeVolnyPracovnik1()
+        {
+            return PocetVolnychPracovnikov1 > 0;
+        }
+
+        public bool JeVolnyPracovnik2()
+        {
+            return PocetVolnychPracovnikov1 > 0;
+        }
+
+        public void ObsadPracovnikaSkupiny1()
+        {
+            PocetVolnychPracovnikov1--;
+            PocetObsluhujucichPracovnikov1++;
+            //todo statistiky
+        }
+
+        public void ObsadPracovnikaSkupiny2()
+        {
+            PocetVolnychPracovnikov2--;
+            PocetObsluhujucichPracovnikov2++;
+            //todo statistiky
+        }
+
+        public void UvolniPracovnikaSkupiny1()
+        {
+            PocetVolnychPracovnikov1++;
+            PocetObsluhujucichPracovnikov1--;
+        }
+
+        public void UvolniPracovnikaSkupiny2()
+        {
+            PocetObsluhujucichPracovnikov2--;
+            PocetVolnychPracovnikov2++;
+        }
+
+        public bool JeFrontZakaznikovPrazdny()
+        {
+            return _frontCakajuciZakaznik.Count == 0;
+        }
+
+        public bool JeFrontOpravenychAutPrazdny()
+        {
+            return _frontOpraveneAuto.Count == 0;
+        }
+
+        public bool JeFrontPokazenychAutPrazdny()
+        {
+            return _frontPokazeneAuto.Count == 0;
         }
 
         #region Statistiky
@@ -125,8 +176,9 @@ namespace AutoserviceLibrary
         private void PridajStatistikuZmenuFrontuZakaznikov()
         {
             if (_poslednyPocetCakajucehoZakaznika >= 0)
-                _dlzkaRaduCakajucichZakaznikov += _cakajuciZakaznik.Count*(CurrentTime - _poslednyZmenenyCasRadCakajucichZakaznikov);
-            _poslednyPocetCakajucehoZakaznika = _cakajuciZakaznik.Count;
+                _dlzkaRaduCakajucichZakaznikov += _frontCakajuciZakaznik.Count*
+                                                  (CurrentTime - _poslednyZmenenyCasRadCakajucichZakaznikov);
+            _poslednyPocetCakajucehoZakaznika = _frontCakajuciZakaznik.Count;
             _poslednyZmenenyCasRadCakajucichZakaznikov = CurrentTime;
         }
 
@@ -138,22 +190,22 @@ namespace AutoserviceLibrary
             if (_iteration == 10000)
             {
                 _iteration = 0;
-                PriemernyCasStravenyVRadeCakajucichZakaznikov.AddLast(_celkovyCasCakaniaRadCakajucichZakaznikov/_pocetZakaznikovVRadeCakajucichZakaznikov);
+                PriemernyCasStravenyVRadeCakajucichZakaznikov.AddLast(_celkovyCasCakaniaRadCakajucichZakaznikov/
+                                                                      _pocetZakaznikovVRadeCakajucichZakaznikov);
                 PriemernyPocetCakajucichVRadeCakajucichZakaznikov.AddLast(_dlzkaRaduCakajucichZakaznikov/CurrentTime);
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
         #endregion
+
+        public void PridajStatistikuCakanieNaVybavenieObjednavky(double casCakania)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void PridajStatistikuCakanieNaOpravu(double statistika1)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

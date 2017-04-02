@@ -9,11 +9,15 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    /// Príchod zákazníka
-    ///  Naplánujem: 
-    ///   -	Príchod ďalšieho zákazníka s vygenerovaným časom z Generátora 1.  
-    ///   -	Ak je voľný pracovník 1, tak naplánujem udalosť Zadanie objednávky s pripočítaním časom z Generátora 3 – prevzatie objednávky, a znížim počet voľných pracovníkov a zvýšim počet obluhujúcich pracovníkov.
-    ///   -	Ak nie je voľný žiaden pracovník skupiny 1, tak zákazníkovi nastavím aktuálny čas príchodu a vložím ho do frontu čakajúcich zákazníkov.
+    ///U1 - Príchod zákazníka
+    ///Naplánujem: 
+    ///-	Front čakajúcich zákazníkov - Vložím do frontu čakajúcich zákazníkov  zákazníka s aktuálnym časom príchodu.
+    ///-	Príchod ďalšieho zákazníka s vygenerovaným časom z Generátora 1.  
+    ///-	Začiatok spracovania objednávky - naplánujem udalosť okamžite.
+    ///Štatistiky: 
+    ///-	S1a - Začnem merať čas čakania zákazníka v rade čakajúcich zákazníkov na zadanie objednávky.  
+    ///-	S2a  – Pripočítam jedného zákazníka v rade čakajúcich zákazníkov.
+    ///-	S3a - Začnem počítať čas strávený zákazníkov v servise.
     /// </summary>
     class PrichodZakaznikaEvent : AutoserviceEvent
     {
@@ -21,32 +25,28 @@ namespace AutoserviceLibrary.Events
         {
         }
         /// <summary>
-        /// Príchod zákazníka
-        ///  Naplánujem: 
-        ///   -	Príchod ďalšieho zákazníka s vygenerovaným časom z Generátora 1.  
-        ///   -	Ak je voľný pracovník 1, tak naplánujem udalosť Zadanie objednávky s pripočítaním časom z Generátora 3 – prevzatie objednávky, a znížim počet voľných pracovníkov a zvýšim počet obluhujúcich pracovníkov.
-        ///   -	Ak nie je voľný žiaden pracovník skupiny 1, tak zákazníkovi nastavím aktuálny čas príchodu a vložím ho do frontu čakajúcich zákazníkov.
+        ///U1 - Príchod zákazníka
+        ///Naplánujem: 
+         ///-	Začiatok spracovania objednávky - naplánujem udalosť okamžite.
+        ///-	Front čakajúcich zákazníkov - Vložím do frontu čakajúcich zákazníkov zákazníka s aktuálnym časom príchodu.
+        ///-	Príchod ďalšieho zákazníka s vygenerovaným časom z Generátora 1.  
+        ///Štatistiky: 
+        ///-	S1a - Začnem merať čas čakania zákazníka v rade čakajúcich zákazníkov na zadanie objednávky.  
+        ///-	S2a  – Pripočítam jedného zákazníka v rade čakajúcich zákazníkov.
+        ///-	S3a - Začnem počítať čas strávený zákazníkov v servise.
         /// </summary>
         public override void Execute()
         {
-            var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
-            var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
-            ReferenceSimCore.ScheduleEvent(prichod, time);
-            
-            if (((AppCore) ReferenceSimCore).PocetVolnychPracovnikov1 > 0)
-            {
-                ((AppCore) ReferenceSimCore).PocetVolnychPracovnikov1--;
-                ((AppCore) ReferenceSimCore).PocetObsluhujucichPracovnikov1++;
-                time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator3_PrevzatieObjednavky();
-                var zadanie = new ZadanieObjednavky(EventTime, ReferenceSimCore, AktualnyZakaznik);
-                ReferenceSimCore.ScheduleEvent(zadanie, time);
-
-            }
-            else
-            {
                 AktualnyZakaznik.ZacniCakatVRade(EventTime);
+                AktualnyZakaznik.ZacniCakatNaVybavenieObjednavky(EventTime);
                 ((AppCore)ReferenceSimCore).PridajZakaznika(AktualnyZakaznik);
-            }
+
+                var zadanie = new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik);
+                ReferenceSimCore.ScheduleEvent(zadanie, EventTime);
+
+                var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
+                var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
+                ReferenceSimCore.ScheduleEvent(prichod, time);
         }
     }
 }

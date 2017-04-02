@@ -53,11 +53,12 @@
     <Compile Include="Events\OdchodZakaznikaEvent.cs" />
     <Compile Include="Events\PreparkovanieAutaSpatEvent.cs" />
     <Compile Include="Events\PreparkovanieAutoEvent.cs" />
+    <Compile Include="Events\PrevzatieAutaOdZakaznikaEvent.cs" />
     <Compile Include="Events\PrichodZakaznikaEvent.cs" />
-    <Compile Include="Events\SpracovanieObjednavky.cs" />
+    <Compile Include="Events\KoniecSpracovaniaObjednavky.cs" />
     <Compile Include="Events\UvolneniePracovnikaEvent.cs" />
     <Compile Include="Events\ZaciatokOpravyEvent.cs" />
-    <Compile Include="Events\ZadanieObjednavky.cs" />
+    <Compile Include="Events\ZaciatokSpracovaniaObjednavkyEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatisticsService.cs" />
   </ItemGroup>
