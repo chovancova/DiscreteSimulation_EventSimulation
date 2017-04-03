@@ -166,7 +166,10 @@ namespace AutoserviceGui
             _app.Refresh = true;
             int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * 8 * 60 * 60;
             int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
+            _app.RefreshRate= int.Parse(t_refreshRAte.Text);
+            _app.SleepingTime= int.Parse(t_sleepMs.Text);
             _app.Simulate(pocetReplikacii, dlzkaReplikacie);
+
             // _app.NormalSimulation();
         }
 

@@ -62,8 +62,8 @@
                             </Grid.ColumnDefinitions>
                             <Label x:Name="label3" Content="Počet pracovníkov 1 skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,0,0,0" Height="29" Width="188" Grid.Column="1" Grid.Row="1"/>
                             <Label x:Name="label3_Copy" Content="Počet pracovníkov 2 skupiny:" HorizontalAlignment="Left" Margin="9,4,0,0" VerticalAlignment="Top" Height="29" Width="188" Grid.Column="1" Grid.Row="2"/>
-                            <TextBox x:Name="t_pocetPracovnikov1" HorizontalAlignment="Left" Height="23" Margin="8,0,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="40" RenderTransformOrigin="1.422,0.5" Grid.Column="2" Grid.Row="1"/>
-                            <TextBox x:Name="t_pocetPracovnikov2" HorizontalAlignment="Left" Margin="8,0,0,2" TextWrapping="Wrap" Text="21" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="2" Grid.Row="2" Height="23" VerticalAlignment="Bottom"/>
+                            <TextBox x:Name="t_pocetPracovnikov1" HorizontalAlignment="Left" Height="23" Margin="8,0,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="40" RenderTransformOrigin="1.422,0.5" Grid.Column="2" Grid.Row="1"/>
+                            <TextBox x:Name="t_pocetPracovnikov2" HorizontalAlignment="Left" Margin="8,0,0,2" TextWrapping="Wrap" Text="1" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="2" Grid.Row="2" Height="23" VerticalAlignment="Bottom"/>
                         </Grid>
                         <Grid Margin="8,22,5,21" Background="#FFE5FFE2" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3">
                             <Grid.RowDefinitions>
@@ -282,7 +282,7 @@
                         <Slider x:Name="s_refreshRAte" Height="20" Margin="9,20,5,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.621,0.414" Grid.Column="1" Grid.Row="6"/>
                         <Label x:Name="label32_Copy" Content="Refresh rate (s):" HorizontalAlignment="Left" Margin="9,37,0,0" VerticalAlignment="Top" Width="93" FontSize="12" Grid.Column="1" Height="27" Grid.Row="5" Grid.RowSpan="2"/>
                         <TextBox x:Name="t_sleepMs" Grid.Column="2" HorizontalAlignment="Left" Height="20" Margin="6,16,0,0" Grid.Row="5" TextWrapping="Wrap" Text="200" VerticalAlignment="Top" Width="51" RenderTransformOrigin="0.673,0.412" FontSize="12"/>
-                        <TextBox x:Name="t_refreshRAte" Grid.Column="2" HorizontalAlignment="Left" Height="20" Margin="6,20,0,0" Grid.Row="6" TextWrapping="Wrap" Text="28800" VerticalAlignment="Top" Width="48" RenderTransformOrigin="0.673,0.412" FontSize="12"/>
+                        <TextBox x:Name="t_refreshRAte" Grid.Column="2" HorizontalAlignment="Left" Height="20" Margin="6,20,0,0" Grid.Row="6" TextWrapping="Wrap" Text="60" VerticalAlignment="Top" Width="48" RenderTransformOrigin="0.673,0.412" FontSize="12"/>
                         <Button x:Name="b_changeSpeed" Content="Change speed" Margin="9,0,7,10" Background="#FFD3F5FF" Grid.Column="1" Grid.Row="4"  Grid.ColumnSpan="2" Height="41" VerticalAlignment="Bottom" Click="b_changeSpeed_Click"/>
                     </Grid>
                 </Grid>

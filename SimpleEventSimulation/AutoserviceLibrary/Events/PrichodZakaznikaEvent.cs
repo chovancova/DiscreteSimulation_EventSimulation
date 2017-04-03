@@ -41,12 +41,14 @@ namespace AutoserviceLibrary.Events
                 AktualnyZakaznik.ZacniCakatNaVybavenieObjednavky(EventTime);
                 ((AppCore)ReferenceSimCore).PridajZakaznika(AktualnyZakaznik);
 
-                var zadanie = new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik);
-                ReferenceSimCore.ScheduleEvent(zadanie, EventTime);
+              
 
-                var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
-                var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
-                ReferenceSimCore.ScheduleEvent(prichod, time);
+            var time2 = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
+            var prichod = new PrichodZakaznikaEvent(time2, ReferenceSimCore, new Zakaznik());
+            ReferenceSimCore.ScheduleEvent(prichod, time2);
+
+            var zadanie = new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, null);
+            ReferenceSimCore.ScheduleEvent(zadanie, EventTime);
         }
     }
 }

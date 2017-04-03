@@ -33,15 +33,17 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny1();
-            
-            //zaciatok spracovania objednavky 
-            ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, null), EventTime );
-            
             //odchod zakaznika
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator6_Prevzatie();
             var odchod = new OdchodZakaznikaEvent(time, ReferenceSimCore, AktualnyZakaznik);
             ReferenceSimCore.ScheduleEvent(odchod, time);
+
+            ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny1();
+
+            //zaciatok spracovania objednavky 
+            ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(time, ReferenceSimCore, null), time);
+
+
         }
     }
 }

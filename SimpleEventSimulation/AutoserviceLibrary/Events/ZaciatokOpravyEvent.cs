@@ -64,16 +64,11 @@ namespace AutoserviceLibrary.Events
                     ////naplanujem zaciatok opravy
                     //var zaciatok = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, new Zakaznik());
                     //ReferenceSimCore.ScheduleEvent(zaciatok, EventTime);
-
-                
                 }
                 else
                 {
                     //cakaj
-                    //naplanujem zaciatok opravy
-                    var zaciatok = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, new Zakaznik());
-                    ReferenceSimCore.ScheduleEvent(zaciatok, EventTime);
-                }
+                 }
             }
         }
     }

@@ -50,7 +50,12 @@ namespace SimulationLibrary
                 BeforeReplication();
                 DoSimulationReplication(lenghtReplication);
                 AfterReplication();
-           }
+                if (Stopped)
+                {
+                    AfterStopReplications();
+                    break;
+                }
+            }
             SimulationEnd();
         }
 
@@ -66,7 +71,7 @@ namespace SimulationLibrary
             SimEvent temp;
             ScheduleFirstEvent();
             ScheduleRefreshEvent();
-            while (_timeLine.Count > 0 && CurrentTime <= lenghtReplication)
+            while (_timeLine.Count > 0 && CurrentTime < lenghtReplication)
             {
                 temp = _timeLine.Dequeue();
                 CurrentTime = temp.EventTime;

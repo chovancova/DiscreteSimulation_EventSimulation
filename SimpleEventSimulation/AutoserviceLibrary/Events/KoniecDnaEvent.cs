@@ -46,11 +46,7 @@ namespace AutoserviceLibrary.Events
                 var time = this.EventTime + 8*60*60;
                 var newEvent = new KoniecDnaEvent(time, ReferenceSimCore, new Zakaznik());
                 ReferenceSimCore.ScheduleEvent(newEvent, time);
-
-                //naplanujem prichod zakaznika
-                time = this.EventTime + ((AppCore) ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
-                var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
-                ReferenceSimCore.ScheduleEvent(prichod, time);
+                
             }
         }
     }

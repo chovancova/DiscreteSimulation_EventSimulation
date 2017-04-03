@@ -84,7 +84,7 @@ namespace AutoserviceLibrary
         public void ResetFrontCakajucichZakaznikov()
         {
             _frontCakajuciZakaznik.Clear();
-           PocetVolnychPracovnikov1 = PocetPracovnikov1;
+          // PocetVolnychPracovnikov1 = PocetPracovnikov1;
            // PocetVolnychPracovnikov2 = PocetPracovnikov2;
         }
 
@@ -214,16 +214,16 @@ namespace AutoserviceLibrary
 
         public void PridajStatistikuCakaniaFrontZakaznikov(double waitingtime)
         {
-            _pocetZakaznikovVRadeCakajucichZakaznikov++;
-            _celkovyCasCakaniaRadCakajucichZakaznikov += waitingtime;
-            _iteration++;
-            if (_iteration == 10000)
-            {
-                _iteration = 0;
-                PriemernyCasStravenyVRadeCakajucichZakaznikov.AddLast(_celkovyCasCakaniaRadCakajucichZakaznikov/
-                                                                      _pocetZakaznikovVRadeCakajucichZakaznikov);
-                PriemernyPocetCakajucichVRadeCakajucichZakaznikov.AddLast(_dlzkaRaduCakajucichZakaznikov/CurrentTime);
-            }
+            //_pocetZakaznikovVRadeCakajucichZakaznikov++;
+            //_celkovyCasCakaniaRadCakajucichZakaznikov += waitingtime;
+            //_iteration++;
+            //if (_iteration == 10000)
+            //{
+            //    _iteration = 0;
+            //    PriemernyCasStravenyVRadeCakajucichZakaznikov.AddLast(_celkovyCasCakaniaRadCakajucichZakaznikov/
+            //                                                          _pocetZakaznikovVRadeCakajucichZakaznikov);
+            //    PriemernyPocetCakajucichVRadeCakajucichZakaznikov.AddLast(_dlzkaRaduCakajucichZakaznikov/CurrentTime);
+            //}
         }
 
         #endregion
@@ -256,6 +256,11 @@ namespace AutoserviceLibrary
 
         public override void ScheduleFirstEvent()
         {
+            //naplanujem prichod zakaznika
+           double time = Gen.Generator1_ZakazniciPrichod();
+            var prichod = new PrichodZakaznikaEvent(time, this, new Zakaznik());
+            this.ScheduleEvent(prichod, time);
+
             //3.
             KoniecDnaEvent a = new KoniecDnaEvent(0, this, new Zakaznik());
             this.ScheduleEvent(a, 0);

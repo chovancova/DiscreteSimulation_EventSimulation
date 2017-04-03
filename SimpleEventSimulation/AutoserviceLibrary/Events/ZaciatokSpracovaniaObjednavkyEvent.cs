@@ -40,10 +40,7 @@ namespace AutoserviceLibrary.Events
                 var spracovanie = new KoniecSpracovaniaObjednavky(time, ReferenceSimCore, null);
                 ReferenceSimCore.ScheduleEvent(spracovanie, time);
             }
-            else
-            {
-               // ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik), EventTime );
-            }
+         
         }
     }
 }
