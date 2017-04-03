@@ -42,7 +42,7 @@ namespace AutoserviceLibrary.Events
             }
             else
             {
-              //  ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik), EventTime );
+               // ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik), EventTime );
             }
         }
     }

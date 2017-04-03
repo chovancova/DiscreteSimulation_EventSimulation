@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoserviceLibrary.Entities;
+using AutoserviceLibrary.Events;
 using RandomGenerators;
 using RandomGenerators.Generators;
 using SimulationLibrary;
@@ -18,20 +19,16 @@ namespace AutoserviceLibrary
 
         public int PocetVolnychPracovnikov1 { get; private set; }
         public int PocetVolnychPracovnikov2 { get; private set; }
-        public int PocetObsluhujucichPracovnikov1 { get; private set; }
-        public int PocetObsluhujucichPracovnikov2 { get; private set; }
-
-        private int _dlzkaReplikacie;
-        private int _pocetReplikacii; 
-
-        public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2,  int dlzkaReplikacie, int pocetReplikacii,  
-            AutoserviceGenerators gen) 
+        public int PocetPracovnikov1 { get; set; }
+        public int PocetPracovnikov2 { get; set; }
+    
+        public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2, AutoserviceGenerators gen, ISimulationGui gui) :base(gui)
         {
-            _dlzkaReplikacie = dlzkaReplikacie;
-            _pocetReplikacii = pocetReplikacii;
             Gen = gen;
             PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
+            PocetPracovnikov1 = PocetVolnychPracovnikov1;
+            PocetPracovnikov2 = PocetVolnychPracovnikov2;
             _resetStatisticsRadCakajucichZakaznikov();
             InitializeQueues();
         }
@@ -87,6 +84,8 @@ namespace AutoserviceLibrary
         public void ResetFrontCakajucichZakaznikov()
         {
             _frontCakajuciZakaznik.Clear();
+           PocetVolnychPracovnikov1 = PocetPracovnikov1;
+           // PocetVolnychPracovnikov2 = PocetPracovnikov2;
         }
 
         public Zakaznik DalsiZakaznik()
@@ -111,6 +110,7 @@ namespace AutoserviceLibrary
             _frontPokazeneAuto.Enqueue(zakaznik);
         }
 
+        
     
         public Zakaznik DalsiePokazeneAuto()
         {
@@ -141,32 +141,38 @@ namespace AutoserviceLibrary
 
         public bool JeVolnyPracovnik2()
         {
-            return PocetVolnychPracovnikov1 > 0;
+            return PocetVolnychPracovnikov2 > 0;
         }
 
-        public void ObsadPracovnikaSkupiny1()
+        public bool  ObsadPracovnikaSkupiny1()
         {
+            if (PocetVolnychPracovnikov1 == 0)
+            {
+                return false;
+            }
             PocetVolnychPracovnikov1--;
-            PocetObsluhujucichPracovnikov1++;
+            return true;
             //todo statistiky
         }
 
-        public void ObsadPracovnikaSkupiny2()
+        public bool ObsadPracovnikaSkupiny2()
         {
+            if (PocetVolnychPracovnikov2 == 0)
+            {
+                return false;
+            }
             PocetVolnychPracovnikov2--;
-            PocetObsluhujucichPracovnikov2++;
+            return false;
             //todo statistiky
         }
 
         public void UvolniPracovnikaSkupiny1()
         {
             PocetVolnychPracovnikov1++;
-            PocetObsluhujucichPracovnikov1--;
         }
 
         public void UvolniPracovnikaSkupiny2()
         {
-            PocetObsluhujucichPracovnikov2--;
             PocetVolnychPracovnikov2++;
         }
 
@@ -224,27 +230,57 @@ namespace AutoserviceLibrary
 
         public void PridajStatistikuCakanieNaVybavenieObjednavky(double casCakania)
         {
-            throw new System.NotImplementedException();
+           // throw new System.NotImplementedException();
         }
 
         public void PridajStatistikuCakanieNaOpravu(double statistika1)
         {
-            throw new System.NotImplementedException();
+           // throw new System.NotImplementedException();
         }
+
 
         public override void BeforeReplication()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         public override void AfterReplication()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         public override void SimulationEnd()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
+
+        public override void ScheduleFirstEvent()
+        {
+            //3.
+            KoniecDnaEvent a = new KoniecDnaEvent(0, this, new Zakaznik());
+            this.ScheduleEvent(a, 0);
+        }
+
+        public override void AfterStopReplications()
+        {
+         //   throw new NotImplementedException();
+        }
+
+
+        public int PocetCakajucichZakaznikov()
+        {
+            return _frontCakajuciZakaznik.Count;
+        }
+        public int PocetPokazenychAut()
+        {
+            return _frontPokazeneAuto.Count;
+        }
+
+        public int PocetOpravenychAut()
+        {
+            return _frontOpraveneAuto.Count;
+        }
+
+
     }
 }

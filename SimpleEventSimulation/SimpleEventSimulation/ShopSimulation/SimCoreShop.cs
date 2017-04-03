@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RandomGenerators;
 using RandomGenerators.Generators;
+using SimpleEventSimulation.ShopSimulation.Events;
 using SimulationLibrary;
 
 namespace SimpleEventSimulation.ShopSimulation
@@ -122,19 +123,32 @@ namespace SimpleEventSimulation.ShopSimulation
             WaitingQueue.Enqueue(customer);
         }
 
+
         public override void BeforeReplication()
         {
-          //  throw new NotImplementedException();
+            //
         }
 
         public override void AfterReplication()
         {
-            //throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
 
         public override void SimulationEnd()
         {
-           // throw new NotImplementedException();
+         //   throw new NotImplementedException();
+        }
+
+        public override void ScheduleFirstEvent()
+        {
+            //3.
+            Arrival a = new Arrival(0, this, new Customer());
+            this.ScheduleEvent(a, 0);
+        }
+
+        public override void AfterStopReplications()
+        {
+            throw new NotImplementedException();
         }
     }
 }

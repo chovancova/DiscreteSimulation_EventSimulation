@@ -41,12 +41,12 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
+          
             if (!((AppCore) ReferenceSimCore).JeFrontPokazenychAutPrazdny() )
             {
                 if (((AppCore) ReferenceSimCore).JeVolnyPracovnik2())
                 {
                     ((AppCore) ReferenceSimCore).ObsadPracovnikaSkupiny2();
-
                     var auto = ((AppCore) ReferenceSimCore).DalsiePokazeneAuto();
 
                     //koniec opravy
@@ -60,11 +60,19 @@ namespace AutoserviceLibrary.Events
                     var time = EventTime + sucet;
                     var koniecOpravy = new KoniecOpravyEvent(time, ReferenceSimCore, auto);
                     ReferenceSimCore.ScheduleEvent(koniecOpravy, time);
+
+                    ////naplanujem zaciatok opravy
+                    //var zaciatok = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, new Zakaznik());
+                    //ReferenceSimCore.ScheduleEvent(zaciatok, EventTime);
+
+                
                 }
                 else
                 {
                     //cakaj
-
+                    //naplanujem zaciatok opravy
+                    var zaciatok = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, new Zakaznik());
+                    ReferenceSimCore.ScheduleEvent(zaciatok, EventTime);
                 }
             }
         }

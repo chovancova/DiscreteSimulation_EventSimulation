@@ -71,6 +71,7 @@ namespace AutoserviceLibrary.Events
             else
             {
                 ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny1();
+
                 //zaciatok spracovania objednavky
                 var zaciatokspracovania = new ZaciatokSpracovaniaObjednavkyEvent(time, ReferenceSimCore, null);
                 ReferenceSimCore.ScheduleEvent(zaciatokspracovania, time);

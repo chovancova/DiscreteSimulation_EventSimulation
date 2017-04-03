@@ -16,25 +16,27 @@ namespace TestGenerators
         {
             //SIMULACNY CAS SU SEKUNDY
             var seed = new GeneratorSeed();
-            generator1(seed);
+            //generator1(seed);
 
-            generator2(seed);
+            //generator2(seed);
 
-            generator3(seed);
+            //generator3(seed);
 
-            generator4(seed);
+            //generator4(seed);
 
-            generator5(seed);
+            //generator5(seed);
 
-            generator6(seed);
+            //generator6(seed);
 
-            generator7(seed);
+            //generator7(seed);
 
-            generator8(seed);
+            //generator8(seed);
 
-            generator9(seed);
+            //generator9(seed);
 
-            generator10(seed);
+            //generator10(seed);
+            generator10_priemer(seed);
+            Console.ReadKey();
         }
 
         private static void generator10(GeneratorSeed seed)
@@ -54,6 +56,30 @@ namespace TestGenerators
 
             var gen10 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), d3, generators);
             TestDistributionsToFileInt(gen10, "generator_10_empiricke.dst");
+        }
+        private static void generator10_priemer(GeneratorSeed seed)
+        {
+            //VYGENEROVANY TYP OPRAVY
+            Duration[] d3 =
+            {
+                new Duration(0, 0, 0.7), new Duration(0, 0, 0.2), new Duration(0, 0, 0.1)
+            };
+            IGenerators[] generators =
+            {
+                new UniformDiscreteDistribution(seed.GetRandomSeed(), 2, 20),
+                new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
+                    new[] {new Duration(10, 40, 0.1), new Duration(41, 61, 0.6), new Duration(62, 100, 0.3)}),
+                new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
+            };
+
+            var gen10 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), d3, generators);
+            var sucet = 0; 
+            var numbers = 1000000;
+
+            for (var i = 0; i < numbers; i++)
+                sucet += gen10.GenerateInt();
+           
+            Console.WriteLine((double)sucet/numbers);
         }
 
         private static void generator9(GeneratorSeed seed)

@@ -19,15 +19,16 @@ namespace SimulationLibrary
         public ISimulationGui Gui { get; set; }
         public int ActualReplication { get; set; }
       
-        public SimCore()
+        public SimCore(ISimulationGui gui =  null)
         {
+            Gui = gui;
             _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
             Stopped = false;
             ActualReplication = 0;
-            Refresh = true;
-            SleepingTime = 200;
-            RefreshRate = 200;
+            Refresh = false;
+            SleepingTime = 20;
+            RefreshRate = 20;
         }
         public void ScheduleEvent(SimEvent eSimEvent, double time)
         {
@@ -35,49 +36,60 @@ namespace SimulationLibrary
                 throw new Exception("Scheadule Event is not possible. Current time > time.");
             _timeLine.Enqueue(eSimEvent, time);
         }
-        
+        public  abstract void BeforeReplication();
+        public abstract void AfterReplication();
+        public abstract void SimulationEnd();
+        public abstract void ScheduleFirstEvent();
+        public abstract void AfterStopReplications();
+
         public void Simulate(int numberOfReplication, double lenghtReplication)
         {
-
-            for (int replication = 0; replication < numberOfReplication; replication++)
+            for (ActualReplication = 0; ActualReplication < numberOfReplication; ActualReplication++)
             {
-                if (Stopped)
-                {
-                    break;
-                }
-                //ResetCore(); 
-
+                ResetCore(); 
                 BeforeReplication();
-
-                DoSimulationReplication(lenghtReplication, replication);
-
+                DoSimulationReplication(lenghtReplication);
                 AfterReplication();
            }
             SimulationEnd();
         }
+
 
         public void ResetCore()
         {
             _timeLine.Clear();
             CurrentTime = 0.0;
         }
-
-        public  abstract void BeforeReplication();
-        public abstract void AfterReplication();
-        public abstract void SimulationEnd();
-
-        public void DoSimulationReplication(double lenghtReplication, int replication)
+        
+        public void DoSimulationReplication(double lenghtReplication)
         {
-            ActualReplication = replication + 1;
             SimEvent temp;
-            ScheduleRefreshEvent(); 
+            ScheduleFirstEvent();
+            ScheduleRefreshEvent();
             while (_timeLine.Count > 0 && CurrentTime <= lenghtReplication)
             {
-                    temp = _timeLine.Dequeue();
-                    CurrentTime = temp.EventTime;
-                    temp.Execute();
+                temp = _timeLine.Dequeue();
+                CurrentTime = temp.EventTime;
+                temp.Execute();
+
+                if (Paused)
+                {
+                    while (Paused)
+                    {
+                        Thread.Sleep(200);
+                        Gui.RefreshGui();
+                    }   
+                }
+                if (Stopped)
+                {
+                    AfterStopReplications();
+                    break;
+                }
+
             }
         }
+
+
 
         public void ScheduleRefreshEvent()
         {
