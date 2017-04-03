@@ -22,22 +22,9 @@ namespace SimpleEventSimulation.ShopSimulation
         public int LastCount { get; set;  }
         public double LastChangedTime { get; set;  }
         private int _iteration;
+        public IGenerators[] Generators { get; set; }
 
-        public SimCoreShop(IGenerators[] generators, double maxTime) : base(generators, maxTime)
-        {
-            MaximumSimulationTime = maxTime;
-            IsServed = false;
-            WaitingQueue = new Queue<Customer>();
-            //statistics
-            NumberOfCustomers = 0;
-            TotalWaitingTime = 0;
-            LastCount = -1;
-            _iteration = 0;
-            LengthOfFront = 0;
-            LastChangedTime = 0;
-        }
-
-        protected SimCoreShop(double maxTime) : base(maxTime)
+        public SimCoreShop(IGenerators[] generators, double maxTime) 
         {
             IsServed = false;
             WaitingQueue = new Queue<Customer>();
@@ -48,11 +35,32 @@ namespace SimpleEventSimulation.ShopSimulation
             _iteration = 0;
             LengthOfFront = 0;
             LastChangedTime = 0;
+            Generators = generators;
         }
-        public SimCoreShop(double maxTime, double exp1, double exp2) : base(maxTime)
-        {
-            MaximumSimulationTime = maxTime;
 
+        protected SimCoreShop(double maxTime) 
+        {
+            IsServed = false;
+            WaitingQueue = new Queue<Customer>();
+            //statistics
+            NumberOfCustomers = 0;
+            TotalWaitingTime = 0;
+            LastCount = -1;
+            _iteration = 0;
+            LengthOfFront = 0;
+            LastChangedTime = 0;
+
+            GeneratorSeed seed = new GeneratorSeed();
+            //Mo
+            ExponencionalDistribution d1 = new ExponencionalDistribution(seed.GetRandomSeed(), 5);
+            //Mp
+            ExponencionalDistribution d2 = new ExponencionalDistribution(seed.GetRandomSeed(), 6);
+
+            Generators = new[] {d1, d2};
+
+        }
+        public SimCoreShop(double exp1, double exp2) 
+        {
             GeneratorSeed seed = new GeneratorSeed();
         //Mo
         ExponencionalDistribution d1 = new ExponencionalDistribution(seed.GetRandomSeed(), exp1);
@@ -112,6 +120,21 @@ namespace SimpleEventSimulation.ShopSimulation
         {
             AddStatisticsChangeOfFront();
             WaitingQueue.Enqueue(customer);
+        }
+
+        public override void BeforeReplication()
+        {
+          //  throw new NotImplementedException();
+        }
+
+        public override void AfterReplication()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public override void SimulationEnd()
+        {
+           // throw new NotImplementedException();
         }
     }
 }

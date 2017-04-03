@@ -1,12 +1,19 @@
 ﻿namespace SimulationLibrary
 {
+    /// <summary>
+    /// Abstrakná simulačná udalosť. 
+    /// </summary>
   public abstract class SimEvent 
     {
+        /// <summary>
+        /// Čas vykonania udalosti. Slúži aj ako priorita. 
+        /// </summary>
         public double EventTime { get; set; }
+        /// <summary>
+        /// Abstraktná metóda na vykonanie udalosti. 
+        /// </summary>
         public abstract void Execute();
         protected SimCore ReferenceSimCore { get; }
-
-        protected long secondaryPriority;
 
         protected SimEvent(double eventTime, SimCore simulation)
         {

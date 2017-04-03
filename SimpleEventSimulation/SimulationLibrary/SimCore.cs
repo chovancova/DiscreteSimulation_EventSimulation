@@ -1,74 +1,101 @@
 ﻿using System;
+using System.Threading;
 using Priority_Queue;
 using RandomGenerators.Generators;
 
 namespace SimulationLibrary
 {
-    public class SimCore
+    public abstract class SimCore
     {
-        public double CurrentTime { get; set; }
+        public double CurrentTime { get; private set; }
         private SimplePriorityQueue<SimEvent, double> _timeLine;
-        public bool IsEnabledObserverMode { get; set; }
-        public IGenerators[] Generators { get; set; }
-        public virtual event EventHandler Refresh;
-        public double MaximumSimulationTime { get; set; }
-        private int _numberOfStatistic = 4;
-        public double[] Result { get; set; }
+
         public double RefreshRate { get; set; }
         public double SleepingTime { get; set; }
-
-
         public bool IsRunning { get; set; }
-        public bool IsPaused { get; set; }
-        public bool IsStopped { get; set; }
+        public bool Paused { get; set; }
+        public bool Stopped { get; set; }
+        //ak je true - refreshujem po kazdom evente, ak false refreshujem po kazdej replikacii
+        public bool Refresh { get; set; }
 
+        public ISimulationGui Gui { get; set; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public SimCore(IGenerators[] generators, double maxTime)
+        public int ActualReplication { get; set; }
+      
+        public SimCore()
         {
             _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
-            Generators = generators;
-            MaximumSimulationTime = maxTime;
-            IsRunning = true;
+            Stopped = false;
+            ActualReplication = 0;
+            Refresh = false;
         }
-
-        protected SimCore(double maxTime)
-        {
-            _timeLine = new SimplePriorityQueue<SimEvent, double>();
-            CurrentTime = 0.0f;
-            MaximumSimulationTime = maxTime;
-            IsRunning = true;
-        }
-     
-
         public void ScheduleEvent(SimEvent eSimEvent, double time)
         {
-            if (CurrentTime > time) throw new Exception("Scheadule Event is not possible. Current time > time.");
+            if (CurrentTime > time)
+                throw new Exception("Scheadule Event is not possible. Current time > time.");
             _timeLine.Enqueue(eSimEvent, time);
         }
+        
+        public void Simulate(int numberOfReplication, double lenghtReplication)
+        {
+
+            for (int replication = 0; replication < numberOfReplication; replication++)
+            {
+                if (Stopped)
+                {
+                    break;
+                }
+                ResetCore(); 
+
+                BeforeReplication();
+
+                DoSimulationReplication(lenghtReplication, replication);
+
+                AfterReplication();
+           }
+            SimulationEnd();
+        }
+
+        public void ResetCore()
+        {
+            _timeLine.Clear();
+            CurrentTime = 0.0;
+        }
+
+        public  abstract void BeforeReplication();
+        public abstract void AfterReplication();
+        public abstract void SimulationEnd();
+
+        public void DoSimulationReplication(double lenghtReplication, int replication)
+        {
+            ActualReplication = replication + 1;
+            SimEvent temp;
+            ScheduleRefreshEvent();
+            while (_timeLine.Count > 0 && CurrentTime <= lenghtReplication)
+            {
+                    temp = _timeLine.Dequeue();
+                    CurrentTime = temp.EventTime;
+              
+                //acceleration, deceleration, suspension, animation
+               // RefreshEvent
+            }
+        }
+
+        public void ScheduleRefreshEvent()
+        {
+           if(Refresh) ScheduleEvent(new RefreshEvent(CurrentTime, this), CurrentTime );
+        }
+
+
+        public double _maximumSimTime;
+
 
         public void Simulate()
         {
             SimEvent hlpEvt;
 
-            while (_timeLine.Count > 0 &&  MaximumSimulationTime > CurrentTime && IsRunning)
+            while (_timeLine.Count > 0 &&  _maximumSimTime > CurrentTime)
             {
                 //initialization of current event, time
                 hlpEvt = _timeLine.Dequeue();
@@ -81,39 +108,24 @@ namespace SimulationLibrary
             }
         }
 
-        public void Simulate(double simulationTime, SimEvent helpEvent)
-        {
-            while (true)
-            {
-                if (_timeLine.Count == 0) break;
-                if (simulationTime <= CurrentTime) break;
-
-                helpEvent = _timeLine.First;
-                CurrentTime = helpEvent.EventTime;
-                helpEvent.Execute();
-            }
-        }
-      
-
-
-        public virtual void OnRefresh()
-        {
-            var handler = Refresh;
-            if (handler != null) handler(this, EventArgs.Empty);
-        }
+     
+        //public virtual void OnRefresh()
+        //{
+        //    var handler = Refresh;
+        //    if (handler != null) handler(this, EventArgs.Empty);
+        //}
 
         public void Stop()
         {
             _timeLine = new SimplePriorityQueue<SimEvent, double>();
             CurrentTime = 0.0f;
-            MaximumSimulationTime = 0;
+            _maximumSimTime = 0;
             IsRunning = false;
         }
 
         public bool StopReplications;
         public void DoReplications(int n)
         {
-            long[] sumResults = new long[_numberOfStatistic];
 
             int i = 0;
             StopReplications = false;
@@ -123,20 +135,67 @@ namespace SimulationLibrary
                 {
                     break;
                 }
-                OnRefresh();
+           //     OnRefresh();
              }
-           // Result = DoStatistics(0, i);
         }
 
 
-        public double[] DoStatistics(long[] sum, int countExperiments)
+
+
+
+
+
+
+        public void DoEventSimulationExperiments(int n)
         {
-            double[] averages = new double[_numberOfStatistic];
-            for (int i = 0; i < _numberOfStatistic; i++)
-            {
-                averages[i] = ((double)sum[i] / countExperiments);
-            }
-            return averages;
+            
         }
+
+        public void DoExperiment()
+        {
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

@@ -17,11 +17,22 @@ namespace SimulationLibrary
          **/
         public override void Execute()
         {
-            double refresh = EventTime + ReferenceSimCore.RefreshRate;
-            RefreshEvent refreshEvent = new RefreshEvent(refresh, ReferenceSimCore);
-            ReferenceSimCore.ScheduleEvent(refreshEvent, refresh);
-
-            Thread.Sleep((int) Math.Round(ReferenceSimCore.SleepingTime));
+            if (ReferenceSimCore.Refresh)
+            {
+                double refreshTime = EventTime + ReferenceSimCore.RefreshRate;
+                RefreshEvent refreshEvent = new RefreshEvent(refreshTime, ReferenceSimCore);
+                ReferenceSimCore.ScheduleEvent(refreshEvent, refreshTime);
+                try
+                {
+                    Thread.Sleep((int) Math.Round(ReferenceSimCore.SleepingTime));
+                }
+                catch (ThreadInterruptedException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Thread.CurrentThread.Interrupt();
+                }        
+            }
+          
         }
     }
 }

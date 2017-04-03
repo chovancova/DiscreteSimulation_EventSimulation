@@ -9,13 +9,10 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    ///U7 - Koniec opravy
-    ///Opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.   
-    ///Naplánujem:
-    ///-	Začiatok opravy – naplánujem okamžite. Zvýšim počet voľných pracovníkov o jedna. 
+    ///U9 - Odchod zákazníka
+    ///Uvoľním zákazníka zo systému. 
     ///Štatistiky: 
-    ///-	S10b - Započítam do štatistiky počet voľných pracovníkov skupiny 2. 
-    ///-	S7a, S8a - Začnem počítať čas čakania a počet opravených áut v rade opravených áut. 
+    ///-	S4b - Skončím počítanie času stráveným zákazníkom čakaním na opravu.    
     /// </summary>
     class KoniecOpravyEvent : AutoserviceEvent
 

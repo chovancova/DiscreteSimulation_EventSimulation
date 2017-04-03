@@ -24,12 +24,11 @@ namespace AutoserviceLibrary
         private int _dlzkaReplikacie;
         private int _pocetReplikacii; 
 
-        public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2,  int dlzkaReplikacie, int pocetReplikacii,  double maxTime,
-            AutoserviceGenerators gen) : base(maxTime)
+        public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2,  int dlzkaReplikacie, int pocetReplikacii,  
+            AutoserviceGenerators gen) 
         {
             _dlzkaReplikacie = dlzkaReplikacie;
             _pocetReplikacii = pocetReplikacii;
-            Generators = gen.Generators();
             Gen = gen;
             PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
@@ -37,15 +36,13 @@ namespace AutoserviceLibrary
             InitializeQueues();
         }
 
-     public AppCore(double maxTime, int pocetVolnychPracovnikov1,
-            int pocetVolnychPracovnikov2) : base(maxTime)
+     public AppCore( int pocetVolnychPracovnikov1,
+            int pocetVolnychPracovnikov2) 
         {
             Gen = new AutoserviceGenerators(_seed);
             PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
             _resetStatisticsRadCakajucichZakaznikov();
-            Generators = Gen.Generators();
-
         }
 
         public void UltraSimulation()
@@ -233,6 +230,21 @@ namespace AutoserviceLibrary
         public void PridajStatistikuCakanieNaOpravu(double statistika1)
         {
             throw new System.NotImplementedException();
+        }
+
+        public override void BeforeReplication()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AfterReplication()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SimulationEnd()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -22,14 +22,13 @@ namespace AutoserviceGui
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AppCore  _app;
+      private AppCore  _app;
 
-  
+      
 
         public MainWindow()
         {
             InitializeComponent();
-            _app = new AppCore(0, 0, 0, 0, 0 , null);
         }
 
         private void textBox1_Copy7_TextChanged(object sender, TextChangedEventArgs e)
@@ -66,12 +65,12 @@ namespace AutoserviceGui
         private void _initializeApp()
         {
             AutoserviceGenerators generators = _initializeGenerators();
+            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text)*8*60*60;
+            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
+            double maxSimulationTime = dlzkaReplikacie*pocetReplikacii;
+
             _app = new AppCore(int.Parse(t_pocetPracovnikov1.Text),
-                int.Parse(t_pocetPracovnikov2.Text),
-                int.Parse(t_dlzkaJednejReplikacie.Text),
-                int.Parse(t_pocetReplikacii.Text),
-                double.Parse(t_maximalnyPocetReplikacii.Text),
-                generators);
+                int.Parse(t_pocetPracovnikov2.Text),dlzkaReplikacie, pocetReplikacii, generators);
         }
 
         
@@ -79,32 +78,22 @@ namespace AutoserviceGui
         {
             _initializeApp();
             
-            _app.UltraSimulation();
+           // _app.UltraSimulation();
         }
 
         private void b_runSimulation_Click(object sender, RoutedEventArgs e)
         {
-            AutoserviceGenerators generators = _initializeGenerators();
-            _app = new AppCore(int.Parse(t_pocetPracovnikov1.Text),
-                int.Parse(t_pocetPracovnikov2.Text),
-                int.Parse(t_dlzkaJednejReplikacie.Text),
-                int.Parse(t_pocetReplikacii.Text),
-                double.Parse(t_maximalnyPocetReplikacii.Text),
-                generators);
-            _app.NormalSimulation();
+            _initializeApp();
+
+            // _app.NormalSimulation();
         }
 
         private void b_analyticSimulation_Click(object sender, RoutedEventArgs e)
         {
-            AutoserviceGenerators generators = _initializeGenerators();
-            _app = new AppCore(int.Parse(t_pocetPracovnikov1.Text),
-                int.Parse(t_pocetPracovnikov2.Text),
-                int.Parse(t_dlzkaJednejReplikacie.Text),
-                int.Parse(t_pocetReplikacii.Text),
-                double.Parse(t_maximalnyPocetReplikacii.Text),
-                generators);
-            _app.AnalyticSimulation();
-            }
+            _initializeApp();
+
+            //  _app.AnalyticSimulation();
+        }
 
 
         public static void RefreshWindowDispatcher()
@@ -118,11 +107,9 @@ namespace AutoserviceGui
             }
         }
 
+        private void button_Copy4_Click(object sender, RoutedEventArgs e)
+        {
 
-
-
-
-
-
+        }
     }
 }

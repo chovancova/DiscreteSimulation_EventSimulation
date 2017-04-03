@@ -24,15 +24,15 @@ namespace SimpleEventSimulation
                 4. Začnem simulovať. 
              */
             //2.
-            double simTime = 100000000.0;
+            double simTime = 2592000000;
             //1.
-            SimCoreShop shop = new SimCoreShop(simTime, 5.0, 6.0);
+            SimCoreShop shop = new SimCoreShop(5.0, 6.0);
             
             //3.
             Arrival a = new Arrival(0, shop, new Customer());
             shop.ScheduleEvent(a, 0);
            //4. 
-            shop.Simulate();
+            shop.Simulate(1, simTime);
         
             Console.ReadLine();
         }

@@ -110,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutoserviceLibrary\AutoserviceLibrary.csproj">
-      <Project>{7be01b3e-e257-4514-808d-1569e157e441}</Project>
+      <Project>{7BE01B3E-E257-4514-808D-1569E157E441}</Project>
       <Name>AutoserviceLibrary</Name>
     </ProjectReference>
   </ItemGroup>

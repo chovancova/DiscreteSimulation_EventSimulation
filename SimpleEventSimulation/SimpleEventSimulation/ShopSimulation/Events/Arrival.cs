@@ -30,7 +30,7 @@ namespace SimpleEventSimulation.ShopSimulation.Events
         public override void Execute()
         {
             //1. 
-            var time = (this.EventTime + this.ReferenceSimCore.Generators[1].GenerateDouble());
+            var time = (this.EventTime + ((SimCoreShop)ReferenceSimCore).Generators[1].GenerateDouble());
             //initializaiton of new event - arrival of Customer
             var newEvent = new Arrival(time, ReferenceSimCore, new Customer());
             //2.
