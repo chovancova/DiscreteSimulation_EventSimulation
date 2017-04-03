@@ -9,7 +9,6 @@ namespace SimulationLibrary
     {
         public double CurrentTime { get; private set; }
         private SimplePriorityQueue<SimEvent, double> _timeLine;
-
         public double RefreshRate { get; set; }
         public double SleepingTime { get; set; }
         public bool IsRunning { get; set; }
@@ -17,9 +16,7 @@ namespace SimulationLibrary
         public bool Stopped { get; set; }
         //ak je true - refreshujem po kazdom evente, ak false refreshujem po kazdej replikacii
         public bool Refresh { get; set; }
-
         public ISimulationGui Gui { get; set; }
-
         public int ActualReplication { get; set; }
       
         public SimCore()
@@ -28,7 +25,9 @@ namespace SimulationLibrary
             CurrentTime = 0.0f;
             Stopped = false;
             ActualReplication = 0;
-            Refresh = false;
+            Refresh = true;
+            SleepingTime = 200;
+            RefreshRate = 200;
         }
         public void ScheduleEvent(SimEvent eSimEvent, double time)
         {
@@ -46,7 +45,7 @@ namespace SimulationLibrary
                 {
                     break;
                 }
-                ResetCore(); 
+                //ResetCore(); 
 
                 BeforeReplication();
 
@@ -71,14 +70,12 @@ namespace SimulationLibrary
         {
             ActualReplication = replication + 1;
             SimEvent temp;
-            ScheduleRefreshEvent();
+            ScheduleRefreshEvent(); 
             while (_timeLine.Count > 0 && CurrentTime <= lenghtReplication)
             {
                     temp = _timeLine.Dequeue();
                     CurrentTime = temp.EventTime;
-              
-                //acceleration, deceleration, suspension, animation
-               // RefreshEvent
+                    temp.Execute();
             }
         }
 
@@ -86,116 +83,5 @@ namespace SimulationLibrary
         {
            if(Refresh) ScheduleEvent(new RefreshEvent(CurrentTime, this), CurrentTime );
         }
-
-
-        public double _maximumSimTime;
-
-
-        public void Simulate()
-        {
-            SimEvent hlpEvt;
-
-            while (_timeLine.Count > 0 &&  _maximumSimTime > CurrentTime)
-            {
-                //initialization of current event, time
-                hlpEvt = _timeLine.Dequeue();
-                CurrentTime = hlpEvt.EventTime;
-                hlpEvt.Execute(); //virtual method. 
-
-                //here add - acceleration, deceleration, suspension, animation
-                // OnRefresh();
-                // Stop();
-            }
-        }
-
-     
-        //public virtual void OnRefresh()
-        //{
-        //    var handler = Refresh;
-        //    if (handler != null) handler(this, EventArgs.Empty);
-        //}
-
-        public void Stop()
-        {
-            _timeLine = new SimplePriorityQueue<SimEvent, double>();
-            CurrentTime = 0.0f;
-            _maximumSimTime = 0;
-            IsRunning = false;
-        }
-
-        public bool StopReplications;
-        public void DoReplications(int n)
-        {
-
-            int i = 0;
-            StopReplications = false;
-            for (; i < n; i++)
-            {
-                if (StopReplications)
-                {
-                    break;
-                }
-           //     OnRefresh();
-             }
-        }
-
-
-
-
-
-
-
-
-        public void DoEventSimulationExperiments(int n)
-        {
-            
-        }
-
-        public void DoExperiment()
-        {
-            
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
+   }
 }
