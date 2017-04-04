@@ -28,17 +28,17 @@ namespace RandomGenerators.Generators
         private readonly Duration[] _values;
         private readonly IGenerators[] _generators;
         private readonly bool _onlyOneValue;
-        public DiscreteEmpiricalDistribution(int seed, Duration[] duration, bool onlyOneValue = false)
+        public DiscreteEmpiricalDistribution(GeneratorSeed seed, Duration[] duration, bool onlyOneValue = false)
         {
-            _randomNumberGenerator = new Random(seed);
+            _randomNumberGenerator = new Random(seed.GetRandomSeed());
             _values = duration;
             _onlyOneValue = onlyOneValue;
-            if (!_onlyOneValue)
+            if (!_onlyOneValue  )
             {
                 _generators = new UniformDiscreteDistribution[duration.Length];
                 for (int i = 0; i < _generators.Length; i++)
                 {
-                    _generators[i] = new UniformDiscreteDistribution(_randomNumberGenerator.Next(), _values[i].Min,
+                    _generators[i] = new UniformDiscreteDistribution(seed.GetRandomSeed(), _values[i].Min,
                         _values[i].Max);
                 }
             }
@@ -48,10 +48,10 @@ namespace RandomGenerators.Generators
             }
         }
 
-        public DiscreteEmpiricalDistribution(int seed, Duration[] duration, IGenerators[] generators)
+        public DiscreteEmpiricalDistribution(GeneratorSeed seed, Duration[] duration, IGenerators[] generators)
         {
             _onlyOneValue = false;
-            _randomNumberGenerator = new Random(seed);
+            _randomNumberGenerator = new Random(seed.GetRandomSeed());
             _values = duration;
             _generators = generators;
         }
@@ -78,6 +78,7 @@ namespace RandomGenerators.Generators
                     if (_onlyOneValue)
                     {
                         value = _values[i].Min;
+                        break;
                     }
                     else
                     {

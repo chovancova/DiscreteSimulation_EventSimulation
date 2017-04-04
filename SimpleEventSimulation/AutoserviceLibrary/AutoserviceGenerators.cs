@@ -18,7 +18,7 @@ namespace AutoserviceLibrary
             var seed = new GeneratorSeed();
 
             _gen1 = new ExponencionalDistribution(seed.GetRandomSeed(), 300);
-            _gen2 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            _gen2 = new DiscreteEmpiricalDistribution(seed, new[]
             {
                 new Duration(1, 1, 0.4), new Duration(2, 2, 0.15), new Duration(3, 3, 0.14), new Duration(4, 4, 0.12),
                 new Duration(5, 5, 0.1), new Duration(6, 6, 0.09)
@@ -28,13 +28,13 @@ namespace AutoserviceLibrary
             _gen4 = new UniformContinuousDistribution(seed.GetRandomSeed(), 80, 160);
             _gen5 = new TriangleUniformDistribution(seed.GetRandomSeed(), 120, 540, 240);
             _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed(), 123, 257);
-            _gen7 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            _gen7 = new DiscreteEmpiricalDistribution(seed, new[]
             {
                 new Duration(0, 0, 0.7), new Duration(0, 0, 0.2), new Duration(0, 0, 0.1)
             }, new IGenerators[]
             {
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 2, 20),
-                new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
+                new DiscreteEmpiricalDistribution(seed,
                     new[] {new Duration(10, 40, 0.1), new Duration(41, 61, 0.6), new Duration(62, 100, 0.3)}),
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
             });
@@ -62,7 +62,7 @@ namespace AutoserviceLibrary
             var seed = new GeneratorSeed();
 
             _gen1 = new ExponencionalDistribution(seed.GetRandomSeed(), gen1);
-            _gen2 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            _gen2 = new DiscreteEmpiricalDistribution(seed, new[]
             {
                 new Duration(1, 1, gen213),
                 new Duration(2, 2, gen223),
@@ -76,13 +76,13 @@ namespace AutoserviceLibrary
             _gen4 = new UniformContinuousDistribution(seed.GetRandomSeed(), gen41, gen42);
             _gen5 = new TriangleUniformDistribution(seed.GetRandomSeed(), gen51, gen52, gen53);
             _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed(), gen61, gen62);
-            _gen7 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            _gen7 = new DiscreteEmpiricalDistribution(seed, new[]
             {
                 new Duration(0, 0, gen71), new Duration(0, 0, gen72), new Duration(0, 0, gen73)
             }, new IGenerators[]
             {
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), gen711, gen712),
-                new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
+                new DiscreteEmpiricalDistribution(seed,
                     new[]
                     {
                         new Duration(gen721, gen722, gen723), new Duration(gen731, gen732, gen733),
@@ -95,7 +95,7 @@ namespace AutoserviceLibrary
         public AutoserviceGenerators(GeneratorSeed seed)
         {
             _gen1 = new ExponencionalDistribution(seed.GetRandomSeed(), 300);
-            _gen2 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            _gen2 = new DiscreteEmpiricalDistribution(seed, new[]
             {
                 new Duration(1, 1, 0.4), new Duration(2, 2, 0.15), new Duration(3, 3, 0.14), new Duration(4, 4, 0.12),
                 new Duration(5, 5, 0.1), new Duration(6, 6, 0.09)
@@ -105,13 +105,13 @@ namespace AutoserviceLibrary
             _gen4 = new UniformContinuousDistribution(seed.GetRandomSeed(), 80, 160);
             _gen5 = new TriangleUniformDistribution(seed.GetRandomSeed(), 120, 540, 240);
             _gen6 = new UniformContinuousDistribution(seed.GetRandomSeed(), 123, 257);
-            _gen7 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), new[]
+            _gen7 = new DiscreteEmpiricalDistribution(seed, new[]
             {
                 new Duration(0, 0, 0.7), new Duration(0, 0, 0.2), new Duration(0, 0, 0.1)
             }, new IGenerators[]
             {
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 2, 20),
-                new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
+                new DiscreteEmpiricalDistribution(seed,
                     new[] {new Duration(10, 40, 0.1), new Duration(41, 61, 0.6), new Duration(62, 100, 0.3)}),
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
             });

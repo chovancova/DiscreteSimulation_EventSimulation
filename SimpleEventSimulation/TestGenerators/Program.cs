@@ -16,26 +16,27 @@ namespace TestGenerators
         {
             //SIMULACNY CAS SU SEKUNDY
             var seed = new GeneratorSeed();
-            //generator1(seed);
-
-            //generator2(seed);
-
-            //generator3(seed);
-
-            //generator4(seed);
-
-            //generator5(seed);
-
-            //generator6(seed);
-
-            //generator7(seed);
-
-            //generator8(seed);
-
-            //generator9(seed);
-
-            //generator10(seed);
             generator10_priemer(seed);
+
+            generator1(seed);
+
+            generator2(seed);
+
+            generator3(seed);
+
+            generator4(seed);
+
+            generator5(seed);
+
+            generator6(seed);
+
+            generator7(seed);
+
+            generator8(seed);
+
+            generator9(seed);
+
+            generator10(seed);
             Console.ReadKey();
         }
 
@@ -49,12 +50,12 @@ namespace TestGenerators
             IGenerators[] generators =
             {
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 2, 20),
-                new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
+                new DiscreteEmpiricalDistribution(seed,
                     new[] {new Duration(10, 40, 0.1), new Duration(41, 61, 0.6), new Duration(62, 100, 0.3)}),
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
             };
 
-            var gen10 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), d3, generators);
+            var gen10 = new DiscreteEmpiricalDistribution(seed, d3, generators);
             TestDistributionsToFileInt(gen10, "generator_10_empiricke.dst");
         }
         private static void generator10_priemer(GeneratorSeed seed)
@@ -67,14 +68,14 @@ namespace TestGenerators
             IGenerators[] generators =
             {
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 2, 20),
-                new DiscreteEmpiricalDistribution(seed.GetRandomSeed(),
+                new DiscreteEmpiricalDistribution(seed,
                     new[] {new Duration(10, 40, 0.1), new Duration(41, 61, 0.6), new Duration(62, 100, 0.3)}),
                 new UniformDiscreteDistribution(seed.GetRandomSeed(), 120, 260)
             };
 
-            var gen10 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), d3, generators);
-            var sucet = 0; 
-            var numbers = 1000000;
+            var gen10 = new DiscreteEmpiricalDistribution(seed, d3, generators);
+            var sucet = 0;
+            var numbers = 100000000000;
 
             for (var i = 0; i < numbers; i++)
                 sucet += gen10.GenerateInt();
@@ -100,7 +101,7 @@ namespace TestGenerators
             {
                 new Duration(10, 40, 0.1), new Duration(41, 61, 0.6), new Duration(62, 100, 0.3)
             };
-            var gen8 = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), d2);
+            var gen8 = new DiscreteEmpiricalDistribution(seed, d2);
             TestDistributionsToFileInt(gen8, "generator_8_empiricke.dst");
         }
 
@@ -162,7 +163,7 @@ namespace TestGenerators
                 new Duration(1, 1, 0.4), new Duration(2, 2, 0.15), new Duration(3, 3, 0.14), new Duration(4, 4, 0.12),
                 new Duration(5, 5, 0.1), new Duration(6, 6, 0.09)
             };
-            var discPocet_oprav = new DiscreteEmpiricalDistribution(seed.GetRandomSeed(), d);
+            var discPocet_oprav = new DiscreteEmpiricalDistribution(seed, d);
             TestDistributionsToFileInt(discPocet_oprav, "generator_2_empiricke.dst");
         }
 
