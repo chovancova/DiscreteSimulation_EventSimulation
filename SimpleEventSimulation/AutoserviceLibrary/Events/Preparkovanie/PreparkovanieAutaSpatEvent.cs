@@ -38,11 +38,10 @@ namespace AutoserviceLibrary.Events
             var odchod = new OdchodZakaznikaEvent(time, ReferenceSimCore, AktualnyZakaznik);
             ReferenceSimCore.ScheduleEvent(odchod, time);
 
-            ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny1();
+            ReferenceSimCore.ScheduleEvent(new UvolniPracovnikaEvent(EventTime, ReferenceSimCore, null), EventTime);
 
-            //zaciatok spracovania objednavky 
-            ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(time, ReferenceSimCore, null), time);
-
+            ////zaciatok spracovania objednavky 
+            //ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(time, ReferenceSimCore, null), time);
 
         }
     }

@@ -124,6 +124,19 @@ namespace SimpleEventSimulation.ShopSimulation
         }
 
 
+        protected override void BeforeSimulation()
+        {
+            IsServed = false;
+            WaitingQueue = new Queue<Customer>();
+            //statistics
+            NumberOfCustomers = 0;
+            TotalWaitingTime = 0;
+            LastCount = -1;
+            _iteration = 0;
+            LengthOfFront = 0;
+            LastChangedTime = 0;
+        }
+
         public override void BeforeReplication()
         {
             //
@@ -146,9 +159,6 @@ namespace SimpleEventSimulation.ShopSimulation
             this.ScheduleEvent(a, 0);
         }
 
-        public override void AfterStopReplications()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

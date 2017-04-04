@@ -15,9 +15,11 @@
             <RowDefinition Height="34*"/>
             <RowDefinition Height="55*"/>
             <RowDefinition Height="83*"/>
-            <RowDefinition Height="403*"/>
+            <RowDefinition Height="212*"/>
+            <RowDefinition Height="179*"/>
+            <RowDefinition Height="12*"/>
         </Grid.RowDefinitions>
-        <TabControl x:Name="tabControl" Grid.RowSpan="4">
+        <TabControl x:Name="tabControl" Grid.RowSpan="6">
             <TabItem Header="Home" FontSize="14">
                 <Grid Background="#fff">
                     <Grid.RowDefinitions>
@@ -65,8 +67,8 @@
                             </Grid.ColumnDefinitions>
                             <Label x:Name="label3" Content="Počet pracovníkov 1 skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,0,0,0" Height="29" Width="188" Grid.Column="1" Grid.Row="1"/>
                             <Label x:Name="label3_Copy" Content="Počet pracovníkov 2 skupiny:" HorizontalAlignment="Left" Margin="9,4,0,0" VerticalAlignment="Top" Height="29" Width="188" Grid.Column="1" Grid.Row="2"/>
-                            <TextBox x:Name="t_pocetPracovnikov1" HorizontalAlignment="Left" Height="23" Margin="8,0,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="40" RenderTransformOrigin="1.422,0.5" Grid.Column="2" Grid.Row="1"/>
-                            <TextBox x:Name="t_pocetPracovnikov2" HorizontalAlignment="Left" Margin="8,0,0,2" TextWrapping="Wrap" Text="1" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="2" Grid.Row="2" Height="23" VerticalAlignment="Bottom"/>
+                            <TextBox x:Name="t_pocetPracovnikov1" HorizontalAlignment="Left" Height="23" Margin="8,0,0,10" TextWrapping="Wrap" Text="5" VerticalAlignment="Bottom" Width="40" RenderTransformOrigin="1.422,0.5" Grid.Column="2" Grid.Row="1"/>
+                            <TextBox x:Name="t_pocetPracovnikov2" HorizontalAlignment="Left" Margin="8,0,0,2" TextWrapping="Wrap" Text="21" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="2" Grid.Row="2" Height="23" VerticalAlignment="Bottom"/>
                         </Grid>
                         <Grid Margin="8,22,5,21" Background="#FFE5FFE2" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3">
                             <Grid.RowDefinitions>
@@ -133,7 +135,8 @@
                         <RowDefinition Height="6*"/>
                         <RowDefinition Height="55*"/>
                         <RowDefinition Height="82*"/>
-                        <RowDefinition Height="212*"/>
+                        <RowDefinition Height="36*"/>
+                        <RowDefinition Height="176*"/>
                         <RowDefinition Height="49*"/>
                         <RowDefinition Height="134*"/>
                         <RowDefinition Height="6*"/>
@@ -161,7 +164,7 @@
                         <Label x:Name="t_l_double_simulacny" Content="Double simulačný čas v sekundach" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Width="367" Grid.Column="1" Grid.Row="1"/>
                         <Label x:Name="t_l_replikacia" Content="Replikácia" HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.053,0.239" FontSize="14" Grid.Column="2" Grid.RowSpan="2" Height="29" Width="177"/>
                     </Grid>
-                    <Grid Margin="9,51,10,10" Background="#FFEAFFF5" Grid.Column="1" Grid.Row="3">
+                    <Grid Margin="9,5,19,20" Background="#FFEAFFF5" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="30*"/>
@@ -172,48 +175,51 @@
                             <RowDefinition Height="5*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="352*"/>
-                            <ColumnDefinition Width="79*"/>
+                            <ColumnDefinition Width="511*"/>
+                            <ColumnDefinition Width="324*"/>
+                            <ColumnDefinition Width="10*"/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="label17" Content="Počet zákazníkov čakajúcich na vybavenie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="3" Height="29" Width="341" Margin="0,2,0,0"/>
+                        <Label x:Name="label17" Content="Počet zákazníkov čakajúcich na vybavenie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="3" Height="29" Width="341" Margin="0,2,0,0" Grid.RowSpan="2"/>
                         <Label x:Name="label19" Content="Počet volných pracovníkov skupiny 1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Width="236"/>
                         <Label x:Name="label19_Copy" Content="Počet volných pracovníkov skupiny 2" HorizontalAlignment="Left" Margin="0,2,0,0" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Grid.Row="2" Height="29" Width="236"/>
-                        <TextBox x:Name="t_s_pocet_v_p1" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.Row="1"/>
-                        <TextBox x:Name="t_s_pocet_v_p2" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.Row="2"/>
+                        <TextBox x:Name="t_s_pocet_v_p1" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontSize="14" Text="0" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox x:Name="t_s_pocet_v_p2" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontSize="14" Text="0" Grid.Column="1" Grid.Row="2"/>
                         <Label x:Name="label20" Content="Počet pokazených áut" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.Row="4" Height="29" Width="145"/>
                         <Label x:Name="label20_Copy" Content="Počet opravených áut čakajúcich na preparkovanie" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Grid.Row="5" Grid.RowSpan="2" Height="29" Width="321"/>
-                        <TextBox x:Name="t_s_pocet_pokazenych_aut" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.Row="4"/>
-                        <TextBox x:Name="t_s_pocet_opravenych_" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" RenderTransformOrigin="0.492,2.467" FontSize="14" Text="0" Grid.Column="1" Grid.Row="5"/>
-                        <TextBox x:Name="t_s_pocet_cakajucich_na_vybavenie" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.Row="3"/>
+                        <TextBox x:Name="t_s_pocet_pokazenych_aut" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontSize="14" Text="0" Grid.Column="1" Grid.Row="4"/>
+                        <TextBox x:Name="t_s_pocet_opravenych_" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" RenderTransformOrigin="0.492,2.467" FontSize="14" Text="0" Grid.Column="1" Grid.Row="5"/>
+                        <TextBox x:Name="t_s_pocet_cakajucich_na_vybavenie" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="114" FontSize="14" Text="0" Grid.Column="1" Grid.Row="3"/>
                     </Grid>
-                    <Grid Margin="0,10,19,52" Background="#FFFFF9EE" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2">
+                    <Grid Margin="10,10,19,10" Background="#FFFFF9EE" Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="7*"/>
+                            <RowDefinition Height="0*"/>
                             <RowDefinition Height="30*"/>
+                            <RowDefinition Height="31*"/>
+                            <RowDefinition Height="29*"/>
+                            <RowDefinition Height="33*"/>
                             <RowDefinition Height="30*"/>
-                            <RowDefinition Height="30*"/>
-                            <RowDefinition Height="30*"/>
-                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="10*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="352*"/>
-                            <ColumnDefinition Width="79*"/>
+                            <ColumnDefinition Width="511*"/>
+                            <ColumnDefinition Width="178*"/>
+                            <ColumnDefinition Width="155*"/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="label4" Content="Priemerný čas strávený zákazníkov v servise" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="2" Grid.RowSpan="2"/>
-                        <Label x:Name="label16" Content="Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2"/>
-                        <Label x:Name="label19_Copy1" Content="Priemerný počet zákazníkov v rade čakajúcich zákazníkov" HorizontalAlignment="Left" Margin="0,26,0,0" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Grid.Row="1"/>
-                        <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.RowSpan="2"/>
-                        <TextBox x:Name="textBox6_Copy1" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.Row="2"/>
-                        <Label x:Name="label18" Content="Priemerný čas strávený zákazníkov čakaním na opravu" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" FontSize="14" Grid.Row="3" Grid.RowSpan="3"/>
-                        <TextBox x:Name="textBox6_Copy2" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.Row="4"/>
-                        <TextBox x:Name="textBox6_Copy7" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="1" Grid.Row="3"/>
-                    </Grid>
-                    <Grid Margin="0,89,21,10" Background="#FFFFEEEE" Grid.Column="1" Grid.Row="5">
-                        <Label x:Name="label35" Content="90 % IS - času stráveného zákazníkom čakaním na opravu &lt; " HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <TextBox x:Name="textBox3_Copy1" HorizontalAlignment="Left" Height="23" Margin="489,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
-                        <TextBox x:Name="textBox3_Copy2" HorizontalAlignment="Left" Height="23" Margin="387,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
-                        <Label x:Name="label36" Content="," HorizontalAlignment="Left" Margin="466,0,0,0" VerticalAlignment="Top"/>
-                        <Label x:Name="label36_Copy" Content="&gt;" HorizontalAlignment="Left" Margin="563,0,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label4" Content="Priemerný čas strávený zákazníkov v servise" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="3" Height="28" Width="278"/>
+                        <Label x:Name="label16" Content="Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Width="470"/>
+                        <Label x:Name="label19_Copy1" Content="Priemerný počet zákazníkov v rade čakajúcich zákazníkov" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Grid.Row="2" Height="29" Width="362"/>
+                        <TextBox x:Name="t_s_s1" HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="1" Grid.Row="1"/>
+                        <TextBox x:Name="t_s_s2" HorizontalAlignment="Left" Height="23" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="1" Grid.Row="2"/>
+                        <Label x:Name="t_6_s4" Content="Priemerný čas strávený zákazníkov čakaním na opravu" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.Row="4" Height="29" Width="342" Margin="0,3,0,0"/>
+                        <TextBox x:Name="t_s_s4" HorizontalAlignment="Left" Height="23" Margin="5,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="1" Grid.Row="4"/>
+                        <TextBox x:Name="t_s_s3" HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="1" Grid.Row="3"/>
+                        <Label x:Name="label19_Copy4" Content="Priemerný počet zákazníkov v rade čakajúcich zákazníkov na konci dna" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" FontSize="14" Grid.Row="5" Height="29" Width="362"/>
+                        <TextBox x:Name="t_s_s11" HorizontalAlignment="Left" Height="23" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="1" Grid.Row="5"/>
+                        <TextBox x:Name="t_s_s1_Copy" HorizontalAlignment="Left" Height="23" Margin="6,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="2" Grid.Row="1"/>
+                        <TextBox x:Name="t_s_s2_Copy" HorizontalAlignment="Left" Height="23" Margin="6,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="2" Grid.Row="2"/>
+                        <TextBox x:Name="t_s_s4_Copy" HorizontalAlignment="Left" Height="23" Margin="6,6,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="2" Grid.Row="4"/>
+                        <TextBox x:Name="t_s_s3_Copy" HorizontalAlignment="Left" Height="23" Margin="6,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="2" Grid.Row="3"/>
+                        <TextBox x:Name="t_s_s11_Copy" HorizontalAlignment="Left" Height="23" Margin="6,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112" FontSize="14" Text="0" Grid.Column="2" Grid.Row="5"/>
                     </Grid>
                     <Grid Margin="0,7,10,4" Background="WhiteSmoke" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
@@ -230,15 +236,19 @@
                         <Button x:Name="b_pause1" Content="Pause" Margin="10" Background="#FFFFE7D3" Grid.Column="2" Grid.Row="1" Click="b_pause1_Click"/>
                         <Button x:Name="b_continue1" Content="Continue" Margin="10,9,10,10" Background="#FFD9FFD3" Grid.Column="3" Grid.Row="1" Click="b_continue1_Click"/>
                         <Button x:Name="b_stop1" Content="Stop" Margin="10,9,10,10" Background="#FFFFD3D3" Grid.Column="4" Grid.Row="1" Click="button_Copy4_Click"/>
-                        <Button x:Name="b_runSimulation_Copy" Content="Run Simulation" Margin="10,9,10,0" VerticalAlignment="Top" Height="51" Background="#FFB0F396" Click="b_runSimulation_Click" Grid.Column="1" Grid.Row="1"/>
+                        <Button x:Name="b_runSimulation_Copy" Content="Run Simulation" Margin="10,9,10,10" Background="#FFB0F396" Click="b_runSimulation_Click" Grid.Column="1" Grid.Row="1"/>
                     </Grid>
-                    <Slider x:Name="s_sleepMs" Height="20" Margin="37,13,433,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.621,0.414" Grid.Row="3" Grid.Column="1"/>
-                    <Label x:Name="label32" Content="Sleep (ms):" HorizontalAlignment="Left" Margin="38,71,0,0" VerticalAlignment="Top" Width="69" FontSize="12" Height="25" Grid.Row="2" RenderTransformOrigin="1.29,1.52" Grid.Column="1" Grid.RowSpan="2"/>
-                    <TextBox x:Name="t_sleepMs" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="196,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="200" VerticalAlignment="Top" Width="51" RenderTransformOrigin="0.673,0.412" FontSize="12"/>
-                    <Slider x:Name="s_refreshRAte" Height="20" Margin="270,26,200,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.621,0.414" Grid.Row="3" Grid.Column="1"/>
-                    <Label x:Name="label32_Copy" Content="Refresh rate (s):" HorizontalAlignment="Left" Margin="270,81,0,0" VerticalAlignment="Top" Width="93" FontSize="12" Height="27" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2"/>
-                    <TextBox x:Name="t_refreshRAte" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="431,26,0,0" Grid.Row="3" TextWrapping="Wrap" Text="60" VerticalAlignment="Top" Width="51" RenderTransformOrigin="0.673,0.412" FontSize="12"/>
-                    <Button x:Name="b_changeSpeed" Content="Change speed" Margin="26,0,19,167" Background="#FFD3F5FF" Grid.Row="3" Height="41" VerticalAlignment="Bottom" Click="b_changeSpeed_Click" Grid.Column="2"/>
+                    <Grid Grid.Column="1" Margin="10,4,267,0" Grid.Row="3">
+                        <Slider x:Name="s_sleepMs" Value="20" Minimum="0" Maximum="5000" IsSnapToTickEnabled="True"  TickFrequency="100"  TickPlacement="BottomRight"  Height="32" Margin="153,0,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.621,0.414" ValueChanged="s_sleepMs_ValueChanged"/>
+                        <Label x:Name="label32" Content="Sleep (ms):" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" FontSize="14" Height="27" RenderTransformOrigin="1.29,1.52"/>
+                        <TextBox x:Name="t_sleepMs"   Text="{Binding ElementName=s_sleepMs, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="20" Margin="84,7,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"  FontSize="14" TextChanged="t_sleepMs_TextChanged"/>
+                    </Grid>
+                    <Grid Grid.ColumnSpan="2" Grid.Column="1" Margin="356,0,141,0" Grid.Row="3">
+                        <Slider x:Name="s_refreshRAte" IsSnapToTickEnabled="True" Value="60" Maximum="3600" Minimum="0" TickPlacement="BottomRight"  TickFrequency="60" Height="30" Margin="187,6,0,0" VerticalAlignment="Top" FontSize="14" ValueChanged="s_refreshRAte_ValueChanged"/>
+                        <Label x:Name="label32_Copy" Content="Refresh rate (s):" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" FontSize="14" Height="27" Margin="0,6,0,0"/>
+                        <TextBox x:Name="t_refreshRAte" Text="{Binding ElementName=s_refreshRAte, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="20" Margin="110,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="72" FontSize="14" TextChanged="t_refreshRAte_TextChanged"/>
+                    </Grid>
+                    <Button x:Name="button" Content="Change speed" Grid.Column="2" HorizontalAlignment="Left" Margin="119,4,0,0" Grid.Row="3" VerticalAlignment="Top" Width="117" Height="32" Background="#FFF7FFE9" Click="button_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Graphs" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="68" FontSize="14">
@@ -496,35 +506,6 @@
                         <RowDefinition Height="125*"/>
                         <RowDefinition Height="231*"/>
                     </Grid.RowDefinitions>
-                    <Grid Margin="25,4,20,2" Background="#FFDBF4FF" Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="28*"/>
-                            <RowDefinition Height="8*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="88*"/>
-                            <ColumnDefinition Width="164*"/>
-                            <ColumnDefinition Width="16*"/>
-                            <ColumnDefinition Width="224*"/>
-                            <ColumnDefinition Width="133*"/>
-                            <ColumnDefinition Width="168*"/>
-                            <ColumnDefinition Width="66*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Label x:Name="label5" Content="Aktuálny čas" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" FontSize="14" Height="27" Width="87" RenderTransformOrigin="0.57,0.01" Grid.RowSpan="2"/>
-                        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" Margin="4,1.922,0,0" TextWrapping="Wrap" Text="000" VerticalAlignment="Top" Width="33" IsReadOnly="True" FontSize="14"  Grid.Column="1" Grid.Row="1"/>
-                        <Label x:Name="label6" Content=":" HorizontalAlignment="Left" Margin="83,0,0,0" VerticalAlignment="Top" Width="13" Height="29" Grid.Column="1" Grid.RowSpan="2"/>
-                        <TextBox x:Name="textBox4_Copy8" HorizontalAlignment="Left" Height="23" Margin="98,1.922,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="23" IsReadOnly="True" FontSize="14"  Grid.Column="1" Grid.Row="1"/>
-                        <Label x:Name="label34_Copy4" Content=":" HorizontalAlignment="Left" Margin="121,0,0,0" VerticalAlignment="Top" Width="13" Height="29" Grid.Column="1" Grid.RowSpan="2"/>
-                        <TextBox x:Name="textBox4_Copy9" HorizontalAlignment="Left" Height="23" Margin="134,1.922,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="23" IsReadOnly="True" FontSize="14"  RenderTransformOrigin="2.053,0.349" Grid.Column="1" Grid.Row="1"/>
-                        <TextBox x:Name="textBox4_Copy10" HorizontalAlignment="Left" Height="23" Margin="60,1.922,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="23" IsReadOnly="True" FontSize="14"  Grid.Column="1" Grid.Row="1"/>
-                        <Label x:Name="label34_Copy5" Content="d" HorizontalAlignment="Left" Margin="37,1,0,0" VerticalAlignment="Top" Width="18" FontSize="14" Height="29" Grid.Column="1" Grid.RowSpan="2"/>
-                        <Label x:Name="label7" Content="Double simulačný čas v sekundach" HorizontalAlignment="Left" Margin="13,1,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-                        <TextBox x:Name="textBox4_Copy11" HorizontalAlignment="Left" Height="23" Margin="12,1.922,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="110" IsReadOnly="True" FontSize="14" Grid.Column="4" Grid.Row="1"/>
-                        <Label x:Name="label18_Copy2" Content="Replikácia" HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.053,0.239" FontSize="14" Grid.Column="5" Grid.RowSpan="2"/>
-                        <TextBox x:Name="textBox5_Copy2" HorizontalAlignment="Left" Height="23" Margin="93,1.922,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="67" IsReadOnly="True" FontSize="14" Grid.Column="5" Grid.Row="1"/>
-                    </Grid>
                     <Grid Margin="25,0,22,3.808" Background="#FFFFF9EE" Grid.Row="4">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="5*"/>
@@ -541,16 +522,16 @@
                         <Label x:Name="label8" Content="Priemerný čas strávený zákazníkov v servise" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="2" Grid.RowSpan="2" Height="29" Width="278"/>
                         <Label x:Name="label9" Content="Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Width="470"/>
                         <Label x:Name="label19_Copy3" Content="Priemerný počet zákazníkov v rade čakajúcich zákazníkov" HorizontalAlignment="Left" Margin="0,21,0,0" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Grid.Row="1" Height="29" Width="362"/>
-                        <TextBox x:Name="textBox7" HorizontalAlignment="Left" Height="23" Margin="3,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.RowSpan="2" Grid.Column="1"/>
-                        <TextBox x:Name="textBox6_Copy9" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="2" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s1" HorizontalAlignment="Left" Height="23" Margin="3,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.RowSpan="2" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s2" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="2" Grid.Column="1"/>
                         <Label x:Name="label11" Content="Priemerný čas strávený zákazníkov čakaním na opravu" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" FontSize="14" Grid.Row="3" Grid.RowSpan="2" Height="29" Width="342"/>
-                        <TextBox x:Name="textBox6_Copy13" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="4" Grid.Column="1"/>
-                        <TextBox x:Name="textBox6_Copy15" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="3" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s4" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="4" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s3" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="3" Grid.Column="1"/>
                     </Grid>
                     <Grid Margin="25,2,22,5" Background="#FFFFEEEE" Grid.Row="3">
                         <Label x:Name="label30" Content="90 % Interval spoľahlivosti - času stráveného zákazníkom čakaním na opravu &lt; " HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <TextBox x:Name="textBox3_Copy4" HorizontalAlignment="Left" Height="23" Margin="595,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
-                        <TextBox x:Name="textBox3_Copy5" HorizontalAlignment="Left" Height="23" Margin="494,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
+                        <TextBox x:Name="t_g_is_1" HorizontalAlignment="Left" Height="23" Margin="595,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
+                        <TextBox x:Name="t_g_is_0" HorizontalAlignment="Left" Height="23" Margin="494,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
                         <Label x:Name="label31" Content="," HorizontalAlignment="Left" Margin="573,0,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label36_Copy1" Content="&gt;" HorizontalAlignment="Left" Margin="669,0,0,0" VerticalAlignment="Top"/>
                     </Grid>
@@ -570,40 +551,6 @@
                         <Button x:Name="button_Copy1" Content="Pause" Margin="9,8,10,9" Background="#FFFFE7D3" Grid.Column="1" Grid.Row="1"/>
                         <Button x:Name="button_Copy5" Content="Continue" Margin="0,8,10,8" Background="#FFD9FFD3" Grid.Column="2" Grid.Row="1"/>
                         <Button x:Name="button_Copy6" Content="Stop" Margin="7,6,10,12" Background="#FFFFD3D3" Grid.Column="3" Grid.Row="1"/>
-                    </Grid>
-                    <Grid Margin="23,10,22,99" Background="#FFFFFFE8" Grid.Row="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30*"/>
-                            <RowDefinition Height="30*"/>
-                            <RowDefinition Height="30*"/>
-                            <RowDefinition Height="30*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="367*"/>
-                            <ColumnDefinition Width="108*"/>
-                            <ColumnDefinition Width="106*"/>
-                            <ColumnDefinition Width="45*"/>
-                            <ColumnDefinition Width="115*"/>
-                            <ColumnDefinition Width="118*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label x:Name="label21" Content="Priemerný počet voľných pracovníkov" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="1" Grid.RowSpan="2" Height="29" Width="341"/>
-                        <Label x:Name="label22" Content="Priemerný čas čakania áut (zákazníka) v rade" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" Width="288"/>
-                        <Label x:Name="label19_Copy2" Content="Priemerný počet áut (zákazníkov) v rade" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Width="274"/>
-                        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="23" Margin="5,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="5"/>
-                        <TextBox x:Name="textBox6_Copy6" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="5" Grid.Row="1"/>
-                        <Label x:Name="label23" Content="Priemerný počet čakajúcich zákazníkov v rade na konci dňa" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" FontSize="14" Grid.Row="2" Grid.RowSpan="2" Height="29" Width="389" Grid.ColumnSpan="2"/>
-                        <TextBox x:Name="textBox6_Copy8" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="5" Grid.Row="3"/>
-                        <TextBox x:Name="textBox6_Copy10" HorizontalAlignment="Left" Height="23" Margin="5,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="5" Grid.Row="2"/>
-                        <TextBox x:Name="textBox3_Copy" HorizontalAlignment="Left" Height="23" Margin="20,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="2"/>
-                        <TextBox x:Name="textBox6_Copy11" HorizontalAlignment="Left" Height="23" Margin="20,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="2" Grid.Row="1"/>
-                        <TextBox x:Name="textBox6_Copy12" HorizontalAlignment="Left" Height="23" Margin="20,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="2" Grid.Row="3"/>
-                        <TextBox x:Name="textBox6_Copy14" HorizontalAlignment="Left" Height="23" Margin="20,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Column="2" Grid.Row="2"/>
-                        <Label x:Name="label22_Copy1" Content="pokazených áut" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" Width="110" Margin="365,0,0,0" Grid.ColumnSpan="2"/>
-                        <Label x:Name="label22_Copy2" Content="opravených áut" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" Width="110" Margin="40,0,0,0" Grid.Column="3" Grid.ColumnSpan="2"/>
-                        <Label x:Name="label22_Copy" Content="pokazených áut" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" Width="110" Margin="365,0,0,0" Grid.Row="1" Grid.ColumnSpan="2"/>
-                        <Label x:Name="label22_Copy3" Content="opravených áut" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" Width="110" Margin="40,0,0,0" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2"/>
-                        <Label x:Name="label22_Copy4" Content="skupiny 1" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" Width="110" Margin="365,27,0,0" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-                        <Label x:Name="label22_Copy5" Content="skupiny 2" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="29" Width="110" Margin="40,27,0,0" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
                     </Grid>
                 </Grid>
             </TabItem>

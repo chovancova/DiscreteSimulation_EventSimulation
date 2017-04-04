@@ -17,6 +17,7 @@ namespace AutoserviceGui
     public partial class MainWindow : ISimulationGui
     {
       private AppCore  _app;
+        private bool UltraMode = false;
         public List<DataPoint> DataGrafStrategia1 { get; private set; }
         public List<DataPoint> DataGrafStrategia2 { get; private set; }
 
@@ -27,19 +28,63 @@ namespace AutoserviceGui
             RefreshWindowDispatcher();
             //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
-            t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + (int)_app.CurrentTime;
+            t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + Math.Round(_app.CurrentTime,4).ToString();
             t_l_replikacia.Content = "Replikácia:  "+ _app.ActualReplication;
             TimeSpan ts = TimeSpan.FromSeconds((_app.CurrentTime*3));
             TimeSpan ts2 = TimeSpan.FromSeconds((_app.CurrentTime));
             string format = string.Format("{0} d {1} h {2}m {3}s",ts.Days, (int) (ts.Hours/3+7), ts2.Minutes, ts2.Seconds);
             t_l_aktualny_cas.Content = "Aktuálny čas:  " + format;
-            
-            t_s_pocet_cakajucich_na_vybavenie.Text = _app.PocetCakajucichZakaznikov().ToString();
+
+
+            if (!UltraMode)
+            {
+                  t_s_pocet_cakajucich_na_vybavenie.Text = _app.PocetCakajucichZakaznikov().ToString();
             t_s_pocet_v_p1.Text = _app.PocetVolnychPracovnikov1.ToString();
             t_s_pocet_v_p2.Text = _app.PocetVolnychPracovnikov2.ToString();
             t_s_pocet_opravenych_.Text = _app.PocetOpravenychAut().ToString();
             t_s_pocet_pokazenych_aut.Text = _app.PocetPokazenychAut().ToString();
+
+            t_s_s1.Text = FormatToTime(_app.S1_PriemernyCasCakania());
+            t_s_s2.Text = Math.Round(_app.S2_PrimernyPocet(),4).ToString();
+            t_s_s3.Text = FormatToTime(_app.S3_PriemernyCasVServise());
+            t_s_s4.Text = FormatToTime(_app.S4_PriemernyCasOpravy());
+            t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
+
+            t_s_s1_Copy.Text = Math.Round(_app.S1_PriemernyCasCakania(), 4).ToString();
+            t_s_s2_Copy.Text = Math.Round(_app.S2_PrimernyPocet(), 4).ToString();
+            t_s_s3_Copy.Text = Math.Round(_app.S3_PriemernyCasVServise(), 4).ToString(); ;
+            t_s_s4_Copy.Text = Math.Round(_app.S4_PriemernyCasOpravy(), 4).ToString();
+            t_s_s11_Copy.Text = Math.Round(_app.S11_PrimernyPocet(), 4).ToString();
+            }
+          
+
+            if (UltraMode)
+            {
+                t_g_s1.Text = FormatToTime(_app.SG1_PriemernyCasCakania());
+                t_g_s2.Text = Math.Round(_app.SG2_PrimernyPocet(), 4).ToString();
+                t_g_s3.Text = FormatToTime(_app.SG3_PriemernyCasVServise());
+                t_g_s4.Text = FormatToTime(_app.SG4_PriemernyCasOpravy());
+                a = _app.IS_CakanieNaOpravu();
+                t_g_is_0.Text = FormatToTime(a[0]);
+                t_g_is_1.Text = FormatToTime(a[1]);
+                // t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
+            }
         }
+
+        private double[] a;
+        private string FormatToTime(double seconds)
+        {
+            try
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(seconds);
+                return string.Format("{0} h {1} m {2} s", ts.Hours, ts.Minutes, ts.Seconds);
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+        }
+
         public static void RefreshWindowDispatcher()
         {
             if (Application.Current != null)
@@ -161,8 +206,13 @@ namespace AutoserviceGui
         private void b_quickSimulation_Click(object sender, RoutedEventArgs e)
         {
             _initializeApp();
-            
-           // _app.UltraSimulation();
+
+            // _app.UltraSimulation();
+            UltraMode = true;
+            _app.Refresh = false;
+            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * 8 * 60 * 60;
+            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
+            _app.Simulate(pocetReplikacii, dlzkaReplikacie);
         }
 
         private void b_runSimulation_Click(object sender, RoutedEventArgs e)
@@ -175,7 +225,7 @@ namespace AutoserviceGui
             _app.SleepingTime= int.Parse(t_sleepMs.Text);
             _app.Simulate(pocetReplikacii, dlzkaReplikacie);
 
-            
+            b_runSimulation.IsEnabled = false;
 
             // _app.NormalSimulation();
         }
@@ -210,6 +260,28 @@ namespace AutoserviceGui
         }
 
         private void b_changeSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            _app.SleepingTime = int.Parse(t_sleepMs.Text);
+            _app.RefreshRate = int.Parse(t_refreshRAte.Text);
+        }
+
+        private void s_sleepMs_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+        }
+
+        private void s_refreshRAte_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+        }
+
+        private void t_sleepMs_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+        }
+
+        private void t_refreshRAte_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
         {
             _app.SleepingTime = int.Parse(t_sleepMs.Text);
             _app.RefreshRate = int.Parse(t_refreshRAte.Text);

@@ -18,25 +18,25 @@ namespace TestGenerators
             var seed = new GeneratorSeed();
             generator10_priemer(seed);
 
-            generator1(seed);
+            //generator1(seed);
 
-            generator2(seed);
+            //generator2(seed);
 
-            generator3(seed);
+            //generator3(seed);
 
-            generator4(seed);
+            //generator4(seed);
 
-            generator5(seed);
+            //generator5(seed);
 
-            generator6(seed);
+            //generator6(seed);
 
-            generator7(seed);
+            //generator7(seed);
 
-            generator8(seed);
+            //generator8(seed);
 
-            generator9(seed);
+            //generator9(seed);
 
-            generator10(seed);
+            //generator10(seed);
             Console.ReadKey();
         }
 
@@ -75,7 +75,7 @@ namespace TestGenerators
 
             var gen10 = new DiscreteEmpiricalDistribution(seed, d3, generators);
             var sucet = 0;
-            var numbers = 100000000000;
+            var numbers = 10000000;
 
             for (var i = 0; i < numbers; i++)
                 sucet += gen10.GenerateInt();

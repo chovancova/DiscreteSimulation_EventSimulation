@@ -32,7 +32,7 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            ((AppCore)ReferenceSimCore).PridajOpraveneAuto(AktualnyZakaznik);
+            ((AppCore)ReferenceSimCore).Front_OpraveneAuta_Pridaj(AktualnyZakaznik);
             
             //naplanujem zaciatok opravy
             var zaciatok = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, null);

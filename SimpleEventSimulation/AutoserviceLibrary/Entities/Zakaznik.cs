@@ -11,70 +11,64 @@ namespace AutoserviceLibrary.Entities
         private double _prichodDoSystemu;
         private double _prichodDoSystemuPokazenych;
         private double _cakanieNaOpravu; 
-        private double _cakanieNaVybavenieObjednavky; 
+        private double _cakanieNaVybavenieObjednavky;
 
-        public bool JeAutoOpravene { get; set; }
-        public bool JeAutoVOprave { get; set; }
-        public int PocetOprav { get; set; }
-        public int[] DobaOpravy { get; set; }
-        public int CelkovaDobaOpravy { get; set; }
+        private double _zaciatok_cakania_front_cakajucich_zakaznikov;
+        private double _zaciatok_cakania_bytia_v_servise;
+        private double _zaciatok_cakania_na_opravu;
 
-        public Zakaznik()
+       public Zakaznik()
         {
             _prichodDoSystemu = -1;
+
+            _zaciatok_cakania_front_cakajucich_zakaznikov = -1;
+            _zaciatok_cakania_bytia_v_servise = -1;
+            _zaciatok_cakania_na_opravu = -1; 
         }
 
         //Statistics
         public void VynulujStatistiky()
         {
             _prichodDoSystemu = -1;
+            _zaciatok_cakania_front_cakajucich_zakaznikov = -1;
+            _zaciatok_cakania_bytia_v_servise = -1;
+            _zaciatok_cakania_na_opravu = -1;
         }
 
-        public void ZacniCakatVRade(double time)
+        public void S1_ZacniCakanie_front_cakajucich_zakaznikov(double time)
         {
-            _prichodDoSystemu = time;
+            _zaciatok_cakania_front_cakajucich_zakaznikov = time;
         }
 
-        public double SkonciCakanieVRade(double time)
+        public double S1_SkonciCakanie_front_cakajucich_zakaznikov(double time)
         {
-            if (_prichodDoSystemu < 0) return 0;
-            return time - _prichodDoSystemu;
-        }
-        //pri spracovani objednavky
-        public void ZacniCakatNaVybavenieObjednavky(double time)
-        {
-            _cakanieNaVybavenieObjednavky = time;
+            if (_zaciatok_cakania_front_cakajucich_zakaznikov < 0) return 0;
+            return time - _zaciatok_cakania_front_cakajucich_zakaznikov;
         }
 
-        public double SkonciCakanieNaVybavenieObjednavky(double time)
+        public void S3_ZacniCakanie_bytia_v_servise(double time)
         {
-            if (_cakanieNaVybavenieObjednavky < 0)
-                return 0;
-            return time - _cakanieNaVybavenieObjednavky;
+            _zaciatok_cakania_bytia_v_servise = time;
+            _zaciatok_cakania_front_cakajucich_zakaznikov = time;
+        }
+
+        public double S3_SkonciCakanie_bytia_v_servise(double time)
+        {
+            if (_zaciatok_cakania_bytia_v_servise < 0) return 0;
+            return time - _zaciatok_cakania_bytia_v_servise;
+        }
+
+        public void S4_ZacniCakanie_oprava(double time)
+        {
+            _zaciatok_cakania_na_opravu = time;
+        }
+
+        public double S4_SkonciCakanie_oprava(double time)
+        {
+            if (_zaciatok_cakania_na_opravu < 0) return 0;
+            return time - _zaciatok_cakania_na_opravu;
         }
         
-        public void ZacniCakatNaOpravu(double eventTime)
-        {
-            _cakanieNaOpravu = eventTime;
-        }
-
-        public double SkonciCakanieNaOpravu(double time)
-        {
-            if (_cakanieNaOpravu < 0)
-                return 0;
-            return time - _cakanieNaOpravu;
-        }
-
-        public void ZacniCakatVRadePokazenych(double time)
-        {
-            _prichodDoSystemuPokazenych = time;
-        }
-
-        public double SkonciCakanieVRadePokazenych(double time)
-        {
-            if (_prichodDoSystemuPokazenych < 0) return 0;
-            return time - _prichodDoSystemuPokazenych;
-        }
-
+        
     }
 }

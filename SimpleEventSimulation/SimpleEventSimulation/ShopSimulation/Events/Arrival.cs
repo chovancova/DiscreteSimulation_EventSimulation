@@ -71,7 +71,5 @@ namespace SimpleEventSimulation.ShopSimulation.Events
               //  Console.WriteLine(core.CurrentTime + "\tCustomer started paying.");
             }
         }
-
-      
     }
 }

@@ -40,13 +40,12 @@ namespace AutoserviceLibrary.Events
                 //todo ŠTATISTIKY
                 
                 //vynulujem den 
-                ((AppCore) ReferenceSimCore).ResetFrontCakajucichZakaznikov();
+                ((AppCore) ReferenceSimCore).Front_CakajuciZakaznici_Reset();
 
                 //naplanujem koniec dna 
                 var time = this.EventTime + 8*60*60;
                 var newEvent = new KoniecDnaEvent(time, ReferenceSimCore, new Zakaznik());
                 ReferenceSimCore.ScheduleEvent(newEvent, time);
-                
             }
         }
     }

@@ -27,9 +27,7 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-           double statistika1 = AktualnyZakaznik.SkonciCakanieNaVybavenieObjednavky(EventTime);
-            ((AppCore) ReferenceSimCore).PridajStatistikuCakanieNaOpravu(statistika1);
-            AktualnyZakaznik = null; 
+            ((AppCore) ReferenceSimCore).S4_AddValue(AktualnyZakaznik.S4_SkonciCakanie_oprava(EventTime));
         }
     }
 }

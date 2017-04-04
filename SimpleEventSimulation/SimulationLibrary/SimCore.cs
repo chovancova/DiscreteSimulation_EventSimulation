@@ -18,6 +18,7 @@ namespace SimulationLibrary
         public bool Refresh { get; set; }
         public ISimulationGui Gui { get; set; }
         public int ActualReplication { get; set; }
+        public int NumberOfReplication { get; private set; }
       
         public SimCore(ISimulationGui gui =  null)
         {
@@ -26,6 +27,7 @@ namespace SimulationLibrary
             CurrentTime = 0.0f;
             Stopped = false;
             ActualReplication = 0;
+            NumberOfReplication = 0; 
             Refresh = false;
             SleepingTime = 20;
             RefreshRate = 20;
@@ -36,15 +38,17 @@ namespace SimulationLibrary
                 throw new Exception("Scheadule Event is not possible. Current time > time.");
             _timeLine.Enqueue(eSimEvent, time);
         }
+        protected abstract void BeforeSimulation();
         public  abstract void BeforeReplication();
         public abstract void AfterReplication();
         public abstract void SimulationEnd();
         public abstract void ScheduleFirstEvent();
-        public abstract void AfterStopReplications();
 
         public void Simulate(int numberOfReplication, double lenghtReplication)
         {
-            for (ActualReplication = 0; ActualReplication < numberOfReplication; ActualReplication++)
+            NumberOfReplication = numberOfReplication;
+            BeforeSimulation();
+            for (ActualReplication = 0; ActualReplication < NumberOfReplication; ActualReplication++)
             {
                 ResetCore(); 
                 BeforeReplication();
@@ -52,13 +56,11 @@ namespace SimulationLibrary
                 AfterReplication();
                 if (Stopped)
                 {
-                    AfterStopReplications();
                     break;
                 }
             }
             SimulationEnd();
         }
-
 
         public void ResetCore()
         {
@@ -70,13 +72,15 @@ namespace SimulationLibrary
         {
             SimEvent temp;
             ScheduleFirstEvent();
-            ScheduleRefreshEvent();
+            if(Refresh) ScheduleRefreshEvent();
             while (_timeLine.Count > 0 && CurrentTime < lenghtReplication)
             {
                 temp = _timeLine.Dequeue();
                 CurrentTime = temp.EventTime;
                 temp.Execute();
-                Gui.RefreshGui();
+                if(Refresh)
+                    Gui.RefreshGui();
+
                 if (Paused)
                 {
                     while (Paused)
@@ -87,7 +91,6 @@ namespace SimulationLibrary
                 }
                 if (Stopped)
                 {
-                    AfterStopReplications();
                     break;
                 }
 

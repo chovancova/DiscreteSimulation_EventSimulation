@@ -29,8 +29,8 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-           var casCakania =  AktualnyZakaznik.SkonciCakanieNaVybavenieObjednavky(EventTime);
-            ((AppCore)ReferenceSimCore).PridajStatistikuCakanieNaVybavenieObjednavky(casCakania);
+            var cakanie = AktualnyZakaznik.S3_SkonciCakanie_bytia_v_servise(EventTime);
+            ((AppCore)ReferenceSimCore).S3_AddValue(cakanie);
 
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
             var preparkovanie = new PreparkovanieAutoEvent(time, ReferenceSimCore, AktualnyZakaznik);

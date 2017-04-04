@@ -33,22 +33,15 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            if (!((AppCore) ReferenceSimCore).JeFrontZakaznikovPrazdny())
-            {
-                var zakaznik = ((AppCore)ReferenceSimCore).DalsiZakaznik();
+                ((AppCore)ReferenceSimCore).S2_AddValue();
 
-                var cakanie = zakaznik.SkonciCakanieVRade(EventTime);
-                ((AppCore)ReferenceSimCore).PridajStatistikuCakaniaFrontZakaznikov(cakanie);
+                var cakanie = AktualnyZakaznik.S1_SkonciCakanie_front_cakajucich_zakaznikov(EventTime);
+                ((AppCore)ReferenceSimCore).S1_AddValue(cakanie);
                 
                 //naplanujem prevzatie auta 
                 var timePrevzatia = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator4_PrevzatieAuta();
-                    var prevzatie = new PrevzatieAutaOdZakaznikaEvent(timePrevzatia, ReferenceSimCore, zakaznik);
-                    ReferenceSimCore.ScheduleEvent(prevzatie, timePrevzatia);
-            }
-            else
-            {
-              //  ReferenceSimCore.ScheduleEvent(new KoniecSpracovaniaObjednavky(EventTime, ReferenceSimCore, AktualnyZakaznik), EventTime);
-            }
+                var prevzatie = new PrevzatieAutaOdZakaznikaEvent(timePrevzatia, ReferenceSimCore, AktualnyZakaznik);
+                ReferenceSimCore.ScheduleEvent(prevzatie, timePrevzatia);
         }
     }
 }

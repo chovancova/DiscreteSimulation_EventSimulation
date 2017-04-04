@@ -47,7 +47,7 @@ namespace AutoserviceLibrary.Events
                 if (((AppCore) ReferenceSimCore).JeVolnyPracovnik2())
                 {
                     ((AppCore) ReferenceSimCore).ObsadPracovnikaSkupiny2();
-                    var auto = ((AppCore) ReferenceSimCore).DalsiePokazeneAuto();
+                    var auto = ((AppCore) ReferenceSimCore).Front_PokazeneAuta_Vyber();
 
                     //koniec opravy
                     int sucet = 0;

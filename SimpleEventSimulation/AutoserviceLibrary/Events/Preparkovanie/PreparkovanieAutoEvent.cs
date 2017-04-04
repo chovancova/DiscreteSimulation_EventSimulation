@@ -49,13 +49,15 @@ namespace AutoserviceLibrary.Events
         public override void Execute()
         {
             //vlozim auto do frontu
-            AktualnyZakaznik.ZacniCakatNaOpravu(EventTime);
-            ((AppCore)ReferenceSimCore).PridajPokazeneAuto(AktualnyZakaznik);
+            AktualnyZakaznik.S4_ZacniCakanie_oprava(EventTime);
 
-
+            ((AppCore)ReferenceSimCore).Front_PokazeneAuta_Pridaj(AktualnyZakaznik);
             //zaciatok opravy 
             var oprava = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik);
             ReferenceSimCore.ScheduleEvent(oprava, EventTime);
+
+
+
 
             var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator5_Preparkovanie();
 
@@ -63,19 +65,15 @@ namespace AutoserviceLibrary.Events
             if (!((AppCore) ReferenceSimCore).JeFrontOpravenychAutPrazdny())
             {
                  //vyberiem auto z frontu opravenych aut
-                var opraveneAuto = ((AppCore) ReferenceSimCore).DalsieOpraveneAuto();
+                var opraveneAuto = ((AppCore) ReferenceSimCore).Front_OpraveneAuta_Vyber();
                 //preparkovanie spat
                 var preparkujSpat = new PreparkovanieAutaSpatEvent(time, ReferenceSimCore, opraveneAuto);
                 ReferenceSimCore.ScheduleEvent(preparkujSpat, time);
             }
             else
             {
-                ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny1();
-
-                //zaciatok spracovania objednavky
-                var zaciatokspracovania = new ZaciatokSpracovaniaObjednavkyEvent(time, ReferenceSimCore, null);
-                ReferenceSimCore.ScheduleEvent(zaciatokspracovania, time);
-            }
+                ReferenceSimCore.ScheduleEvent(new UvolniPracovnikaEvent(time, ReferenceSimCore, null), time);
+             }
         }
     }
 }
