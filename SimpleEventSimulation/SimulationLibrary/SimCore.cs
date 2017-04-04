@@ -76,7 +76,7 @@ namespace SimulationLibrary
                 temp = _timeLine.Dequeue();
                 CurrentTime = temp.EventTime;
                 temp.Execute();
-
+                Gui.RefreshGui();
                 if (Paused)
                 {
                     while (Paused)

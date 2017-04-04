@@ -27,8 +27,13 @@ namespace AutoserviceGui
             RefreshWindowDispatcher();
             //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
-            t_s_sim_double_ak_cas1.Text = _app.CurrentTime.ToString();
-            t_s_sim_replikacia1.Text = _app.ActualReplication.ToString();
+            t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + (int)_app.CurrentTime;
+            t_l_replikacia.Content = "Replikácia:  "+ _app.ActualReplication;
+            TimeSpan ts = TimeSpan.FromSeconds((_app.CurrentTime*3));
+            TimeSpan ts2 = TimeSpan.FromSeconds((_app.CurrentTime));
+            string format = string.Format("{0} d {1} h {2}m {3}s",ts.Days, (int) (ts.Hours/3+7), ts2.Minutes, ts2.Seconds);
+            t_l_aktualny_cas.Content = "Aktuálny čas:  " + format;
+            
             t_s_pocet_cakajucich_na_vybavenie.Text = _app.PocetCakajucichZakaznikov().ToString();
             t_s_pocet_v_p1.Text = _app.PocetVolnychPracovnikov1.ToString();
             t_s_pocet_v_p2.Text = _app.PocetVolnychPracovnikov2.ToString();
@@ -169,6 +174,8 @@ namespace AutoserviceGui
             _app.RefreshRate= int.Parse(t_refreshRAte.Text);
             _app.SleepingTime= int.Parse(t_sleepMs.Text);
             _app.Simulate(pocetReplikacii, dlzkaReplikacie);
+
+            
 
             // _app.NormalSimulation();
         }

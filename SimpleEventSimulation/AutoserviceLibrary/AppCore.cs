@@ -10,13 +10,9 @@ namespace AutoserviceLibrary
 {
     public class AppCore : SimCore
     {
-        private Queue<Zakaznik> _frontCakajuciZakaznik;
         private Queue<Zakaznik> _frontOpraveneAuto;
         private Queue<Zakaznik> _frontPokazeneAuto;
-        private readonly GeneratorSeed _seed = new GeneratorSeed();
-
         public AutoserviceGenerators Gen { get; private set; }
-
         public int PocetVolnychPracovnikov1 { get; private set; }
         public int PocetVolnychPracovnikov2 { get; private set; }
         public int PocetPracovnikov1 { get; set; }
@@ -33,32 +29,6 @@ namespace AutoserviceLibrary
             InitializeQueues();
         }
 
-     public AppCore( int pocetVolnychPracovnikov1,
-            int pocetVolnychPracovnikov2) 
-        {
-            Gen = new AutoserviceGenerators(_seed);
-            PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
-            PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
-            _resetStatisticsRadCakajucichZakaznikov();
-        }
-
-        public void UltraSimulation()
-        {
-
-        }
-
-        public void AnalyticSimulation()
-        {
-
-        }
-
-        public void NormalSimulation()
-        {
-
-        }
-
-
-
         public void InitializeQueues()
         {
             _frontCakajuciZakaznik = new Queue<Zakaznik>();
@@ -72,15 +42,7 @@ namespace AutoserviceLibrary
             _resetStatisticsRadCakajucichZakaznikov();
         }
 
-        private void _resetStatisticsRadCakajucichZakaznikov()
-        {
-            _poslednyPocetCakajucehoZakaznika = -1;
-            _pocetZakaznikovVRadeCakajucichZakaznikov = 0;
-            _celkovyCasCakaniaRadCakajucichZakaznikov = 0;
-            _dlzkaRaduCakajucichZakaznikov = 0;
-            _poslednyZmenenyCasRadCakajucichZakaznikov = 0;
-        }
-
+       
         public void ResetFrontCakajucichZakaznikov()
         {
             _frontCakajuciZakaznik.Clear();
@@ -88,21 +50,7 @@ namespace AutoserviceLibrary
            // PocetVolnychPracovnikov2 = PocetPracovnikov2;
         }
 
-        public Zakaznik DalsiZakaznik()
-        {
-            if (_frontCakajuciZakaznik.Count == 0)
-                return null;
-            PridajStatistikuZmenuFrontuZakaznikov();
-            return _frontCakajuciZakaznik.Dequeue();
-        }
-
-        
-
-        public void PridajZakaznika(Zakaznik zakaznik)
-        {
-            PridajStatistikuZmenuFrontuZakaznikov();
-            _frontCakajuciZakaznik.Enqueue(zakaznik);
-        }
+       
 
         public void PridajPokazeneAuto(Zakaznik zakaznik)
         {
@@ -176,11 +124,7 @@ namespace AutoserviceLibrary
             PocetVolnychPracovnikov2++;
         }
 
-        public bool JeFrontZakaznikovPrazdny()
-        {
-            return _frontCakajuciZakaznik.Count == 0;
-        }
-
+       
         public bool JeFrontOpravenychAutPrazdny()
         {
             return _frontOpraveneAuto.Count == 0;
@@ -190,43 +134,6 @@ namespace AutoserviceLibrary
         {
             return _frontPokazeneAuto.Count == 0;
         }
-
-        #region Statistiky
-
-        private int _poslednyPocetCakajucehoZakaznika;
-        private int _pocetZakaznikovVRadeCakajucichZakaznikov;
-        private double _celkovyCasCakaniaRadCakajucichZakaznikov;
-        private double _dlzkaRaduCakajucichZakaznikov;
-        private double _poslednyZmenenyCasRadCakajucichZakaznikov;
-        private int _iteration;
-
-        public LinkedList<double> PriemernyCasStravenyVRadeCakajucichZakaznikov { get; set; }
-        public LinkedList<double> PriemernyPocetCakajucichVRadeCakajucichZakaznikov { get; set; }
-
-        private void PridajStatistikuZmenuFrontuZakaznikov()
-        {
-            if (_poslednyPocetCakajucehoZakaznika >= 0)
-                _dlzkaRaduCakajucichZakaznikov += _frontCakajuciZakaznik.Count*
-                                                  (CurrentTime - _poslednyZmenenyCasRadCakajucichZakaznikov);
-            _poslednyPocetCakajucehoZakaznika = _frontCakajuciZakaznik.Count;
-            _poslednyZmenenyCasRadCakajucichZakaznikov = CurrentTime;
-        }
-
-        public void PridajStatistikuCakaniaFrontZakaznikov(double waitingtime)
-        {
-            //_pocetZakaznikovVRadeCakajucichZakaznikov++;
-            //_celkovyCasCakaniaRadCakajucichZakaznikov += waitingtime;
-            //_iteration++;
-            //if (_iteration == 10000)
-            //{
-            //    _iteration = 0;
-            //    PriemernyCasStravenyVRadeCakajucichZakaznikov.AddLast(_celkovyCasCakaniaRadCakajucichZakaznikov/
-            //                                                          _pocetZakaznikovVRadeCakajucichZakaznikov);
-            //    PriemernyPocetCakajucichVRadeCakajucichZakaznikov.AddLast(_dlzkaRaduCakajucichZakaznikov/CurrentTime);
-            //}
-        }
-
-        #endregion
 
         public void PridajStatistikuCakanieNaVybavenieObjednavky(double casCakania)
         {
@@ -272,10 +179,7 @@ namespace AutoserviceLibrary
         }
 
 
-        public int PocetCakajucichZakaznikov()
-        {
-            return _frontCakajuciZakaznik.Count;
-        }
+      
         public int PocetPokazenychAut()
         {
             return _frontPokazeneAuto.Count;
@@ -285,6 +189,100 @@ namespace AutoserviceLibrary
         {
             return _frontOpraveneAuto.Count;
         }
+
+
+
+
+
+        #region FRONT CAKAJUCICH ZAKAZNIKOV NA VYBAVENIE OBJEDNAVKY
+        //S1 – Priemerný čas čakania zákazníka v rade čakajúcich zákazníkov na zadanie objednávky..
+        //S2 – Priemerný počet zákazníkov v rade čakajúcich zákazníkov. (vážený)
+
+
+
+
+
+        private Queue<Zakaznik> _frontCakajuciZakaznik;
+        public bool JeFrontZakaznikovPrazdny()
+        {
+            return _frontCakajuciZakaznik.Count == 0;
+        }
+        
+        public int PocetCakajucichZakaznikov()
+        {
+            return _frontCakajuciZakaznik.Count;
+        }
+
+        public Zakaznik DalsiZakaznik()
+        {
+            if (_frontCakajuciZakaznik.Count == 0)
+                return null;
+            PridajStatistikuZmenuFrontuZakaznikov();
+            return _frontCakajuciZakaznik.Dequeue();
+        }
+        
+
+        public void PridajZakaznika(Zakaznik zakaznik)
+        {
+            PridajStatistikuZmenuFrontuZakaznikov();
+            _frontCakajuciZakaznik.Enqueue(zakaznik);
+        }
+
+        public LinkedList<double> PriemernyCasStravenyVRadeCakajucichZakaznikov { get; set; }
+        public LinkedList<double> PriemernyPocetCakajucichVRadeCakajucichZakaznikov { get; set; }
+
+
+        private int _poslednyPocetCakajucehoZakaznika;
+        private int _pocetZakaznikovVRadeCakajucichZakaznikov;
+        private double _celkovyCasCakaniaRadCakajucichZakaznikov;
+        private double _dlzkaRaduCakajucichZakaznikov;
+        private double _poslednyZmenenyCasRadCakajucichZakaznikov;
+        private int _iteration;
+        private void _resetStatisticsRadCakajucichZakaznikov()
+        {
+            _poslednyPocetCakajucehoZakaznika = -1;
+            _pocetZakaznikovVRadeCakajucichZakaznikov = 0;
+            _celkovyCasCakaniaRadCakajucichZakaznikov = 0;
+            _dlzkaRaduCakajucichZakaznikov = 0;
+            _poslednyZmenenyCasRadCakajucichZakaznikov = 0;
+        }
+
+
+        private void PridajStatistikuZmenuFrontuZakaznikov()
+        {
+            if (_poslednyPocetCakajucehoZakaznika >= 0)
+                _dlzkaRaduCakajucichZakaznikov += _frontCakajuciZakaznik.Count *
+                                                  (CurrentTime - _poslednyZmenenyCasRadCakajucichZakaznikov);
+            _poslednyPocetCakajucehoZakaznika = _frontCakajuciZakaznik.Count;
+            _poslednyZmenenyCasRadCakajucichZakaznikov = CurrentTime;
+        }
+
+        public void PridajStatistikuCakaniaFrontZakaznikov(double waitingtime)
+        {
+            _pocetZakaznikovVRadeCakajucichZakaznikov++;
+            _celkovyCasCakaniaRadCakajucichZakaznikov += waitingtime;
+            _iteration++;
+            if (_iteration == 10000)
+            {
+                _iteration = 0;
+                PriemernyCasStravenyVRadeCakajucichZakaznikov.AddLast(_celkovyCasCakaniaRadCakajucichZakaznikov /
+                                                                      _pocetZakaznikovVRadeCakajucichZakaznikov);
+                PriemernyPocetCakajucichVRadeCakajucichZakaznikov.AddLast(_dlzkaRaduCakajucichZakaznikov / CurrentTime);
+            }
+        }
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

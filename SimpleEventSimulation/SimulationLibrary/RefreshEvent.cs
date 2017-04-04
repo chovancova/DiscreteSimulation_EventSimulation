@@ -25,8 +25,6 @@ namespace SimulationLibrary
                 try
                 {
                     Thread.Sleep((int) Math.Round(ReferenceSimCore.SleepingTime));
-                    ReferenceSimCore.Gui?.RefreshGui();
-
                 }
                 catch (ThreadInterruptedException ex)
                 {
