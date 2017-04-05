@@ -43,9 +43,6 @@
     <Compile Include="App.cs" />
     <Compile Include="AppCore.cs" />
     <Compile Include="AutoserviceGenerators.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="Entities\PracovnikSkupiny1.cs" />
-    <Compile Include="Entities\PracovnikSkupiny2.cs" />
     <Compile Include="Entities\Zakaznik.cs" />
     <Compile Include="Events\Zaciatok\AutoserviceEvent.cs" />
     <Compile Include="Events\Zaciatok\KoniecDnaEvent.cs" />
@@ -56,12 +53,10 @@
     <Compile Include="Events\Objednavka\PrevzatieAutaOdZakaznikaEvent.cs" />
     <Compile Include="Events\Zaciatok\PrichodZakaznikaEvent.cs" />
     <Compile Include="Events\Objednavka\KoniecSpracovaniaObjednavky.cs" />
-    <Compile Include="Events\UvolniPracovnikaEvent.cs" />
     <Compile Include="Events\Oprava\ZaciatokOpravyEvent.cs" />
     <Compile Include="Events\Objednavka\ZaciatokSpracovaniaObjednavkyEvent.cs" />
     <Compile Include="Events\Zaciatok\ZaciatokReplikacieEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StatisticsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeneralLibrary\GeneralLibrary.csproj">

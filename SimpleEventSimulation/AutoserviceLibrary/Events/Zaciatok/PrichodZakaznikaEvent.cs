@@ -36,11 +36,11 @@ namespace AutoserviceLibrary.Events.Zaciatok
         /// </summary>
         public override void Execute()
         {
-            if(AktualnyZakaznik==null)throw new Exception("NULL zakaznik. ");
+            if (AktualnyZakaznik == null) throw new Exception("NULL zakaznik. ");
 
             AktualnyZakaznik.S1_ZacniCakanie_front_cakajucich_zakaznikov(EventTime);
             AktualnyZakaznik.S3_ZacniCakanie_bytia_v_servise(EventTime);
-            ((AppCore)ReferenceSimCore).S2_AddValue();
+            ((AppCore) ReferenceSimCore).S2_AddValue();
 
             if (((AppCore) ReferenceSimCore).JeVolnyPracovnik1())
             {
@@ -52,11 +52,11 @@ namespace AutoserviceLibrary.Events.Zaciatok
             else
             {
                 //inak vlozim zakaznika do frontu cakajucich zakaznikov
-                ((AppCore)ReferenceSimCore).Front_CakajuciZakaznici_PridajZakaznika(AktualnyZakaznik);
+                ((AppCore) ReferenceSimCore).Front_CakajuciZakaznici_PridajZakaznika(AktualnyZakaznik);
             }
-            
+
             //naplanujem novy prichod zákazníka
-            var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
+            var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
             var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
             ReferenceSimCore.ScheduleEvent(prichod);
         }

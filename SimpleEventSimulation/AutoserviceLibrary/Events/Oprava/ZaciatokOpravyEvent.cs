@@ -5,10 +5,11 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    /// U6 - Začiatok opravy </summary>
+    ///     U6 - Začiatok opravy
+    /// </summary>
     /// Naplánujem: 
-    ///    - Koniec opravy –  Vygenerujem Generátorom 2 počet opráv, ktoré má auto, a pre každú opravu vygenerujem Generátorom 7 – dobu opravy auta v sekundách.Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.Znížim počet voľných pracovníkov o jedna. 
-   internal class ZaciatokOpravyEvent : AutoserviceEvent
+    /// - Koniec opravy –  Vygenerujem Generátorom 2 počet opráv, ktoré má auto, a pre každú opravu vygenerujem Generátorom 7 – dobu opravy auta v sekundách.Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.Znížim počet voľných pracovníkov o jedna.
+    internal class ZaciatokOpravyEvent : AutoserviceEvent
     {
         public ZaciatokOpravyEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik)
             : base(eventTime, simulation, aktualnyZakaznik)
@@ -16,9 +17,10 @@ namespace AutoserviceLibrary.Events
         }
 
         /// <summary>
-        /// U6 - Začiatok opravy </summary>
+        ///     U6 - Začiatok opravy
+        /// </summary>
         /// Naplánujem: 
-        ///    - Koniec opravy –  Vygenerujem Generátorom 2 počet opráv, ktoré má auto, a pre každú opravu vygenerujem Generátorom 7 – dobu opravy auta v sekundách.Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.Znížim počet voľných pracovníkov o jedna. 
+        /// - Koniec opravy –  Vygenerujem Generátorom 2 počet opráv, ktoré má auto, a pre každú opravu vygenerujem Generátorom 7 – dobu opravy auta v sekundách.Súčet počtu opráv s dobami naplánujem udalosť koniec opravy, kde bude auto kompletne opravené.Znížim počet voľných pracovníkov o jedna.
         public override void Execute()
         {
             if (AktualnyZakaznik.Typ != TypZakaznika.PokazeneAuto)

@@ -1,33 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AutoserviceLibrary.Entities
+﻿namespace AutoserviceLibrary.Entities
 {
     public enum TypZakaznika
     {
-        Novy, 
-        Objednavka, 
-        PokazeneAuto, 
-        OpraveneAuto, 
+        Novy,
+        Objednavka,
+        PokazeneAuto,
+        OpraveneAuto,
         Hotovy
     }
+
     public class Zakaznik
     {
-        private double _zaciatokCakaniaFrontCakajucichZakaznikov;
-        private double _zaciatokCakaniaBytiaVServise;
-        private double _zaciatokCakaniaNaOpravu;
+        private double _rozdielCakaniaBytiaVServise;
 
         private double _rozdielCakaniaFrontCakajucichZakaznikov;
-        private double _rozdielCakaniaBytiaVServise;
         private double _rozdielCakaniaNaOpravu;
+        private double _zaciatokCakaniaBytiaVServise;
+        private double _zaciatokCakaniaFrontCakajucichZakaznikov;
+        private double _zaciatokCakaniaNaOpravu;
 
-        public TypZakaznika Typ { get; set;  }
-
-
-       public Zakaznik()
+        public Zakaznik()
         {
             _zaciatokCakaniaFrontCakajucichZakaznikov = -1;
             _zaciatokCakaniaBytiaVServise = -1;
@@ -38,6 +30,8 @@ namespace AutoserviceLibrary.Entities
             _rozdielCakaniaNaOpravu = -1;
             Typ = TypZakaznika.Novy;
         }
+
+        public TypZakaznika Typ { get; set; }
 
         //Statistics
         public void VynulujStatistiky()

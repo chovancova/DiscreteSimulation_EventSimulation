@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoserviceLibrary.Entities;
+﻿using AutoserviceLibrary.Entities;
 using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
-
-    class KoniecOpravyEvent : AutoserviceEvent
+    internal class KoniecOpravyEvent : AutoserviceEvent
 
     {
-        public KoniecOpravyEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
+        public KoniecOpravyEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik)
+            : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
 
         /// <summary>
-        ///U7 - Koniec opravy </summary>
-        ///Naplánujem:
-        ///	- Začiatok opravy - Ak nie je front pokazených prázdny, tak vyberiem pokazené auto, a naplánujem udalosť okamžite.
-        ///	- Uvoľnenie pracovníka – ak je front pokazených áut, tak zvýšim počet voľných pracovníkov.
-        ///	- Preparkovanie auta späť zákazníkovi – ak je voľný pracovník skupiny 1. Vygenerujem čas Generátorom 5 – Preparkovanie auta späť.
-        ///	- Front opravených áut – ak nie je voľný pracovník skupiny 1, tak opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.   
+        ///     U7 - Koniec opravy
+        /// </summary>
+        /// Naplánujem:
+        /// - Začiatok opravy - Ak nie je front pokazených prázdny, tak vyberiem pokazené auto, a naplánujem udalosť okamžite.
+        /// - Uvoľnenie pracovníka – ak je front pokazených áut, tak zvýšim počet voľných pracovníkov.
+        /// - Preparkovanie auta späť zákazníkovi – ak je voľný pracovník skupiny 1. Vygenerujem čas Generátorom 5 – Preparkovanie auta späť.
+        /// - Front opravených áut – ak nie je voľný pracovník skupiny 1, tak opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.
         public override void Execute()
         {
             if (((AppCore) ReferenceSimCore).JeVolnyPracovnik1())
@@ -37,7 +33,7 @@ namespace AutoserviceLibrary.Events
             {
                 AktualnyZakaznik.Typ = TypZakaznika.OpraveneAuto;
                 //vlozim do frontu opravenych aut
-                ((AppCore)ReferenceSimCore).Front_OpraveneAuta_Pridaj(AktualnyZakaznik);
+                ((AppCore) ReferenceSimCore).Front_OpraveneAuta_Pridaj(AktualnyZakaznik);
             }
 
             if (((AppCore) ReferenceSimCore).JeFrontPokazenychAutPrazdny())
@@ -51,7 +47,7 @@ namespace AutoserviceLibrary.Events
             else
             {
                 //uvolni pracovnika sk. 2
-                ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny2();
+                ((AppCore) ReferenceSimCore).UvolniPracovnikaSkupiny2();
             }
         }
     }

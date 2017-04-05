@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoserviceLibrary.Entities;
-using AutoserviceLibrary.Events;
 using AutoserviceLibrary.Events.Zaciatok;
 using SimulationLibrary;
 
@@ -9,11 +8,9 @@ namespace AutoserviceLibrary
 {
     public class AppCore : SimCore
     {
-        public AutoserviceGenerators Gen { get; }
-        public Dictionary<int, double> ResultSkupina1 { get; private set; }
-        public Dictionary<int, double> ResultSkupina2 { get; private set; }
         public const int DlzkaDnaSekundy = 28800;
-       public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2, AutoserviceGenerators gen,
+
+        public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2, AutoserviceGenerators gen,
             ISimulationGui gui) : base(gui)
         {
             Gen = gen;
@@ -26,6 +23,10 @@ namespace AutoserviceLibrary
             ResultSkupina2 = new Dictionary<int, double>();
         }
 
+        public AutoserviceGenerators Gen { get; }
+        public Dictionary<int, double> ResultSkupina1 { get; }
+        public Dictionary<int, double> ResultSkupina2 { get; }
+
         public void NastavKonfiguraciu(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2)
         {
             PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
@@ -34,7 +35,6 @@ namespace AutoserviceLibrary
             PocetPracovnikov2 = PocetVolnychPracovnikov2;
         }
 
-       
         #region OVERRIDE METHODS
 
         protected override void BeforeSimulation()
@@ -70,17 +70,16 @@ namespace AutoserviceLibrary
 
         public override void SimulationEnd()
         {
-           ResultSkupina1.Add(PocetPracovnikov1,SG2_PrimernyPocet());
-           ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise()); 
+            ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
+            ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise());
         }
 
         public override void ScheduleFirstEvent()
         {
-            ScheduleEvent(new ZaciatokReplikacieEvent(0,this,null));
+            ScheduleEvent(new ZaciatokReplikacieEvent(0, this, null));
         }
-        
-        #endregion
 
+        #endregion
 
         #region PRACOVNICI 1 SKUPINA
 
@@ -96,7 +95,7 @@ namespace AutoserviceLibrary
         {
             //if (PocetVolnychPracovnikov1 >= PocetPracovnikov1)
             //        throw new Exception("Exception - pocet pracovnikov je vvacsi");
-                PocetVolnychPracovnikov1++;
+            PocetVolnychPracovnikov1++;
         }
 
         public bool ObsadPracovnikaSkupiny1()
@@ -106,6 +105,7 @@ namespace AutoserviceLibrary
             PocetVolnychPracovnikov1--;
             return true;
         }
+
         private void ResetPracovnikov1()
         {
             PocetVolnychPracovnikov1 = PocetPracovnikov1;
@@ -147,20 +147,22 @@ namespace AutoserviceLibrary
         #endregion
 
         #region QUEUES
+
         public void InitializeQueues()
         {
             _frontCakajuciZakaznik = new Queue<Zakaznik>();
             _frontPokazeneAuto = new Queue<Zakaznik>();
             _frontOpraveneAuto = new Queue<Zakaznik>();
         }
+
         public void ClearQueues()
         {
             _frontCakajuciZakaznik.Clear();
             _frontPokazeneAuto.Clear();
             _frontOpraveneAuto.Clear();
         }
+
         #endregion
-      
 
         #region FRONT CAKAJUCICH ZAKAZNIKOV
 
@@ -467,7 +469,6 @@ namespace AutoserviceLibrary
 
         #endregion
 
-
         #region INTERVAL SPOLAHLIVOSTI
 
         private int _isCount;
@@ -485,17 +486,17 @@ namespace AutoserviceLibrary
 
         public double[] IS_CakanieNaOpravu()
         {
-            var priemer = _isSum / _isCount;
-            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare / _isCount - Math.Pow(_isSum / _isCount, 2));
+            var priemer = _isSum/_isCount;
+            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare/_isCount - Math.Pow(_isSum/_isCount, 2));
 
-            var interval = T90 * smerodajnaOdchylka / Math.Sqrt(_isCount - 1);
+            var interval = T90*smerodajnaOdchylka/Math.Sqrt(_isCount - 1);
 
-            return new[] { priemer - interval, priemer + interval };
+            return new[] {priemer - interval, priemer + interval};
         }
 
         public string IS()
         {
-            double[] a = IS_CakanieNaOpravu();
+            var a = IS_CakanieNaOpravu();
             return "<" + a[0] + ",  " + a[1] + ">";
         }
 
