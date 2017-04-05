@@ -13,11 +13,10 @@ namespace AutoserviceLibrary.Events
     ///Vynuluje sa front čakajúcich zákazníkov. 
     ///Naplánujem: 
     ///-	Koniec dňa – s časom o osem hodín (28 800 sekúnd).
-    ///-	Príchod zákazníka – s vygenerovaním časom z Generátora 1 – Zákazníci príchod.
     ///Štatistiky:
     ///-	S11 – počet zákazníkov v rade na konci dňa.
     /// </summary>
-    public class KoniecDnaEvent : AutoserviceEvent
+    internal class KoniecDnaEvent : AutoserviceEvent
     {
         public KoniecDnaEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
@@ -28,7 +27,6 @@ namespace AutoserviceLibrary.Events
         ///Vynuluje sa front čakajúcich zákazníkov. 
         ///Naplánujem: 
         ///-	Koniec dňa – s časom o osem hodín (28 800 sekúnd).
-        ///-	Príchod zákazníka – s vygenerovaním časom z Generátora 1 – Zákazníci príchod.
         ///Štatistiky:
         ///-	S11 – počet zákazníkov v rade na konci dňa.
         /// </summary>
@@ -36,16 +34,13 @@ namespace AutoserviceLibrary.Events
         {
             if (ReferenceSimCore != null)
             {
-                //pozbieram statistiky
-                //todo ŠTATISTIKY
-                
                 //vynulujem den 
                 ((AppCore) ReferenceSimCore).Front_CakajuciZakaznici_Reset();
 
                 //naplanujem koniec dna 
-                var time = this.EventTime + 8*60*60;
+                var time = this.EventTime + AppCore.DlzkaDnaSekundy;
                 var newEvent = new KoniecDnaEvent(time, ReferenceSimCore, new Zakaznik());
-                ReferenceSimCore.ScheduleEvent(newEvent, time);
+                ReferenceSimCore.ScheduleEvent(newEvent);
             }
         }
     }

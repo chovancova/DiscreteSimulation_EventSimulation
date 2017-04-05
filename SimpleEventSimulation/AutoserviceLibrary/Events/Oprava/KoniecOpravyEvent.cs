@@ -8,12 +8,7 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary.Events
 {
-    /// <summary>
-    ///U9 - Odchod zákazníka
-    ///Uvoľním zákazníka zo systému. 
-    ///Štatistiky: 
-    ///-	S4b - Skončím počítanie času stráveným zákazníkom čakaním na opravu.    
-    /// </summary>
+
     class KoniecOpravyEvent : AutoserviceEvent
 
     {
@@ -22,23 +17,42 @@ namespace AutoserviceLibrary.Events
         }
 
         /// <summary>
-        ///U7 - Koniec opravy
-        ///Opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.   
+        ///U7 - Koniec opravy </summary>
         ///Naplánujem:
-        ///-	Začiatok opravy – naplánujem okamžite. Zvýšim počet voľných pracovníkov o jedna. 
-        ///Štatistiky: 
-        ///-	S10b - Započítam do štatistiky počet voľných pracovníkov skupiny 2. 
-        ///-	S7a, S8a - Začnem počítať čas čakania a počet opravených áut v rade opravených áut. 
-        /// </summary>
+        ///	- Začiatok opravy - Ak nie je front pokazených prázdny, tak vyberiem pokazené auto, a naplánujem udalosť okamžite.
+        ///	- Uvoľnenie pracovníka – ak je front pokazených áut, tak zvýšim počet voľných pracovníkov.
+        ///	- Preparkovanie auta späť zákazníkovi – ak je voľný pracovník skupiny 1. Vygenerujem čas Generátorom 5 – Preparkovanie auta späť.
+        ///	- Front opravených áut – ak nie je voľný pracovník skupiny 1, tak opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.   
         public override void Execute()
         {
-            ((AppCore)ReferenceSimCore).Front_OpraveneAuta_Pridaj(AktualnyZakaznik);
-            
-            //naplanujem zaciatok opravy
-            var zaciatok = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, null);
-            ReferenceSimCore.ScheduleEvent(zaciatok,EventTime);
-            ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny2();
+            if (((AppCore) ReferenceSimCore).JeVolnyPracovnik1())
+            {
+                //preparkujem spat
+                var casPreparkovania = ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
+                var preparkovanieSpat = new PreparkovanieAutaSpatEvent(casPreparkovania, ReferenceSimCore,
+                    AktualnyZakaznik);
+                ((AppCore) ReferenceSimCore).ScheduleEvent(preparkovanieSpat);
+            }
+            else
+            {
+                AktualnyZakaznik.Typ = TypZakaznika.OpraveneAuto;
+                //vlozim do frontu opravenych aut
+                ((AppCore)ReferenceSimCore).Front_OpraveneAuta_Pridaj(AktualnyZakaznik);
+            }
 
+            if (((AppCore) ReferenceSimCore).JeFrontPokazenychAutPrazdny())
+            {
+                //vyberiem auto z frontu 
+                var pokazeneAuto = ((AppCore) ReferenceSimCore).Front_PokazeneAuta_Vyber();
+                //zacnem opravovat dalsie auto
+                var zacniOpravovat = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, pokazeneAuto);
+                ((AppCore) ReferenceSimCore).ScheduleEvent(zacniOpravovat);
+            }
+            else
+            {
+                //uvolni pracovnika sk. 2
+                ((AppCore)ReferenceSimCore).UvolniPracovnikaSkupiny2();
+            }
         }
     }
 }

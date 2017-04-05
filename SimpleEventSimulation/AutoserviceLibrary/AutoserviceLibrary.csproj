@@ -59,6 +59,7 @@
     <Compile Include="Events\UvolniPracovnikaEvent.cs" />
     <Compile Include="Events\Oprava\ZaciatokOpravyEvent.cs" />
     <Compile Include="Events\Objednavka\ZaciatokSpracovaniaObjednavkyEvent.cs" />
+    <Compile Include="Events\Zaciatok\ZaciatokReplikacieEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatisticsService.cs" />
   </ItemGroup>

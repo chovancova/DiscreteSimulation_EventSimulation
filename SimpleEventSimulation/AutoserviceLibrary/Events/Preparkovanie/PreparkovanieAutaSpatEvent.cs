@@ -24,25 +24,15 @@ namespace AutoserviceLibrary.Events
         }
         /// <summary>
         ///U8 - Preparkovanie auta späť zákazníkovi
-        ///Zvýšim počet voľných pracovníkov o jedna. 
         ///Naplánujem: 
-        ///-	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta. 
-        ///-	Začiatok spracovania objednávky – okamžite.
-        ///Štatistiky: 
-        ///-	S9b - Započítam do štatistiky počet voľných pracovníkov skupiny 1. 
+        ///  -	Odchod zákazníka v čase vygenerovanom Generátorom 6 – prevzatie auta. 
         /// </summary>
         public override void Execute()
         {
             //odchod zakaznika
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator6_Prevzatie();
             var odchod = new OdchodZakaznikaEvent(time, ReferenceSimCore, AktualnyZakaznik);
-            ReferenceSimCore.ScheduleEvent(odchod, time);
-
-           
-
-            ////zaciatok spracovania objednavky 
-            //ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(time, ReferenceSimCore, null), time);
-
+            ReferenceSimCore.ScheduleEvent(odchod);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace AutoserviceLibrary.Events
     ///-	Preparkovanie auta pred dielnou s vygenerovaným časom Generátora 5 – preparkovanie.
     ///Štatistiky: 
     ///-	S3b – Skončím počítanie doby stráveného v servise. 
+    ///-	S4a – Začnem merať čas strávený čakaním na opravu. (od ukončenia prevzatia auta do servisu)
     /// </summary>
     class PrevzatieAutaOdZakaznikaEvent : AutoserviceEvent
     {
@@ -26,16 +27,22 @@ namespace AutoserviceLibrary.Events
         ///-	Preparkovanie auta pred dielnou s vygenerovaným časom Generátora 5 – preparkovanie.
         ///Štatistiky: 
         ///-	S3b – Skončím počítanie doby stráveného v servise. 
+        ///-	S4a – Začnem merať čas strávený čakaním na opravu. (od ukončenia prevzatia auta do servisu)
         /// </summary>
         public override void Execute()
         {
-            var cakanie = AktualnyZakaznik.S3_SkonciCakanie_bytia_v_servise(EventTime);
-            ((AppCore)ReferenceSimCore).S3_AddValue(cakanie);
+            if (AktualnyZakaznik == null) throw new Exception("NULL zakaznik. ");
+
+            //statistiky
+            ((AppCore)ReferenceSimCore).S3_AddValue(AktualnyZakaznik.S3_SkonciCakanie_bytia_v_servise(EventTime));
             AktualnyZakaznik.S4_ZacniCakanie_oprava(EventTime);
 
+            if (AktualnyZakaznik.Typ != TypZakaznika.PokazeneAuto) throw new Exception("ZLY TYP zakaznik. ");
+            
+            //naplanujem preparkovanie auta
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
             var preparkovanie = new PreparkovanieAutoEvent(time, ReferenceSimCore, AktualnyZakaznik);
-            ReferenceSimCore.ScheduleEvent(preparkovanie, time);
+            ReferenceSimCore.ScheduleEvent(preparkovanie);
         }
     }
 }

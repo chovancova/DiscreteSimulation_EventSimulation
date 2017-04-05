@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AutoserviceLibrary.Entities;
 using AutoserviceLibrary.Events;
+using AutoserviceLibrary.Events.Zaciatok;
 using SimulationLibrary;
 
 namespace AutoserviceLibrary
@@ -11,6 +12,7 @@ namespace AutoserviceLibrary
         public AutoserviceGenerators Gen { get; }
         public Dictionary<int, double> ResultSkupina1 { get; private set; }
         public Dictionary<int, double> ResultSkupina2 { get; private set; }
+        public const int DlzkaDnaSekundy = 28800;
        public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2, AutoserviceGenerators gen,
             ISimulationGui gui) : base(gui)
         {
@@ -74,14 +76,7 @@ namespace AutoserviceLibrary
 
         public override void ScheduleFirstEvent()
         {
-            //naplanujem prichod zakaznika
-            var time = Gen.Generator1_ZakazniciPrichod();
-            var prichod = new PrichodZakaznikaEvent(time, this, new Zakaznik());
-            ScheduleEvent(prichod, time);
-
-            //3.
-            var a = new KoniecDnaEvent(0, this, new Zakaznik());
-            ScheduleEvent(a, 0);
+            ScheduleEvent(new ZaciatokReplikacieEvent(0,this,null));
         }
         
         #endregion
@@ -194,8 +189,8 @@ namespace AutoserviceLibrary
 
         public void Front_CakajuciZakaznici_Reset()
         {
-            _frontCakajuciZakaznik.Clear();
             S11_AddValue();
+            _frontCakajuciZakaznik.Clear();
         }
 
         #endregion

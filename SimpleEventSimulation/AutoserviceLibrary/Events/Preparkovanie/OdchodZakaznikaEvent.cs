@@ -9,27 +9,31 @@ using SimulationLibrary;
 namespace AutoserviceLibrary.Events
 {
     /// <summary>
-    ///U9 - Odchod zákazníka
-    ///Uvoľním zákazníka zo systému. 
-    ///Štatistiky: 
-    ///-	S4b - Skončím počítanie času stráveným zákazníkom čakaním na opravu.    
-    /// </summary>
+    /// U9 - Odchod zákazníka </summary>
+    /// Uvoľním zákazníka zo systému.
+    /// Naplánujem: 
+    ///   -	Preparkovanie auta pred dielnou – naplánujem okamžite. 
+    /// Štatistiky: 
+    ///   -	S4b - Skončím počítanie času stráveným zákazníkom čakaním na opravu. 
     class OdchodZakaznikaEvent : AutoserviceEvent
     {
         public OdchodZakaznikaEvent(double eventTime, SimCore simulation, Zakaznik aktualnyZakaznik) : base(eventTime, simulation, aktualnyZakaznik)
         {
         }
         /// <summary>
-        /// Odchod zákazníka 
-        /// Nastavím štatistiky: 
-        ///  -	priemerný čas strávený zákazníkom v servise,
-        ///  -	priemerného času stráveného zákazníkom čakaním na opravu(od ukončenia prevzatia auta). 
-        /// </summary>
+        /// U9 - Odchod zákazníka </summary>
+        /// Uvoľním zákazníka zo systému.
+        /// Naplánujem: 
+        ///   -	Preparkovanie auta pred dielnou – naplánujem okamžite. 
+        /// Štatistiky: 
+        ///   -	S4b - Skončím počítanie času stráveným zákazníkom čakaním na opravu.    
         public override void Execute()
         {
             ((AppCore) ReferenceSimCore).S4_AddValue(AktualnyZakaznik.S4_SkonciCakanie_oprava(EventTime));
+            AktualnyZakaznik = null;
 
-            ReferenceSimCore.ScheduleEvent(new UvolniPracovnikaEvent(EventTime, ReferenceSimCore, null), EventTime);
+            var preparkovanie = new PreparkovanieAutoEvent(EventTime, ReferenceSimCore, null);
+            ((AppCore)ReferenceSimCore).ScheduleEvent(preparkovanie);
         }
     }
 }

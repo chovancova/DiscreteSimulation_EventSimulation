@@ -42,11 +42,11 @@ namespace AutoserviceLibrary
 
         public AutoserviceGenerators(int gen1,
             double gen213,
-             double gen223,
-             double gen233,
-             double gen243,
-             double gen253,
-           double gen263,
+            double gen223,
+            double gen233,
+            double gen243,
+            double gen253,
+            double gen263,
             int gen31, int gen32,
             int gen41, int gen42,
             int gen51, int gen52, int gen53,
@@ -191,20 +191,20 @@ namespace AutoserviceLibrary
 
         /// <summary>
         ///     /////////////////////////////////////////////////
-        ///     pravdepodobnosti jednotlivych oprav a ich trvanie
+        ///     pravdepodobnosti jednotlivych oprav a ich trvanie v sekundách
         ///     JEDNODUCHA OPRAVA - 0.7
-        ///     diskretne rovnomerne = Tmin = 2, Tmax = 20
+        ///     diskretne rovnomerne = Tmin = 2 minút, Tmax = 20 minút
         ///     STREDNE TAZKA OPRAVA - 0.2
-        ///     diskretne empiricke
+        ///     diskretne empiricke - v minútach
         ///     T:   10-40       41-61       62-100
         ///     p:   0.1         0.6         0.3
-        ///     ZLOZITA OPRAVA
+        ///     ZLOZITA OPRAVA v minutách
         ///     diskretne rovnomerne Tmin = 120, Tmax = 260
         /// </summary>
         /// <returns></returns>
         public int Generator7_DobaOpravy()
         {
-            return _gen7.GenerateInt();
+            return _gen7.GenerateInt()*60;
         }
     }
 }

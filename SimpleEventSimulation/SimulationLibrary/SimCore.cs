@@ -38,6 +38,13 @@ namespace SimulationLibrary
                 throw new Exception("Scheadule Event is not possible. Current time > time.");
             _timeLine.Enqueue(eSimEvent, time);
         }
+
+        public void ScheduleEvent(SimEvent eSimEvent)
+        {
+            if (CurrentTime > eSimEvent.EventTime)
+                throw new Exception("Scheadule Event is not possible. Current time > time.");
+            _timeLine.Enqueue(eSimEvent, eSimEvent.EventTime);
+        }
         protected abstract void BeforeSimulation();
         public  abstract void BeforeReplication();
         public abstract void AfterReplication();

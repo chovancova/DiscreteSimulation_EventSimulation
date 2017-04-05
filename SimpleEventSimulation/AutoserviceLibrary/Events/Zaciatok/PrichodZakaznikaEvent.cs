@@ -1,13 +1,15 @@
-﻿using AutoserviceLibrary.Entities;
+﻿using System;
+using AutoserviceLibrary.Entities;
+using AutoserviceLibrary.Events.Objednavka;
 using SimulationLibrary;
 
-namespace AutoserviceLibrary.Events
+namespace AutoserviceLibrary.Events.Zaciatok
 {
     /// <summary>
     ///     U1 - Príchod zákazníka
     ///     Naplánujem:
     ///     -	Front čakajúcich zákazníkov - Vložím do frontu čakajúcich zákazníkov  zákazníka s aktuálnym časom príchodu.
-    ///     -	Príchod ďalšieho zákazníka s vygenerovaným časom z Generátora 1.
+    ///     -	Príchod nového zákazníka s vygenerovaným časom z Generátora 1.
     ///     -	Začiatok spracovania objednávky - naplánujem udalosť okamžite, ak je volny pracovnik.
     ///     Štatistiky:
     ///     -	S1a - Začnem merať čas čakania zákazníka v rade čakajúcich zákazníkov na zadanie objednávky.
@@ -26,7 +28,7 @@ namespace AutoserviceLibrary.Events
         ///     Naplánujem:
         ///     -	Začiatok spracovania objednávky - naplánujem udalosť okamžite, ak je volny pracovnik.
         ///     -	Front čakajúcich zákazníkov - Vložím do frontu čakajúcich zákazníkov zákazníka s aktuálnym časom príchodu.
-        ///     -	Príchod ďalšieho zákazníka s vygenerovaným časom z Generátora 1.
+        ///     -	Príchod nového zákazníka s vygenerovaným časom z Generátora 1.
         ///     Štatistiky:
         ///     -	S1a - Začnem merať čas čakania zákazníka v rade čakajúcich zákazníkov na zadanie objednávky.
         ///     -	S2a  – Pripočítam jedného zákazníka v rade čakajúcich zákazníkov.
@@ -34,26 +36,29 @@ namespace AutoserviceLibrary.Events
         /// </summary>
         public override void Execute()
         {
-            
-            var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
-            var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
-            ReferenceSimCore.ScheduleEvent(prichod, time);
+            if(AktualnyZakaznik==null)throw new Exception("NULL zakaznik. ");
+
+            AktualnyZakaznik.S1_ZacniCakanie_front_cakajucich_zakaznikov(EventTime);
+            AktualnyZakaznik.S3_ZacniCakanie_bytia_v_servise(EventTime);
+            ((AppCore)ReferenceSimCore).S2_AddValue();
 
             if (((AppCore) ReferenceSimCore).JeVolnyPracovnik1())
             {
-                AktualnyZakaznik.S3_ZacniCakanie_bytia_v_servise(EventTime);
-
+                //obsad volneho pracovnik
+                ((AppCore) ReferenceSimCore).ObsadPracovnikaSkupiny1();
                 var zadanie = new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik);
-                ReferenceSimCore.ScheduleEvent(zadanie, EventTime);
+                ReferenceSimCore.ScheduleEvent(zadanie);
             }
             else
             {
-                AktualnyZakaznik.S1_ZacniCakanie_front_cakajucich_zakaznikov(EventTime);
-                AktualnyZakaznik.S3_ZacniCakanie_bytia_v_servise(EventTime);
-                ((AppCore) ReferenceSimCore).S2_AddValue();
-                ((AppCore) ReferenceSimCore).Front_CakajuciZakaznici_PridajZakaznika(AktualnyZakaznik);
+                //inak vlozim zakaznika do frontu cakajucich zakaznikov
+                ((AppCore)ReferenceSimCore).Front_CakajuciZakaznici_PridajZakaznika(AktualnyZakaznik);
             }
-                       
+            
+            //naplanujem novy prichod zákazníka
+            var time = EventTime + ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
+            var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
+            ReferenceSimCore.ScheduleEvent(prichod);
         }
     }
 }
