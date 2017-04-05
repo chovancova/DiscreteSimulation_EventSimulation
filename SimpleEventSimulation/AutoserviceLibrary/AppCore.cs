@@ -93,13 +93,16 @@ namespace AutoserviceLibrary
 
         public void UvolniPracovnikaSkupiny1()
         {
-            //if (PocetVolnychPracovnikov1 >= PocetPracovnikov1)
-            //        throw new Exception("Exception - pocet pracovnikov je vvacsi");
+            if (PocetPracovnikov1 < PocetVolnychPracovnikov1)
+                throw new Exception("Exception - pocet pracovnikov je vvacsi");
             PocetVolnychPracovnikov1++;
         }
 
         public bool ObsadPracovnikaSkupiny1()
         {
+            if (PocetPracovnikov1 < PocetVolnychPracovnikov1)
+                throw new Exception("Exception - pocet pracovnikov je vvacsi");
+
             if (PocetVolnychPracovnikov1 == 0)
                 return false;
             PocetVolnychPracovnikov1--;
@@ -125,6 +128,9 @@ namespace AutoserviceLibrary
 
         public bool ObsadPracovnikaSkupiny2()
         {
+            if (  (PocetVolnychPracovnikov2-1)>PocetPracovnikov2)
+                throw new Exception("Exception - pocet pracovnikov je vvacsi");
+
             if (PocetVolnychPracovnikov2 == 0)
                 return false;
             PocetVolnychPracovnikov2--;
@@ -134,8 +140,8 @@ namespace AutoserviceLibrary
 
         public void UvolniPracovnikaSkupiny2()
         {
-            //if (PocetVolnychPracovnikov1 >= PocetPracovnikov1)
-            //    throw new Exception("Exception - pocet pracovnikov je vvacsi");
+            if (PocetPracovnikov2 <= PocetVolnychPracovnikov2 )
+                throw new Exception("Exception - pocet pracovnikov je vvacsi");
             PocetVolnychPracovnikov2++;
         }
 
@@ -180,7 +186,7 @@ namespace AutoserviceLibrary
 
         public Zakaznik Front_CakajuciZakaznici_VyberZakaznika()
         {
-            if (JeFrontZakaznikovPrazdny()) return null;
+            if (_frontCakajuciZakaznik.Count==0) return null;
             return _frontCakajuciZakaznik.Dequeue();
         }
 

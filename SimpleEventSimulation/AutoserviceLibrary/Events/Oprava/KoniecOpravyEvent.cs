@@ -23,8 +23,9 @@ namespace AutoserviceLibrary.Events
         {
             if (((AppCore) ReferenceSimCore).JeVolnyPracovnik1())
             {
+                ((AppCore) ReferenceSimCore).ObsadPracovnikaSkupiny1();
                 //preparkujem spat
-                var casPreparkovania = ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
+                var casPreparkovania =EventTime+ ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
                 var preparkovanieSpat = new PreparkovanieAutaSpatEvent(casPreparkovania, ReferenceSimCore,
                     AktualnyZakaznik);
                 ((AppCore) ReferenceSimCore).ScheduleEvent(preparkovanieSpat);
@@ -36,11 +37,13 @@ namespace AutoserviceLibrary.Events
                 ((AppCore) ReferenceSimCore).Front_OpraveneAuta_Pridaj(AktualnyZakaznik);
             }
 
-            if (((AppCore) ReferenceSimCore).JeFrontPokazenychAutPrazdny())
+
+            //vyberiem auto z frontu 
+            var pokazeneAuto = ((AppCore)ReferenceSimCore).Front_PokazeneAuta_Vyber();
+
+            if (pokazeneAuto!=null)
             {
-                //vyberiem auto z frontu 
-                var pokazeneAuto = ((AppCore) ReferenceSimCore).Front_PokazeneAuta_Vyber();
-                //zacnem opravovat dalsie auto
+                               //zacnem opravovat dalsie auto
                 var zacniOpravovat = new ZaciatokOpravyEvent(EventTime, ReferenceSimCore, pokazeneAuto);
                 ((AppCore) ReferenceSimCore).ScheduleEvent(zacniOpravovat);
             }

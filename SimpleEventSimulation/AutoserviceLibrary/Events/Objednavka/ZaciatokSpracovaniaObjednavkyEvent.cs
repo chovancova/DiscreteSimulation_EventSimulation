@@ -27,11 +27,11 @@ namespace AutoserviceLibrary.Events.Objednavka
         public override void Execute()
         {
             if (AktualnyZakaznik == null) throw new Exception("NULL zakaznik. ");
-
+            
             //naplanujem spracovanie objednavky 
-            var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator3_PrevzatieObjednavky();
-            var spracovanie = new KoniecSpracovaniaObjednavky(time, ReferenceSimCore, AktualnyZakaznik);
-            ReferenceSimCore.ScheduleEvent(spracovanie);
-        }
+                var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator3_PrevzatieObjednavky();
+                var spracovanie = new KoniecSpracovaniaObjednavky(time, ReferenceSimCore, AktualnyZakaznik);
+                ReferenceSimCore.ScheduleEvent(spracovanie);
+           }
     }
 }

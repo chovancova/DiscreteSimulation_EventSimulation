@@ -30,7 +30,7 @@ namespace AutoserviceGui
 
             if (!UltraMode)
             {
-  //tuto vytiahnem vsetky udaje z _app... 
+            //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
             t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + Math.Round(_app.CurrentTime,4).ToString();
             t_l_replikacia.Content = "Replikácia:  "+ _app.ActualReplication;
@@ -65,11 +65,17 @@ namespace AutoserviceGui
                 t_g_s2.Text = Math.Round(_app.SG2_PrimernyPocet(), 4).ToString();
                 t_g_s3.Text = FormatToTime(_app.SG3_PriemernyCasVServise());
                 t_g_s4.Text = FormatToTime(_app.SG4_PriemernyCasOpravy());
+                t_g_s1_Copy.Text = Math.Round(_app.SG1_PriemernyCasCakania(), 4).ToString();
+                t_g_s2_Copy.Text = Math.Round(_app.SG2_PrimernyPocet(), 4).ToString();
+                t_g_s3_Copy.Text = Math.Round(_app.SG3_PriemernyCasVServise(),4).ToString();
+                t_g_s4_Copy.Text = Math.Round(_app.SG4_PriemernyCasOpravy(), 4).ToString();
                 a = _app.IS_CakanieNaOpravu();
                 t_g_is_0.Text = FormatToTime(a[0]);
                 t_g_is_1.Text = FormatToTime(a[1]);
-                t_g_is_2.Text = (a[0]).ToString();
-                t_g_is_3.Text = (a[1]).ToString();
+                t_g_is_2.Text = Math.Round((a[0]), 4).ToString();
+                t_g_is_3.Text = Math.Round((a[1]), 4).ToString();
+      
+   
                 // t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
             }
         }
@@ -196,13 +202,14 @@ namespace AutoserviceGui
 
         private void _initializeApp()
         {
-            AutoserviceGenerators generators = _initializeGenerators();
+            //AutoserviceGenerators generators = _initializeGenerators();
+
             int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text)*8*60*60;
             int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
             double maxSimulationTime = dlzkaReplikacie*pocetReplikacii;
 
             _app = new AppCore(int.Parse(t_pocetPracovnikov1.Text),
-                int.Parse(t_pocetPracovnikov2.Text), generators, this);
+                int.Parse(t_pocetPracovnikov2.Text), new AutoserviceGenerators(), this);
         }
 
         
@@ -213,7 +220,7 @@ namespace AutoserviceGui
             // _app.UltraSimulation();
             UltraMode = true;
             _app.Refresh = false;
-            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * 8 * 60 * 60;
+            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text)*AppCore.DlzkaDnaSekundy;
             int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
             _app.Simulate(pocetReplikacii, dlzkaReplikacie);
         }

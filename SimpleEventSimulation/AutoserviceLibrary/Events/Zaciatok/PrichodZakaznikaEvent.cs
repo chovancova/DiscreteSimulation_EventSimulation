@@ -46,6 +46,7 @@ namespace AutoserviceLibrary.Events.Zaciatok
             {
                 //obsad volneho pracovnik
                 ((AppCore) ReferenceSimCore).ObsadPracovnikaSkupiny1();
+
                 var zadanie = new ZaciatokSpracovaniaObjednavkyEvent(EventTime, ReferenceSimCore, AktualnyZakaznik);
                 ReferenceSimCore.ScheduleEvent(zadanie);
             }
@@ -56,7 +57,8 @@ namespace AutoserviceLibrary.Events.Zaciatok
             }
 
             //naplanujem novy prichod zákazníka
-            var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
+            var a = ((AppCore)ReferenceSimCore).Gen.Generator1_ZakazniciPrichod();
+            var time = EventTime + a;
             var prichod = new PrichodZakaznikaEvent(time, ReferenceSimCore, new Zakaznik());
             ReferenceSimCore.ScheduleEvent(prichod);
         }
