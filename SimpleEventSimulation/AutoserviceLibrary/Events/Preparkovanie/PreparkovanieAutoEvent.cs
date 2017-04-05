@@ -49,7 +49,6 @@ namespace AutoserviceLibrary.Events
         public override void Execute()
         {
             //vlozim auto do frontu
-            AktualnyZakaznik.S4_ZacniCakanie_oprava(EventTime);
 
             ((AppCore)ReferenceSimCore).Front_PokazeneAuta_Pridaj(AktualnyZakaznik);
             //zaciatok opravy 
@@ -73,7 +72,8 @@ namespace AutoserviceLibrary.Events
             else
             {
                 ReferenceSimCore.ScheduleEvent(new UvolniPracovnikaEvent(time, ReferenceSimCore, null), time);
-             }
+
+            }
         }
     }
 }

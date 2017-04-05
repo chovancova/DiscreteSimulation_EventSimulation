@@ -31,6 +31,7 @@ namespace AutoserviceLibrary.Events
         {
             var cakanie = AktualnyZakaznik.S3_SkonciCakanie_bytia_v_servise(EventTime);
             ((AppCore)ReferenceSimCore).S3_AddValue(cakanie);
+            AktualnyZakaznik.S4_ZacniCakanie_oprava(EventTime);
 
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
             var preparkovanie = new PreparkovanieAutoEvent(time, ReferenceSimCore, AktualnyZakaznik);

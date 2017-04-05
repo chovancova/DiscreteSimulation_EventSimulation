@@ -38,7 +38,7 @@ namespace AutoserviceLibrary.Events
             var odchod = new OdchodZakaznikaEvent(time, ReferenceSimCore, AktualnyZakaznik);
             ReferenceSimCore.ScheduleEvent(odchod, time);
 
-            ReferenceSimCore.ScheduleEvent(new UvolniPracovnikaEvent(EventTime, ReferenceSimCore, null), EventTime);
+           
 
             ////zaciatok spracovania objednavky 
             //ReferenceSimCore.ScheduleEvent(new ZaciatokSpracovaniaObjednavkyEvent(time, ReferenceSimCore, null), time);

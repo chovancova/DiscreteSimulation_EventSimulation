@@ -28,6 +28,8 @@ namespace AutoserviceLibrary.Events
         public override void Execute()
         {
             ((AppCore) ReferenceSimCore).S4_AddValue(AktualnyZakaznik.S4_SkonciCakanie_oprava(EventTime));
+
+            ReferenceSimCore.ScheduleEvent(new UvolniPracovnikaEvent(EventTime, ReferenceSimCore, null), EventTime);
         }
     }
 }

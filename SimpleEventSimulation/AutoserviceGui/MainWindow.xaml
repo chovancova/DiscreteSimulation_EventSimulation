@@ -506,7 +506,25 @@
                         <RowDefinition Height="125*"/>
                         <RowDefinition Height="231*"/>
                     </Grid.RowDefinitions>
-                    <Grid Margin="25,0,22,3.808" Background="#FFFFF9EE" Grid.Row="4">
+                    <Grid Margin="25,4,20,2" Background="#FFDBF4FF" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="28*"/>
+                            <RowDefinition Height="8*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="88*"/>
+                            <ColumnDefinition Width="164*"/>
+                            <ColumnDefinition Width="16*"/>
+                            <ColumnDefinition Width="224*"/>
+                            <ColumnDefinition Width="133*"/>
+                            <ColumnDefinition Width="168*"/>
+                            <ColumnDefinition Width="66*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="label18_Copy2" Content="Replikácia" HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.053,0.239" FontSize="14" Grid.Column="5" Grid.RowSpan="2"/>
+                        <TextBox x:Name="t_s_repl" HorizontalAlignment="Left" Height="23" Margin="93,1.922,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="67" IsReadOnly="True" FontSize="14" Grid.Column="5" Grid.Row="1"/>
+                    </Grid>
+                    <Grid Margin="25,60,22,175" Background="#FFFFF9EE" Grid.Row="4" Grid.RowSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="5*"/>
                             <RowDefinition Height="30*"/>
@@ -522,18 +540,18 @@
                         <Label x:Name="label8" Content="Priemerný čas strávený zákazníkov v servise" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="2" Grid.RowSpan="2" Height="29" Width="278"/>
                         <Label x:Name="label9" Content="Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Width="470"/>
                         <Label x:Name="label19_Copy3" Content="Priemerný počet zákazníkov v rade čakajúcich zákazníkov" HorizontalAlignment="Left" Margin="0,21,0,0" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Grid.Row="1" Height="29" Width="362"/>
-                        <TextBox x:Name="t_g_s1" HorizontalAlignment="Left" Height="23" Margin="3,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.RowSpan="2" Grid.Column="1"/>
-                        <TextBox x:Name="t_g_s2" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="2" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s1" HorizontalAlignment="Left" Height="23" Margin="3,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" FontSize="14" Text="0" Grid.RowSpan="2" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s2" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" FontSize="14" Text="0" Grid.Row="2" Grid.Column="1"/>
                         <Label x:Name="label11" Content="Priemerný čas strávený zákazníkov čakaním na opravu" HorizontalAlignment="Left" Margin="0,27,0,0" VerticalAlignment="Top" FontSize="14" Grid.Row="3" Grid.RowSpan="2" Height="29" Width="342"/>
-                        <TextBox x:Name="t_g_s4" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="4" Grid.Column="1"/>
-                        <TextBox x:Name="t_g_s3" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0" Grid.Row="3" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s4" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" FontSize="14" Text="0" Grid.Row="4" Grid.Column="1"/>
+                        <TextBox x:Name="t_g_s3" HorizontalAlignment="Left" Height="23" Margin="3,2,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" FontSize="14" Text="0" Grid.Row="3" Grid.Column="1"/>
                     </Grid>
                     <Grid Margin="25,2,22,5" Background="#FFFFEEEE" Grid.Row="3">
                         <Label x:Name="label30" Content="90 % Interval spoľahlivosti - času stráveného zákazníkom čakaním na opravu &lt; " HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <TextBox x:Name="t_g_is_1" HorizontalAlignment="Left" Height="23" Margin="595,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
-                        <TextBox x:Name="t_g_is_0" HorizontalAlignment="Left" Height="23" Margin="494,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74" FontSize="14" Text="0"/>
-                        <Label x:Name="label31" Content="," HorizontalAlignment="Left" Margin="573,0,0,0" VerticalAlignment="Top"/>
-                        <Label x:Name="label36_Copy1" Content="&gt;" HorizontalAlignment="Left" Margin="669,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox x:Name="t_g_is_1" HorizontalAlignment="Left" Height="23" Margin="635,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" FontSize="14" Text="0"/>
+                        <TextBox x:Name="t_g_is_0" HorizontalAlignment="Left" Height="23" Margin="494,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontSize="14" Text="0"/>
+                        <Label x:Name="label31" Content="," HorizontalAlignment="Left" Margin="617,0,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label36_Copy1" Content="&gt;" HorizontalAlignment="Left" Margin="738,0,0,0" VerticalAlignment="Top"/>
                     </Grid>
                     <Grid Margin="25,3,20,3" Background="WhiteSmoke" Grid.Row="2">
                         <Grid.RowDefinitions>
@@ -551,6 +569,13 @@
                         <Button x:Name="button_Copy1" Content="Pause" Margin="9,8,10,9" Background="#FFFFE7D3" Grid.Column="1" Grid.Row="1"/>
                         <Button x:Name="button_Copy5" Content="Continue" Margin="0,8,10,8" Background="#FFD9FFD3" Grid.Column="2" Grid.Row="1"/>
                         <Button x:Name="button_Copy6" Content="Stop" Margin="7,6,10,12" Background="#FFFFD3D3" Grid.Column="3" Grid.Row="1"/>
+                    </Grid>
+                    <Grid Margin="27,10,20,80" Background="#FFFFEEEE" Grid.Row="4">
+                        <Label x:Name="label1" Content="90 % Interval spoľahlivosti - času stráveného zákazníkom čakaním na opravu &lt; " HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <TextBox x:Name="t_g_is_2" HorizontalAlignment="Left" Height="23" Margin="635,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" FontSize="14" Text="0"/>
+                        <TextBox x:Name="t_g_is_3" HorizontalAlignment="Left" Height="23" Margin="494,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontSize="14" Text="0"/>
+                        <Label x:Name="label2" Content="," HorizontalAlignment="Left" Margin="617,0,0,0" VerticalAlignment="Top"/>
+                        <Label x:Name="label36_Copy2" Content="&gt;" HorizontalAlignment="Left" Margin="738,0,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </Grid>
             </TabItem>

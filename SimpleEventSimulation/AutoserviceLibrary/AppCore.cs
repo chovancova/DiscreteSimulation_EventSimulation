@@ -99,7 +99,9 @@ namespace AutoserviceLibrary
 
         public void UvolniPracovnikaSkupiny1()
         {
-            PocetVolnychPracovnikov1++;
+            //if (PocetVolnychPracovnikov1 >= PocetPracovnikov1)
+            //        throw new Exception("Exception - pocet pracovnikov je vvacsi");
+                PocetVolnychPracovnikov1++;
         }
 
         public bool ObsadPracovnikaSkupiny1()
@@ -137,6 +139,8 @@ namespace AutoserviceLibrary
 
         public void UvolniPracovnikaSkupiny2()
         {
+            //if (PocetVolnychPracovnikov1 >= PocetPracovnikov1)
+            //    throw new Exception("Exception - pocet pracovnikov je vvacsi");
             PocetVolnychPracovnikov2++;
         }
 

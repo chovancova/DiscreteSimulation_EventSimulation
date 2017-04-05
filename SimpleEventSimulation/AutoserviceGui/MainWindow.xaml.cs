@@ -26,7 +26,11 @@ namespace AutoserviceGui
         public void RefreshGui()
         {
             RefreshWindowDispatcher();
-            //tuto vytiahnem vsetky udaje z _app... 
+          
+
+            if (!UltraMode)
+            {
+  //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
             t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + Math.Round(_app.CurrentTime,4).ToString();
             t_l_replikacia.Content = "Replikácia:  "+ _app.ActualReplication;
@@ -34,11 +38,7 @@ namespace AutoserviceGui
             TimeSpan ts2 = TimeSpan.FromSeconds((_app.CurrentTime));
             string format = string.Format("{0} d {1} h {2}m {3}s",ts.Days, (int) (ts.Hours/3+7), ts2.Minutes, ts2.Seconds);
             t_l_aktualny_cas.Content = "Aktuálny čas:  " + format;
-
-
-            if (!UltraMode)
-            {
-                  t_s_pocet_cakajucich_na_vybavenie.Text = _app.PocetCakajucichZakaznikov().ToString();
+            t_s_pocet_cakajucich_na_vybavenie.Text = _app.PocetCakajucichZakaznikov().ToString();
             t_s_pocet_v_p1.Text = _app.PocetVolnychPracovnikov1.ToString();
             t_s_pocet_v_p2.Text = _app.PocetVolnychPracovnikov2.ToString();
             t_s_pocet_opravenych_.Text = _app.PocetOpravenychAut().ToString();
@@ -60,6 +60,7 @@ namespace AutoserviceGui
 
             if (UltraMode)
             {
+                t_s_repl.Text = _app.ActualReplication.ToString();
                 t_g_s1.Text = FormatToTime(_app.SG1_PriemernyCasCakania());
                 t_g_s2.Text = Math.Round(_app.SG2_PrimernyPocet(), 4).ToString();
                 t_g_s3.Text = FormatToTime(_app.SG3_PriemernyCasVServise());
@@ -67,6 +68,8 @@ namespace AutoserviceGui
                 a = _app.IS_CakanieNaOpravu();
                 t_g_is_0.Text = FormatToTime(a[0]);
                 t_g_is_1.Text = FormatToTime(a[1]);
+                t_g_is_2.Text = (a[0]).ToString();
+                t_g_is_3.Text = (a[1]).ToString();
                 // t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
             }
         }
