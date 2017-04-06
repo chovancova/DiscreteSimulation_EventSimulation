@@ -62,6 +62,7 @@ namespace AutoserviceLibrary
             InitializeQueues();
             ResetGlobalStatistics();
             IS_Reset();
+            IS_CakanieZadanieObjednavky_Reset();
             S1_Reset();
             S2_Reset();
             S3_Reset();
@@ -93,6 +94,7 @@ namespace AutoserviceLibrary
 
         public override void SimulationEnd()
         {
+            Gui.RefreshGui();
             //ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
             //ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise());
         }
@@ -189,6 +191,11 @@ namespace AutoserviceLibrary
             _frontCakajuciZakaznik.Clear();
             _frontPokazeneAuto.Clear();
             _frontOpraveneAuto.Clear();
+            CelkovyPocetOpravenychAut = 0;
+            CelkovyPocetPokazenychAut = 0;
+            CelkovyPocetZakaznikov = 0; 
+            Front_CakajuciZakaznici_NaKonciDna = 0;
+            Front_CakajuciZakaznici_CelkovyNaKonciDna = 0;
         }
 
         #endregion
@@ -216,13 +223,21 @@ namespace AutoserviceLibrary
         public void Front_CakajuciZakaznici_PridajZakaznika(Zakaznik zakaznik)
         {
             _frontCakajuciZakaznik.Enqueue(zakaznik);
+            CelkovyPocetZakaznikov++;
         }
+
+        public int Front_CakajuciZakaznici_NaKonciDna { get; private set; }
+        public int Front_CakajuciZakaznici_CelkovyNaKonciDna { get; private set; }
 
         public void Front_CakajuciZakaznici_Reset()
         {
+            Front_CakajuciZakaznici_NaKonciDna = PocetCakajucichZakaznikov();
+            Front_CakajuciZakaznici_CelkovyNaKonciDna += PocetCakajucichZakaznikov();
             S11_AddValue();
             _frontCakajuciZakaznik.Clear();
         }
+        public int CelkovyPocetZakaznikov { get; private set; }
+
 
         #endregion
 
@@ -243,6 +258,7 @@ namespace AutoserviceLibrary
         public void Front_PokazeneAuta_Pridaj(Zakaznik zakaznik)
         {
             _frontPokazeneAuto.Enqueue(zakaznik);
+            CelkovyPocetPokazenychAut++;
         }
 
         public Zakaznik Front_PokazeneAuta_Vyber()
@@ -250,6 +266,8 @@ namespace AutoserviceLibrary
             if (_frontPokazeneAuto.Count == 0) return null;
             return _frontPokazeneAuto.Dequeue();
         }
+        public int CelkovyPocetPokazenychAut { get; private set; }
+
 
         #endregion
 
@@ -270,26 +288,30 @@ namespace AutoserviceLibrary
         public void Front_OpraveneAuta_Pridaj(Zakaznik zakaznik)
         {
             _frontOpraveneAuto.Enqueue(zakaznik);
+            CelkovyPocetOpravenychAut++;
         }
 
         public Zakaznik Front_OpraveneAuta_Vyber()
         {
             if (_frontOpraveneAuto.Count == 0)
                 return null;
+
             return _frontOpraveneAuto.Dequeue();
         }
+
+        public int CelkovyPocetOpravenychAut { get; set;}
 
         #endregion
 
         #region S1 – Priemerný čas čakania zákazníka
 
         //S1 – Priemerný čas čakania zákazníka v rade čakajúcich zákazníkov na zadanie objednávky..
-        private int _S1_pocet_zakaznikov;
+        public int S1PocetZakaznikov { get; private set; }
         private double _S1_celkovy_cas_cakania;
-
+        
         public void S1_AddValue(double time)
         {
-            _S1_pocet_zakaznikov++;
+            S1PocetZakaznikov++;
             _S1_celkovy_cas_cakania += time;
         }
 
@@ -299,14 +321,15 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public double S1_PriemernyCasCakania()
         {
-            return _S1_pocet_zakaznikov != 0 ? _S1_celkovy_cas_cakania/_S1_pocet_zakaznikov : 0.0;
+            return S1PocetZakaznikov != 0 ? _S1_celkovy_cas_cakania/S1PocetZakaznikov : 0.0;
         }
 
         private void S1_Reset()
         {
-            _S1_pocet_zakaznikov = 0;
+            S1PocetZakaznikov = 0;
             _S1_celkovy_cas_cakania = 0.0;
         }
+        
 
         #endregion
 
@@ -372,7 +395,7 @@ namespace AutoserviceLibrary
             _S3_pocet_zakaznikov = 0;
             _S3_celkovy_cas_cakania = 0.0;
         }
-
+        
         #endregion
 
         #region S4 – Priemerný čas strávený zákazníkom čakaním na opravu.
@@ -406,7 +429,7 @@ namespace AutoserviceLibrary
 
         #endregion
 
-        #region S11 – Priemerný počet zákazníkov
+        #region S11 – Priemerný počet zákazníkov  na konci dna
 
         //S11 – Priemerný počet zákazníkov v rade čakajúcich zákazníkov na konci dna. (vážený)
         private int _S11_posledny;
@@ -439,7 +462,7 @@ namespace AutoserviceLibrary
         {
             return _S11_dlzka_frontu/CurrentTime;
         }
-
+       
         #endregion
 
         #region GLOBALNE STATISTIKY
@@ -547,32 +570,32 @@ namespace AutoserviceLibrary
 
         private void IS_AddValue2(double value)
         {
-            _isCount++;
-            _isSum = value;
-            _isSumSquare += Math.Pow(value, 2);
+            _isCount2++;
+            _isSum2 = value;
+            _isSumSquare2 += Math.Pow(value, 2);
         }
 
         public double[] IS_CakanieZadanieObjednavky()
         {
-            var priemer = _isSum / _isCount;
-            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare / _isCount - Math.Pow(_isSum / _isCount, 2));
+            var priemer = _isSum2 / _isCount2;
+            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare / _isCount2 - Math.Pow(_isSum2 / _isCount2, 2));
 
-            var interval = T90 * smerodajnaOdchylka / Math.Sqrt(_isCount - 1);
+            var interval = T90 * smerodajnaOdchylka / Math.Sqrt(_isCount2 - 1);
 
             return new[] { priemer - interval, priemer + interval };
         }
 
         public string IS_CakanieZadanieObjednavkyString()
         {
-            var a = IS_CakanieNaOpravu();
+            var a = IS_CakanieZadanieObjednavky();
             return "<" + a[0] + ",  " + a[1] + ">";
         }
 
         private void IS_CakanieZadanieObjednavky_Reset()
         {
-            _isCount = 0;
-            _isSumSquare = 0;
-            _isSum = 0;
+            _isCount2 = 0;
+            _isSumSquare2 = 0;
+            _isSum2 = 0;
         }
 
         #endregion

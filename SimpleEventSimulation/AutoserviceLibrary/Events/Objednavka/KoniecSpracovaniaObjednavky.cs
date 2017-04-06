@@ -33,9 +33,7 @@ namespace AutoserviceLibrary.Events
         {
             if (AktualnyZakaznik == null) throw new Exception("NULL zakaznik. ");
 
-            ((AppCore) ReferenceSimCore).S2_AddValue();
-            ((AppCore) ReferenceSimCore).S1_AddValue(
-                AktualnyZakaznik.S1_SkonciCakanie_front_cakajucich_zakaznikov(EventTime));
+        
 
             //naplanujem prevzatie auta 
             var timePrevzatia = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator4_PrevzatieAuta();

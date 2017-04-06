@@ -64,6 +64,7 @@ namespace AutoserviceLibrary.Events
             }
             else
             {
+                ((AppCore)ReferenceSimCore).S2_AddValue();
                 var cakajuciZakaznik = ((AppCore) ReferenceSimCore).Front_CakajuciZakaznici_VyberZakaznika();
 
                 //NEPRIORITNE

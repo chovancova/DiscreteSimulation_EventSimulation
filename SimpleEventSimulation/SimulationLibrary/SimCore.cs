@@ -80,7 +80,7 @@ namespace SimulationLibrary
             SimEvent temp;
             ScheduleFirstEvent();
             if(Refresh) ScheduleRefreshEvent();
-            while (_timeLine.Count > 0 && CurrentTime < lenghtReplication)
+            while (_timeLine.Count > 0 && CurrentTime <= lenghtReplication)
             {
                 temp = _timeLine.Dequeue();
                 CurrentTime = temp.EventTime;

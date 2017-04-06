@@ -21,6 +21,8 @@ namespace AutoserviceLibrary.Events
         /// - Front opravených áut – ak nie je voľný pracovník skupiny 1, tak opravené auto vložím do frontu opravených áut, kde to auto bude čakať na vyzdvihnutie pracovníkom skupiny 1.
         public override void Execute()
         {
+            ((AppCore)ReferenceSimCore).CelkovyPocetOpravenychAut++;
+
             if (((AppCore) ReferenceSimCore).JeVolnyPracovnik1())
             {
                 ((AppCore) ReferenceSimCore).ObsadPracovnikaSkupiny1();

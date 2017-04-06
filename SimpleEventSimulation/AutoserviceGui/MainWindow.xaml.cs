@@ -32,7 +32,7 @@ namespace AutoserviceGui
             {
             //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
-            t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + Math.Round(_app.CurrentTime,4).ToString();
+            t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + Math.Round(_app.CurrentTime,1).ToString();
             //t_l_replikacia.Content = "Replikácia:  "+ _app.ActualReplication;
             TimeSpan ts = TimeSpan.FromSeconds((_app.CurrentTime*3));
             TimeSpan ts2 = TimeSpan.FromSeconds((_app.CurrentTime));
@@ -44,39 +44,60 @@ namespace AutoserviceGui
             t_s_pocet_opravenych_.Text = _app.PocetOpravenychAut().ToString();
             t_s_pocet_pokazenych_aut.Text = _app.PocetPokazenychAut().ToString();
 
-            t_s_s1.Text = FormatToTime(_app.S1_PriemernyCasCakania());
-            t_s_s2.Text = Math.Round(_app.S2_PrimernyPocet(),4).ToString();
-            t_s_s3.Text = FormatToTime(_app.S3_PriemernyCasVServise());
-            t_s_s4.Text = FormatToTime(_app.S4_PriemernyCasOpravy());
-            t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
+            //t_s_s1.Text = FormatToTime(_app.S1_PriemernyCasCakania());
+            //t_s_s2.Text = Math.Round(_app.S2_PrimernyPocet(),4).ToString();
+            //t_s_s3.Text = FormatToTime(_app.S3_PriemernyCasVServise());
+            //t_s_s4.Text = FormatToTime(_app.S4_PriemernyCasOpravy());
+            //t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
 
-            t_s_s1_Copy.Text = Math.Round(_app.S1_PriemernyCasCakania(), 4).ToString();
-            t_s_s2_Copy.Text = Math.Round(_app.S2_PrimernyPocet(), 4).ToString();
-            t_s_s3_Copy.Text = Math.Round(_app.S3_PriemernyCasVServise(), 4).ToString(); ;
-            t_s_s4_Copy.Text = Math.Round(_app.S4_PriemernyCasOpravy(), 4).ToString();
-            t_s_s11_Copy.Text = Math.Round(_app.S11_PrimernyPocet(), 4).ToString();
+                t_s_pocet_zakaznikov_v_rade.Text =""+ _app.CelkovyPocetZakaznikov;
+                t_s_pocet_pokazenych_v_rade.Text = "" + _app.CelkovyPocetPokazenychAut;
+                t_s_pocet_opravenych_v_rade.Text = "" + _app.CelkovyPocetOpravenychAut;
+                t_s_pocet_zakaznikov_na_konci.Text = "" + _app.Front_CakajuciZakaznici_NaKonciDna;
+                t_s_pocet_celkovy_na_konci_dna.Text = "" + _app.Front_CakajuciZakaznici_CelkovyNaKonciDna;
+                t_s_pocet_zak_v_rade_cakajucich.Text = "" + _app.S1PocetZakaznikov;
+                //t_s_s1_Copy.Text = Math.Round(_app.S1_PriemernyCasCakania(), 4).ToString();
+                //t_s_s2_Copy.Text = Math.Round(_app.S2_PrimernyPocet(), 4).ToString();
+                //t_s_s3_Copy.Text = Math.Round(_app.S3_PriemernyCasVServise(), 4).ToString(); ;
+                //t_s_s4_Copy.Text = Math.Round(_app.S4_PriemernyCasOpravy(), 4).ToString();
+                //t_s_s11_Copy.Text = Math.Round(_app.S11_PrimernyPocet(), 4).ToString();
             }
           
 
             if (UltraMode)
             {
-                t_s_repl.Text = _app.ActualReplication.ToString();
-                t_g_s1.Text = FormatToTime(_app.SG1_PriemernyCasCakania());
-                t_g_s2.Text = Math.Round(_app.SG2_PrimernyPocet(), 4).ToString();
-                t_g_s3.Text = FormatToTime(_app.SG3_PriemernyCasVServise());
-                t_g_s4.Text = FormatToTime(_app.SG4_PriemernyCasOpravy());
-                t_g_s1_Copy.Text = Math.Round(_app.SG1_PriemernyCasCakania(), 4).ToString();
-                t_g_s2_Copy.Text = Math.Round(_app.SG2_PrimernyPocet(), 4).ToString();
-                t_g_s3_Copy.Text = Math.Round(_app.SG3_PriemernyCasVServise(),4).ToString();
-                t_g_s4_Copy.Text = Math.Round(_app.SG4_PriemernyCasOpravy(), 4).ToString();
-                a = _app.IS_CakanieNaOpravu();
-                //t_g_is_0.Text = FormatToTime(a[0]);
-                //t_g_is_1.Text = FormatToTime(a[1]);
-                //t_g_is_2.Text = Math.Round((a[0]), 4).ToString();
-                //t_g_is_3.Text = Math.Round((a[1]), 4).ToString();
-      
-   
-                // t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
+                double[] is1= _app.IS_CakanieZadanieObjednavky();
+                t_u_is_cas_zadania_objednavky.Content = "90 % Interval spoľahlivosti - čas zadania objednávky je < "+
+                     Math.Round(is1[0], 4) +", "+ Math.Round(is1[0], 4)+">,    alebo <"
+                    + FormatToTime(Math.Round(is1[0], 4))  + ", "+ FormatToTime(Math.Round(is1[1], 4));
+
+                double[] is2 = _app.IS_CakanieNaOpravu();
+                t_s_is_oprava.Content = "90 % Interval spoľahlivosti - čas čakania na opravu je < "+
+                      Math.Round(is2[0], 4) + "  ,  " + Math.Round(is2[0], 4) + " >,    alebo <"
+                    + FormatToTime(Math.Round(is2[0], 4)) + ", " + FormatToTime(Math.Round(is2[1], 4));
+
+                t_s_repl.Text = ""+ _app.ActualReplication;
+
+                t_u_pr_servise.Content = "Priemerný čas strávený zákazníkov v servise je " +
+                                         FormatToTime(_app.SG3_PriemernyCasVServise()) + ", alebo " +
+                                         Math.Round(_app.SG3_PriemernyCasVServise(), 4) + " sekúnd. ";
+
+                t_u_pr_cakanie_zakaznik.Content = "Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky je "
+                    + FormatToTime(_app.SG1_PriemernyCasCakania()) + ", alebo " +
+                     Math.Round(_app.SG1_PriemernyCasCakania(), 4)
+                    + " sekúnd. ";
+
+                t_u_pr_pocet_v_rade.Content = "Priemerný počet zákazníkov v rade čakajúcich zákazníkov je "
+                                              + Math.Round(_app.SG2_PrimernyPocet(), 4);
+
+                t_u_pr_pocet_v_rade_na_konci_dna.Content =
+                    "Priemerný počet zákazníkov v rade čakajúcich zákazníkov na konci dňa je " +
+                    Math.Round(_app.SG11_PrimernyPocetNaKonciDna(), 4);
+
+                t_u_pr_na_opravu.Content = "Priemerný čas strávený zákazníkov čakaním na opravu je " +
+                                           FormatToTime(_app.SG4_PriemernyCasOpravy()) + ", alebo " +
+                                           Math.Round(_app.SG4_PriemernyCasOpravy(), 4)
+                                           + " sekúnd. ";
             }
         }
 
@@ -215,7 +236,7 @@ namespace AutoserviceGui
 
         public void RunUltraMode()
         {
-            if(_app==null) _initializeApp();
+           _initializeApp();
 
             UltraMode = true; //gui - what to render
 
@@ -229,7 +250,7 @@ namespace AutoserviceGui
 
         public void RunNormalMode()
         {
-            if (_app == null) _initializeApp();
+            _initializeApp();
 
             _app.RefreshRate = int.Parse(t_refreshRAte.Text);
             _app.SleepingTime = int.Parse(t_sleepMs.Text);
@@ -240,7 +261,7 @@ namespace AutoserviceGui
             int pocetPR1 = int.Parse(t_pocetPracovnikov1_normal.Text);
             int pocetPR2 = int.Parse(t_pocetPracovnikov2_normal.Text);
 
-            _app.NormalModeSimulation(pocetReplikacii, dlzkaReplikacie, pocetPR1, pocetPR2);
+            _app.NormalModeSimulation(1, dlzkaReplikacie, pocetPR1, pocetPR2);
 
         }
 
@@ -257,7 +278,7 @@ namespace AutoserviceGui
 
             b_runSimulation.IsEnabled = false;
             b_continue1.IsEnabled = false;
-
+            b_runSimulation_Copy.IsEnabled = false;
 
         }
 
@@ -273,7 +294,7 @@ namespace AutoserviceGui
         private void button_Copy4_Click(object sender, RoutedEventArgs e)
         {
             _app.Stopped = true;
-            
+            b_runSimulation_Copy.IsEnabled = true;
         }
 
         private void b_pause1_Click(object sender, RoutedEventArgs e)
@@ -342,7 +363,8 @@ namespace AutoserviceGui
         {
             _app.Stopped = true; 
             button_Copy6.IsEnabled = false;
-            button_Copy.IsEnabled = true; 
+            button_Copy.IsEnabled = true;
+            button.IsEnabled = true;
         }
     }
 }

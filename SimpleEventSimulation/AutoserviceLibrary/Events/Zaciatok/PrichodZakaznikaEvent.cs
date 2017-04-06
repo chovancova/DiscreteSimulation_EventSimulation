@@ -52,6 +52,8 @@ namespace AutoserviceLibrary.Events.Zaciatok
             }
             else
             {
+                ((AppCore)ReferenceSimCore).S2_AddValue();
+
                 //inak vlozim zakaznika do frontu cakajucich zakaznikov
                 ((AppCore) ReferenceSimCore).Front_CakajuciZakaznici_PridajZakaznika(AktualnyZakaznik);
             }
