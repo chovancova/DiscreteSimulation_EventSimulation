@@ -70,10 +70,10 @@ namespace AutoserviceGui
                 t_g_s3_Copy.Text = Math.Round(_app.SG3_PriemernyCasVServise(),4).ToString();
                 t_g_s4_Copy.Text = Math.Round(_app.SG4_PriemernyCasOpravy(), 4).ToString();
                 a = _app.IS_CakanieNaOpravu();
-                t_g_is_0.Text = FormatToTime(a[0]);
-                t_g_is_1.Text = FormatToTime(a[1]);
-                t_g_is_2.Text = Math.Round((a[0]), 4).ToString();
-                t_g_is_3.Text = Math.Round((a[1]), 4).ToString();
+                //t_g_is_0.Text = FormatToTime(a[0]);
+                //t_g_is_1.Text = FormatToTime(a[1]);
+                //t_g_is_2.Text = Math.Round((a[0]), 4).ToString();
+                //t_g_is_3.Text = Math.Round((a[1]), 4).ToString();
       
    
                 // t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
@@ -120,7 +120,8 @@ namespace AutoserviceGui
         public MainWindow()
         {
             InitializeComponent();
-           
+            _initializeApp();
+
         }
         private void InitializeGraphsComponents()
         {
@@ -212,32 +213,52 @@ namespace AutoserviceGui
                 int.Parse(t_pocetPracovnikov2.Text), new AutoserviceGenerators(), this);
         }
 
-        
+        public void RunUltraMode()
+        {
+            if(_app==null) _initializeApp();
+
+            UltraMode = true; //gui - what to render
+
+            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * AppCore.DlzkaDnaSekundy;
+            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
+            int pocetPR1 = int.Parse(t_pocetPracovnikov3.Text);
+            int pocetPR2 = int.Parse(t_pocetPracovnikov4.Text);
+
+            _app.UltraModeSimulation(pocetReplikacii, dlzkaReplikacie, pocetPR1, pocetPR2);
+        }
+
+        public void RunNormalMode()
+        {
+            if (_app == null) _initializeApp();
+
+            _app.RefreshRate = int.Parse(t_refreshRAte.Text);
+            _app.SleepingTime = int.Parse(t_sleepMs.Text);
+
+
+            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * AppCore.DlzkaDnaSekundy;
+            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
+            int pocetPR1 = int.Parse(t_pocetPracovnikov1.Text);
+            int pocetPR2 = int.Parse(t_pocetPracovnikov2.Text);
+
+            _app.NormalModeSimulation(pocetReplikacii, dlzkaReplikacie, pocetPR1, pocetPR2);
+
+        }
+
+
+
         private void b_quickSimulation_Click(object sender, RoutedEventArgs e)
         {
-            _initializeApp();
-
-            // _app.UltraSimulation();
-            UltraMode = true;
-            _app.Refresh = false;
-            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text)*AppCore.DlzkaDnaSekundy;
-            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
-            _app.Simulate(pocetReplikacii, dlzkaReplikacie);
+            RunUltraMode();
         }
 
         private void b_runSimulation_Click(object sender, RoutedEventArgs e)
         {
-            _initializeApp();
-            _app.Refresh = true;
-            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * 8 * 60 * 60;
-            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
-            _app.RefreshRate= int.Parse(t_refreshRAte.Text);
-            _app.SleepingTime= int.Parse(t_sleepMs.Text);
-            _app.Simulate(pocetReplikacii, dlzkaReplikacie);
+            RunNormalMode();
 
             b_runSimulation.IsEnabled = false;
+            b_continue1.IsEnabled = false;
 
-            // _app.NormalSimulation();
+
         }
 
         private void b_analyticSimulation_Click(object sender, RoutedEventArgs e)
@@ -295,6 +316,33 @@ namespace AutoserviceGui
         {
             _app.SleepingTime = int.Parse(t_sleepMs.Text);
             _app.RefreshRate = int.Parse(t_refreshRAte.Text);
+        }
+
+        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            RunUltraMode();
+            button_Copy.IsEnabled = false;
+        }
+
+        private void button_Copy1_Click(object sender, RoutedEventArgs e)
+        {
+            _app.Paused = true;
+            button_Copy1.IsEnabled = false;
+            button_Copy5.IsEnabled = true;
+        }
+
+        private void button_Copy5_Click(object sender, RoutedEventArgs e)
+        {
+            _app.Paused = false;
+            button_Copy1.IsEnabled = true;
+            button_Copy5.IsEnabled = false;
+        }
+
+        private void button_Copy6_Click(object sender, RoutedEventArgs e)
+        {
+            _app.Stopped = true; 
+            button_Copy6.IsEnabled = false;
+            button_Copy.IsEnabled = true; 
         }
     }
 }

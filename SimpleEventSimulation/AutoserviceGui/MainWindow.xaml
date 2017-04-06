@@ -513,16 +513,18 @@
                             <RowDefinition Height="8*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="88*"/>
-                            <ColumnDefinition Width="164*"/>
-                            <ColumnDefinition Width="16*"/>
+                            <ColumnDefinition Width="268*"/>
                             <ColumnDefinition Width="224*"/>
                             <ColumnDefinition Width="133*"/>
                             <ColumnDefinition Width="168*"/>
                             <ColumnDefinition Width="66*"/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="label18_Copy2" Content="Replikácia" HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.053,0.239" FontSize="14" Grid.Column="5" Grid.RowSpan="2"/>
-                        <TextBox x:Name="t_s_repl" HorizontalAlignment="Left" Height="23" Margin="93,1.922,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="67" IsReadOnly="True" FontSize="14" Grid.Column="5" Grid.Row="1"/>
+                        <Label x:Name="label18_Copy2" Content="Replikácia" HorizontalAlignment="Left" Margin="11,1,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.053,0.239" FontSize="14" Grid.Column="3" Grid.RowSpan="2"/>
+                        <TextBox x:Name="t_s_repl" HorizontalAlignment="Left" Height="23" Margin="93,2,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="67" IsReadOnly="True" FontSize="14" Grid.Column="3" Grid.Row="1"/>
+                        <Label x:Name="label1" Content="Počet pracovníkov 1 skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,2,0,0" Height="29" Width="188" Grid.Row="1" Grid.RowSpan="2"/>
+                        <TextBox x:Name="t_pocetPracovnikov3" HorizontalAlignment="Left" Height="23" Margin="218,0,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Bottom" Width="40" RenderTransformOrigin="1.422,0.5" Grid.Row="1"/>
+                        <Label x:Name="label3_Copy1" Content="Počet pracovníkov 2 skupiny:" HorizontalAlignment="Left" Margin="26,2,0,0" VerticalAlignment="Top" Height="29" Width="188" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"/>
+                        <TextBox x:Name="t_pocetPracovnikov4" HorizontalAlignment="Left" Margin="10,0,0,7" TextWrapping="Wrap" Text="21" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="2" Grid.Row="1" Height="23" VerticalAlignment="Bottom" Grid.RowSpan="2"/>
                     </Grid>
                     <Grid Margin="25,60,22,175" Background="#FFFFF9EE" Grid.Row="4" Grid.RowSpan="2">
                         <Grid.RowDefinitions>
@@ -551,13 +553,13 @@
                         <TextBox x:Name="t_g_s4_Copy" HorizontalAlignment="Left" Height="23" Margin="12,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" FontSize="14" Text="0" Grid.Row="4" Grid.Column="2"/>
                         <TextBox x:Name="t_g_s3_Copy" HorizontalAlignment="Left" Height="23" Margin="12,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" FontSize="14" Text="0" Grid.Row="3" Grid.Column="2"/>
                     </Grid>
-                    <Grid Margin="25,2,22,5" Background="#FFFFEEEE" Grid.Row="3">
-                        <Label x:Name="label30" Content="90 % Interval spoľahlivosti - času stráveného zákazníkom čakaním na opravu &lt; " HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <!--<Grid Margin="25,2,22,5" Background="#FFFFEEEE" Grid.Row="3">-->
+                    <!--<Label x:Name="label30" Content="90 % Interval spoľahlivosti - času stráveného zákazníkom čakaním na opravu &lt; " HorizontalAlignment="Left" VerticalAlignment="Top"/>
                         <TextBox x:Name="t_g_is_1" HorizontalAlignment="Left" Height="23" Margin="635,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" FontSize="14" Text="0"/>
                         <TextBox x:Name="t_g_is_0" HorizontalAlignment="Left" Height="23" Margin="494,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontSize="14" Text="0"/>
                         <Label x:Name="label31" Content="," HorizontalAlignment="Left" Margin="617,0,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label36_Copy1" Content="&gt;" HorizontalAlignment="Left" Margin="738,0,0,0" VerticalAlignment="Top"/>
-                    </Grid>
+                    </Grid>-->
                     <Grid Margin="25,3,20,3" Background="WhiteSmoke" Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10*"/>
@@ -565,23 +567,24 @@
                             <RowDefinition Height="10*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="20*"/>
-                            <ColumnDefinition Width="250*"/>
-                            <ColumnDefinition Width="250*"/>
-                            <ColumnDefinition Width="250*"/>
-                            <ColumnDefinition Width="20*"/>
+                            <ColumnDefinition Width="169*"/>
+                            <ColumnDefinition Width="214*"/>
+                            <ColumnDefinition Width="241*"/>
+                            <ColumnDefinition Width="214*"/>
+                            <ColumnDefinition Width="21*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="button_Copy1" Content="Pause" Margin="9,8,10,9" Background="#FFFFE7D3" Grid.Column="1" Grid.Row="1"/>
-                        <Button x:Name="button_Copy5" Content="Continue" Margin="0,8,10,8" Background="#FFD9FFD3" Grid.Column="2" Grid.Row="1"/>
-                        <Button x:Name="button_Copy6" Content="Stop" Margin="7,6,10,12" Background="#FFFFD3D3" Grid.Column="3" Grid.Row="1"/>
+                        <Button x:Name="button_Copy1" Content="Pause" Margin="9,8,10,9" Background="#FFFFE7D3" Grid.Column="1" Grid.Row="1" Click="button_Copy1_Click"/>
+                        <Button x:Name="button_Copy5" Content="Continue" Margin="0,8,10,8" Background="#FFD9FFD3" Grid.Column="2" Grid.Row="1" Click="button_Copy5_Click"/>
+                        <Button x:Name="button_Copy6" Content="Stop" Margin="7,6,10,12" Background="#FFFFD3D3" Grid.Column="3" Grid.Row="1" Click="button_Copy6_Click"/>
+                        <Button x:Name="button_Copy" Content="Run Simulation" Margin="10,10,10,7" Background="#FFD3FFD9" Grid.Row="1" Click="button_Copy_Click"/>
                     </Grid>
-                    <Grid Margin="27,10,20,80" Background="#FFFFEEEE" Grid.Row="4">
+                    <!--<Grid Margin="27,10,20,80" Background="#FFFFEEEE" Grid.Row="4">
                         <Label x:Name="label1" Content="90 % Interval spoľahlivosti - času stráveného zákazníkom čakaním na opravu &lt; " HorizontalAlignment="Left" VerticalAlignment="Top"/>
                         <TextBox x:Name="t_g_is_2" HorizontalAlignment="Left" Height="23" Margin="635,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" FontSize="14" Text="0"/>
                         <TextBox x:Name="t_g_is_3" HorizontalAlignment="Left" Height="23" Margin="494,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" FontSize="14" Text="0"/>
                         <Label x:Name="label2" Content="," HorizontalAlignment="Left" Margin="617,0,0,0" VerticalAlignment="Top"/>
                         <Label x:Name="label36_Copy2" Content="&gt;" HorizontalAlignment="Left" Margin="738,0,0,0" VerticalAlignment="Top"/>
-                    </Grid>
+                    </Grid>-->
                 </Grid>
             </TabItem>
         </TabControl>

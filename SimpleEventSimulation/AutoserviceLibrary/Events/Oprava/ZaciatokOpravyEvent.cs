@@ -30,7 +30,7 @@ namespace AutoserviceLibrary.Events
             var dobaOpravySpolu = 0;
             var pocetOprav = ((AppCore) ReferenceSimCore).Gen.Generator2_PocetOprav();
             for (var i = 0; i < pocetOprav; i++)
-                dobaOpravySpolu += ((AppCore) ReferenceSimCore).Gen.Generator7_DobaOpravy()*60;
+                dobaOpravySpolu += ((AppCore) ReferenceSimCore).Gen.Generator7_DobaOpravy();
 
             var time = EventTime + dobaOpravySpolu;
             var koniecOpravy = new KoniecOpravyEvent(time, ReferenceSimCore, AktualnyZakaznik);

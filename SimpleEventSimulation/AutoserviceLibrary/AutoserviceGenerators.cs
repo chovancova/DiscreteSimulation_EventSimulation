@@ -131,7 +131,7 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public double Generator1_ZakazniciPrichod()
         {
-            return _gen1.GenerateDouble();
+            return _gen1.GenerateDouble(); //300; //_gen1.GenerateDouble();
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public int Generator2_PocetOprav()
         {
-            return _gen2.GenerateInt();
+            return _gen2.GenerateInt();//1; //_gen2.GenerateInt();
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public double Generator3_PrevzatieObjednavky()
         {
-            return _gen3.GenerateDouble();
+            return _gen3.GenerateDouble();// 60; //_gen3.GenerateDouble();
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace AutoserviceLibrary
         /// <param name="seed"></param>
         public double Generator4_PrevzatieAuta()
         {
-            return _gen4.GenerateDouble();
+            return _gen4.GenerateDouble();//60; //_gen4.GenerateDouble();
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace AutoserviceLibrary
         /// <param name="seed"></param>
         public double Generator5_Preparkovanie()
         {
-            return _gen5.GenerateDouble();
+            return _gen5.GenerateDouble();//60; //_gen5.GenerateDouble();
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace AutoserviceLibrary
         /// <param name="seed"></param>
         public double Generator6_Prevzatie()
         {
-            return _gen6.GenerateDouble();
+            return _gen6.GenerateDouble();//60; //_gen6.GenerateDouble();
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public int Generator7_DobaOpravy()
         {
-            return _gen7.GenerateInt()*60;
+            return _gen7.GenerateInt() * 60;// 60;  //_gen7.GenerateInt()*60;
         }
     }
 }

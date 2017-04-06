@@ -30,7 +30,7 @@ namespace AutoserviceLibrary.Events.Objednavka
             
             //naplanujem spracovanie objednavky 
                 var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator3_PrevzatieObjednavky();
-                var spracovanie = new KoniecSpracovaniaObjednavky(time, ReferenceSimCore, AktualnyZakaznik);
+            var spracovanie = new KoniecSpracovaniaObjednavky(time, ReferenceSimCore, AktualnyZakaznik);
                 ReferenceSimCore.ScheduleEvent(spracovanie);
            }
     }

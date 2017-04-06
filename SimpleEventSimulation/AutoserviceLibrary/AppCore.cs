@@ -35,6 +35,26 @@ namespace AutoserviceLibrary
             PocetPracovnikov2 = PocetVolnychPracovnikov2;
         }
 
+        public void UltraModeSimulation(int pocetReplikacii, int dlzkaReplikacie, int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2)
+        {
+            Refresh = false;
+            NastavKonfiguraciu(pocetVolnychPracovnikov1, pocetVolnychPracovnikov2);
+            Simulate(pocetReplikacii, dlzkaReplikacie);
+        }
+
+        public void NormalModeSimulation(int pocetReplikacii, int dlzkaReplikacie, int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2)
+        {
+            Refresh = true;
+
+            NastavKonfiguraciu(pocetVolnychPracovnikov1, pocetVolnychPracovnikov2);
+            Simulate(pocetReplikacii, dlzkaReplikacie);
+        }
+
+        
+
+
+
+
         #region OVERRIDE METHODS
 
         protected override void BeforeSimulation()
@@ -47,6 +67,8 @@ namespace AutoserviceLibrary
             S3_Reset();
             S4_Reset();
             S11_Reset();
+            ResetPracovnikov1();
+            ResetPracovnikov2();
         }
 
         public override void BeforeReplication()
@@ -70,8 +92,8 @@ namespace AutoserviceLibrary
 
         public override void SimulationEnd()
         {
-            ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
-            ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise());
+            //ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
+            //ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise());
         }
 
         public override void ScheduleFirstEvent()
@@ -480,8 +502,8 @@ namespace AutoserviceLibrary
         private int _isCount;
         private double _isSumSquare;
         private double _isSum;
-        private const double T90 = 1.281551566;
-        private const double T95 = 1.645;
+       // private const double T90 = 1.281551566;
+        private const double T90 = 1.645;
 
         private void IS_AddValue(double value)
         {
