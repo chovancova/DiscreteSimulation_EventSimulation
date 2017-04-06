@@ -154,7 +154,7 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public double Generator3_PrevzatieObjednavky()
         {
-            return 60; //_gen3.GenerateDouble();// 60; //_gen3.GenerateDouble();
+            return _gen3.GenerateDouble();// 60; //_gen3.GenerateDouble();
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace AutoserviceLibrary
         /// <param name="seed"></param>
         public double Generator6_Prevzatie()
         {
-            return 60; //_gen6.GenerateDouble();//60; //_gen6.GenerateDouble();
+            return _gen6.GenerateDouble();//60; //_gen6.GenerateDouble();
         }
 
         /// <summary>

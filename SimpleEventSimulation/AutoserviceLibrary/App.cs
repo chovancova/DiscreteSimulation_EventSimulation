@@ -1,6 +1,10 @@
 ﻿namespace AutoserviceLibrary
 {
-    internal class App
+    public  class App
     {
+        public AppCore Autoservis { get; set; }
+
+       
+
     }
 }

@@ -533,7 +533,6 @@ namespace AutoserviceLibrary
         private int _isCount;
         private double _isSumSquare;
         private double _isSum;
-       // private const double T90 = 1.281551566;
         private const double T90 = 1.645;
 
         private void IS_AddValue(double value)
@@ -576,7 +575,6 @@ namespace AutoserviceLibrary
         private int _isCount2;
         private double _isSumSquare2;
         private double _isSum2;
-        // private const double T90 = 1.281551566;
 
         private void IS_AddValue2(double value)
         {
