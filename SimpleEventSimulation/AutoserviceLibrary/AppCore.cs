@@ -87,6 +87,7 @@ namespace AutoserviceLibrary
         {
             SG_AddValue();
             IS_AddValue(S4_PriemernyCasOpravy());
+            IS_AddValue2(S3_PriemernyCasVServise());
             Gui.RefreshGui();
         }
 
@@ -497,7 +498,7 @@ namespace AutoserviceLibrary
 
         #endregion
 
-        #region INTERVAL SPOLAHLIVOSTI
+        #region INTERVAL SPOLAHLIVOSTI - cas cakanie na opravu
 
         private int _isCount;
         private double _isSumSquare;
@@ -529,6 +530,45 @@ namespace AutoserviceLibrary
         }
 
         private void IS_Reset()
+        {
+            _isCount = 0;
+            _isSumSquare = 0;
+            _isSum = 0;
+        }
+
+        #endregion
+
+        #region INTERVAL SPOLAHLIVOSTI - cas cakanie na opravu
+
+        private int _isCount2;
+        private double _isSumSquare2;
+        private double _isSum2;
+        // private const double T90 = 1.281551566;
+
+        private void IS_AddValue2(double value)
+        {
+            _isCount++;
+            _isSum = value;
+            _isSumSquare += Math.Pow(value, 2);
+        }
+
+        public double[] IS_CakanieZadanieObjednavky()
+        {
+            var priemer = _isSum / _isCount;
+            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare / _isCount - Math.Pow(_isSum / _isCount, 2));
+
+            var interval = T90 * smerodajnaOdchylka / Math.Sqrt(_isCount - 1);
+
+            return new[] { priemer - interval, priemer + interval };
+        }
+
+        public string IS_CakanieZadanieObjednavkyString()
+        {
+            var a = IS_CakanieNaOpravu();
+            return "<" + a[0] + ",  " + a[1] + ">";
+        }
+
+        private void IS_CakanieZadanieObjednavky_Reset()
         {
             _isCount = 0;
             _isSumSquare = 0;

@@ -33,7 +33,7 @@ namespace AutoserviceGui
             //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
             t_l_double_simulacny.Content = "Double simulačný čas v sekundách:  "  + Math.Round(_app.CurrentTime,4).ToString();
-            t_l_replikacia.Content = "Replikácia:  "+ _app.ActualReplication;
+            //t_l_replikacia.Content = "Replikácia:  "+ _app.ActualReplication;
             TimeSpan ts = TimeSpan.FromSeconds((_app.CurrentTime*3));
             TimeSpan ts2 = TimeSpan.FromSeconds((_app.CurrentTime));
             string format = string.Format("{0} d {1} h {2}m {3}s",ts.Days, (int) (ts.Hours/3+7), ts2.Minutes, ts2.Seconds);
@@ -237,8 +237,8 @@ namespace AutoserviceGui
 
             int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * AppCore.DlzkaDnaSekundy;
             int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
-            int pocetPR1 = int.Parse(t_pocetPracovnikov1.Text);
-            int pocetPR2 = int.Parse(t_pocetPracovnikov2.Text);
+            int pocetPR1 = int.Parse(t_pocetPracovnikov1_normal.Text);
+            int pocetPR2 = int.Parse(t_pocetPracovnikov2_normal.Text);
 
             _app.NormalModeSimulation(pocetReplikacii, dlzkaReplikacie, pocetPR1, pocetPR2);
 
