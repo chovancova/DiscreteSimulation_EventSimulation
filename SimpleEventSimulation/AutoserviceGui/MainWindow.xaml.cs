@@ -44,18 +44,20 @@ namespace AutoserviceGui
             t_s_pocet_opravenych_.Text = _app.PocetOpravenychAut().ToString();
             t_s_pocet_pokazenych_aut.Text = _app.PocetPokazenychAut().ToString();
 
-            //t_s_s1.Text = FormatToTime(_app.S1_PriemernyCasCakania());
-            //t_s_s2.Text = Math.Round(_app.S2_PrimernyPocet(),4).ToString();
-            //t_s_s3.Text = FormatToTime(_app.S3_PriemernyCasVServise());
-            //t_s_s4.Text = FormatToTime(_app.S4_PriemernyCasOpravy());
-            //t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
+                //t_s_s1.Text = FormatToTime(_app.S1_PriemernyCasCakania());
+                //t_s_s2.Text = Math.Round(_app.S2_PrimernyPocet(),4).ToString();
+                //t_s_s3.Text = FormatToTime(_app.S3_PriemernyCasVServise());
+                //t_s_s4.Text = FormatToTime(_app.S4_PriemernyCasOpravy());
+                //t_s_s11.Text = (_app.S11_PrimernyPocet()).ToString();
+                
 
                 t_s_pocet_zakaznikov_v_rade.Text =""+ _app.CelkovyPocetZakaznikov;
-                t_s_pocet_pokazenych_v_rade.Text = "" + _app.CelkovyPocetPokazenychAut;
+                t_s_pocet_opustiliSystem.Text = "" + _app.PocetLudiOdisli;
                 t_s_pocet_opravenych_v_rade.Text = "" + _app.CelkovyPocetOpravenychAut;
                 t_s_pocet_zakaznikov_na_konci.Text = "" + _app.Front_CakajuciZakaznici_NaKonciDna;
                 t_s_pocet_celkovy_na_konci_dna.Text = "" + _app.Front_CakajuciZakaznici_CelkovyNaKonciDna;
                 t_s_pocet_zak_v_rade_cakajucich.Text = "" + _app.S1PocetZakaznikov;
+                t_s_pocet_zak_v_rade_cakajucich_Copy.Text = "" + _app.S1_celkovy_cas_cakania;
                 //t_s_s1_Copy.Text = Math.Round(_app.S1_PriemernyCasCakania(), 4).ToString();
                 //t_s_s2_Copy.Text = Math.Round(_app.S2_PrimernyPocet(), 4).ToString();
                 //t_s_s3_Copy.Text = Math.Round(_app.S3_PriemernyCasVServise(), 4).ToString(); ;
@@ -66,17 +68,20 @@ namespace AutoserviceGui
 
             if (UltraMode)
             {
-                double[] is1= _app.IS_CakanieZadanieObjednavky();
-                t_u_is_cas_zadania_objednavky.Content = "90 % Interval spoľahlivosti - čas zadania objednávky je < "+
-                     Math.Round(is1[0], 4) +", "+ Math.Round(is1[0], 4)+">,    alebo <"
-                    + FormatToTime(Math.Round(is1[0], 4))  + ", "+ FormatToTime(Math.Round(is1[1], 4));
-
-                double[] is2 = _app.IS_CakanieNaOpravu();
-                t_s_is_oprava.Content = "90 % Interval spoľahlivosti - čas čakania na opravu je < "+
-                      Math.Round(is2[0], 4) + "  ,  " + Math.Round(is2[0], 4) + " >,    alebo <"
-                    + FormatToTime(Math.Round(is2[0], 4)) + ", " + FormatToTime(Math.Round(is2[1], 4));
-
                 t_s_repl.Text = ""+ _app.ActualReplication;
+            }
+
+            if (_app.Done)
+            {
+                double[] is1 = _app.IS_NaZadanieObjednavky();
+                t_u_is_cas_zadania_objednavky.Content = "90 % Interval spoľahlivosti - čas čakania v rade na zadanie objednávky < " +
+                     Math.Round(is1[0], 4) + ", " + Math.Round(is1[1], 4) + ">,    alebo <"
+                    + FormatToTime(Math.Round(is1[0], 4)) + ", " + FormatToTime(Math.Round(is1[1], 4)) + ">.";
+
+                double[] is2 = _app.IS_NaOpravu();
+                t_s_is_oprava.Content = "90 % Interval spoľahlivosti - čas čakania na opravu je < " +
+                      Math.Round(is2[0], 4) + "  ,  " + Math.Round(is2[1], 4) + " >,    alebo <"
+                    + FormatToTime(Math.Round(is2[0], 4)) + ", " + FormatToTime(Math.Round(is2[1], 4)) + ">.";
 
                 t_u_pr_servise.Content = "Priemerný čas strávený zákazníkov v servise je " +
                                          FormatToTime(_app.SG3_PriemernyCasVServise()) + ", alebo " +
@@ -98,16 +103,62 @@ namespace AutoserviceGui
                                            FormatToTime(_app.SG4_PriemernyCasOpravy()) + ", alebo " +
                                            Math.Round(_app.SG4_PriemernyCasOpravy(), 4)
                                            + " sekúnd. ";
+
+                if (Math.Round(is1[1], 4) > 18000)
+                {
+                    label_odporucanie.Content =
+                        "Konfigurácia nie je vhodná, pretože priemerný čas čakania zákazníkov na opravu je väčší než 5 minút, presne o " +
+                        FormatToTimeMinutes((Math.Round(_app.SG4_PriemernyCasOpravy(), 4) - 300)) + ". ";
+                }
+                else
+                {
+                    label_odporucanie.Content = "Konfigurácia spĺňa podmienku - priemerný čas čakania na opravu je väčší než 5 hodín ("+
+                    FormatToTime((Math.Round(_app.SG4_PriemernyCasOpravy(), 4))) +").";
+                }
+                if (Math.Round(is2[1], 4) > 180)
+                {
+                    label_odporucanie2.Content =
+                        "Konfigurácia nie je vhodná, pretože priemerný čas čakania zákazníkov v rade na zadanie objednávky je väčší než 3 minúty (" +
+                        FormatToTimeMinutes((Math.Round(_app.SG1_PriemernyCasCakania(), 0) - 180)) + "). ";
+
+                }
+                else
+                {
+                    label_odporucanie2.Content =
+                   "Konfigurácia  spĺňa podmienku -  priemerný čas čakania zákazníkov v rade na zadanie objednávky je men než 3 minúty (" +
+                   FormatToTimeMinutes((Math.Round(_app.SG1_PriemernyCasCakania(), 0) )) + "). ";
+
+                }
+
+                if (!(Math.Round(is1[1], 4) > 18000)
+                    && !(Math.Round(is2[1], 4) > 180))
+                {
+                    label2.Content = "Odporúčanie: ÁNO.";
+                }
+                else
+                {
+                    label2.Content = "Odporúčanie: NIE.";
+                }
             }
         }
 
-        private double[] a;
         private string FormatToTime(double seconds)
         {
             try
             {
                 TimeSpan ts = TimeSpan.FromSeconds(seconds);
                 return string.Format("{0} h {1} m {2} s", ts.Hours, ts.Minutes, ts.Seconds);
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+        }   private string FormatToTimeMinutes(double seconds)
+        {
+            try
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(seconds);
+                return string.Format("{0} m {1} s",  ts.Minutes, ts.Seconds);
             }
             catch (Exception e)
             {
@@ -142,6 +193,8 @@ namespace AutoserviceGui
         {
             InitializeComponent();
             _initializeApp();
+            _ultra_mode_set_enable_buttons(true, false, false, false);
+
 
         }
         private void InitializeGraphsComponents()
@@ -241,7 +294,7 @@ namespace AutoserviceGui
             UltraMode = true; //gui - what to render
 
             int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * AppCore.DlzkaDnaSekundy;
-            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
+            int pocetReplikacii = int.Parse(t_s_repl.Text);
             int pocetPR1 = int.Parse(t_pocetPracovnikov3.Text);
             int pocetPR2 = int.Parse(t_pocetPracovnikov4.Text);
 
@@ -254,19 +307,15 @@ namespace AutoserviceGui
 
             _app.RefreshRate = int.Parse(t_refreshRAte.Text);
             _app.SleepingTime = int.Parse(t_sleepMs.Text);
-
-
+            
             int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * AppCore.DlzkaDnaSekundy;
             int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
             int pocetPR1 = int.Parse(t_pocetPracovnikov1_normal.Text);
             int pocetPR2 = int.Parse(t_pocetPracovnikov2_normal.Text);
 
             _app.NormalModeSimulation(1, dlzkaReplikacie, pocetPR1, pocetPR2);
-
         }
-
-
-
+        
         private void b_quickSimulation_Click(object sender, RoutedEventArgs e)
         {
             RunUltraMode();
@@ -339,32 +388,49 @@ namespace AutoserviceGui
             _app.RefreshRate = int.Parse(t_refreshRAte.Text);
         }
 
-        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        private void b_u_start_Click(object sender, RoutedEventArgs e)
         {
+            _ultra_mode_set_enable_buttons(false, true, false, true);
+
+            label_odporucanie.Content = "-";
+            label_odporucanie2.Content = "-";
+            label2.Content = "Odporúčanie: -";
+
+            t_u_is_cas_zadania_objednavky.Content = "90 % Interval spoľahlivosti - čas čakania v rade na zadanie objednávky ";
+             t_s_is_oprava.Content = "90 % Interval spoľahlivosti - čas čakania na opravu je" ;
+            t_u_pr_servise.Content = "Priemerný čas strávený zákazníkov v servise je " ;
+            t_u_pr_cakanie_zakaznik.Content = "Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky je ";
+            t_u_pr_pocet_v_rade.Content = "Priemerný počet zákazníkov v rade čakajúcich zákazníkov je ";
+            t_u_pr_pocet_v_rade_na_konci_dna.Content ="Priemerný počet zákazníkov v rade čakajúcich zákazníkov na konci dňa je " ;
+            t_u_pr_na_opravu.Content = "Priemerný čas strávený zákazníkov čakaním na opravu je " ;
+
             RunUltraMode();
-            button_Copy.IsEnabled = false;
         }
 
-        private void button_Copy1_Click(object sender, RoutedEventArgs e)
+        private void b_u_pause_Click(object sender, RoutedEventArgs e)
         {
             _app.Paused = true;
-            button_Copy1.IsEnabled = false;
-            button_Copy5.IsEnabled = true;
-        }
+            _ultra_mode_set_enable_buttons(false, false, true, true);
+          }
 
-        private void button_Copy5_Click(object sender, RoutedEventArgs e)
+        private void b_u_continue_Click(object sender, RoutedEventArgs e)
         {
             _app.Paused = false;
-            button_Copy1.IsEnabled = true;
-            button_Copy5.IsEnabled = false;
+            _ultra_mode_set_enable_buttons(false, true, false, true);
         }
 
-        private void button_Copy6_Click(object sender, RoutedEventArgs e)
+        private void b_u_stop_Click(object sender, RoutedEventArgs e)
         {
-            _app.Stopped = true; 
-            button_Copy6.IsEnabled = false;
-            button_Copy.IsEnabled = true;
-            button.IsEnabled = true;
+            _app.Stopped = true;
+            _ultra_mode_set_enable_buttons(true, false, false, false);
+        }
+
+        private void _ultra_mode_set_enable_buttons(bool start, bool pause, bool continuebutton, bool stop)
+        {
+            b_u_pause.IsEnabled = pause;
+            b_u_stop.IsEnabled = stop;
+            b_u_continue.IsEnabled = continuebutton;
+            b_u_start.IsEnabled = start;
         }
     }
 }

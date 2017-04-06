@@ -19,7 +19,7 @@ namespace SimulationLibrary
         public ISimulationGui Gui { get; set; }
         public int ActualReplication { get; set; }
         public int NumberOfReplication { get; private set; }
-      
+      public bool Done { get; private set; }
         public SimCore(ISimulationGui gui =  null)
         {
             Gui = gui;
@@ -54,6 +54,7 @@ namespace SimulationLibrary
         public void Simulate(int numberOfReplication, double lenghtReplication)
         {
             NumberOfReplication = numberOfReplication;
+            Done = false;
             BeforeSimulation();
             for (ActualReplication = 0; ActualReplication < NumberOfReplication; ActualReplication++)
             {
@@ -67,6 +68,9 @@ namespace SimulationLibrary
                 }
             }
             SimulationEnd();
+            Done = true;
+            Gui.RefreshGui();
+
         }
 
         public void ResetCore()
@@ -80,7 +84,7 @@ namespace SimulationLibrary
             SimEvent temp;
             ScheduleFirstEvent();
             if(Refresh) ScheduleRefreshEvent();
-            while (_timeLine.Count > 0 && CurrentTime <= lenghtReplication)
+            while (_timeLine.Count > 0 && CurrentTime < lenghtReplication)
             {
                 temp = _timeLine.Dequeue();
                 CurrentTime = temp.EventTime;

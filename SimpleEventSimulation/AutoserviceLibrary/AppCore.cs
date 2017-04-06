@@ -51,7 +51,10 @@ namespace AutoserviceLibrary
         }
 
         
-
+        public int PocetLudiOdisli{
+            get;
+            set;
+        }
 
 
 
@@ -70,6 +73,7 @@ namespace AutoserviceLibrary
             S11_Reset();
             ResetPracovnikov1();
             ResetPracovnikov2();
+            PocetLudiOdisli = 0; 
         }
 
         public override void BeforeReplication()
@@ -82,14 +86,17 @@ namespace AutoserviceLibrary
             S11_Reset();
             ResetPracovnikov1();
             ResetPracovnikov2();
+            PocetLudiOdisli = 0; 
         }
 
         public override void AfterReplication()
         {
             SG_AddValue();
             IS_AddValue(S4_PriemernyCasOpravy());
-            IS_AddValue2(S3_PriemernyCasVServise());
-            Gui.RefreshGui();
+            IS_AddValue2(S1_PriemernyCasCakania());
+
+            if(ActualReplication%100==0)
+                Gui.RefreshGui();
         }
 
         public override void SimulationEnd()
@@ -288,7 +295,7 @@ namespace AutoserviceLibrary
         public void Front_OpraveneAuta_Pridaj(Zakaznik zakaznik)
         {
             _frontOpraveneAuto.Enqueue(zakaznik);
-            CelkovyPocetOpravenychAut++;
+            //CelkovyPocetOpravenychAut++;
         }
 
         public Zakaznik Front_OpraveneAuta_Vyber()
@@ -307,12 +314,12 @@ namespace AutoserviceLibrary
 
         //S1 – Priemerný čas čakania zákazníka v rade čakajúcich zákazníkov na zadanie objednávky..
         public int S1PocetZakaznikov { get; private set; }
-        private double _S1_celkovy_cas_cakania;
-        
+        public double S1_celkovy_cas_cakania { get; private set; }
+
         public void S1_AddValue(double time)
         {
             S1PocetZakaznikov++;
-            _S1_celkovy_cas_cakania += time;
+            S1_celkovy_cas_cakania += time;
         }
 
         /// <summary>
@@ -321,13 +328,13 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public double S1_PriemernyCasCakania()
         {
-            return S1PocetZakaznikov != 0 ? _S1_celkovy_cas_cakania/S1PocetZakaznikov : 0.0;
+            return S1PocetZakaznikov != 0 ? S1_celkovy_cas_cakania/S1PocetZakaznikov : 0.0;
         }
 
         private void S1_Reset()
         {
             S1PocetZakaznikov = 0;
-            _S1_celkovy_cas_cakania = 0.0;
+            S1_celkovy_cas_cakania = 0.0;
         }
         
 
@@ -532,23 +539,26 @@ namespace AutoserviceLibrary
         private void IS_AddValue(double value)
         {
             _isCount++;
-            _isSum = value;
+            _isSum += value;
             _isSumSquare += Math.Pow(value, 2);
         }
 
-        public double[] IS_CakanieNaOpravu()
+        public double[] IS_NaOpravu()
         {
             var priemer = _isSum/_isCount;
             var smerodajnaOdchylka = Math.Sqrt(_isSumSquare/_isCount - Math.Pow(_isSum/_isCount, 2));
 
             var interval = T90*smerodajnaOdchylka/Math.Sqrt(_isCount - 1);
-
-            return new[] {priemer - interval, priemer + interval};
+            if (double.IsNaN(interval))
+            {
+                return new[] { priemer, priemer };
+            }
+            return new[] { priemer -interval, priemer + interval};
         }
 
         public string IS()
         {
-            var a = IS_CakanieNaOpravu();
+            var a = IS_NaOpravu();
             return "<" + a[0] + ",  " + a[1] + ">";
         }
 
@@ -571,24 +581,21 @@ namespace AutoserviceLibrary
         private void IS_AddValue2(double value)
         {
             _isCount2++;
-            _isSum2 = value;
+            _isSum2 += value;
             _isSumSquare2 += Math.Pow(value, 2);
         }
 
-        public double[] IS_CakanieZadanieObjednavky()
+        public double[] IS_NaZadanieObjednavky()
         {
             var priemer = _isSum2 / _isCount2;
-            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare / _isCount2 - Math.Pow(_isSum2 / _isCount2, 2));
+            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare2 / _isCount2 - Math.Pow(_isSum2 / _isCount2, 2));
 
             var interval = T90 * smerodajnaOdchylka / Math.Sqrt(_isCount2 - 1);
-
-            return new[] { priemer - interval, priemer + interval };
-        }
-
-        public string IS_CakanieZadanieObjednavkyString()
-        {
-            var a = IS_CakanieZadanieObjednavky();
-            return "<" + a[0] + ",  " + a[1] + ">";
+            if (double.IsNaN(interval))
+            {
+                return new[] { priemer , priemer  };
+            }
+            return new[] { priemer- interval, interval+ priemer};
         }
 
         private void IS_CakanieZadanieObjednavky_Reset()

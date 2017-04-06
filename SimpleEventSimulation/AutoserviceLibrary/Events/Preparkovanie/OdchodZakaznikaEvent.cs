@@ -33,6 +33,8 @@ namespace AutoserviceLibrary.Events
 
             var preparkovanie = new PreparkovanieAutoEvent(EventTime, ReferenceSimCore, null);
             ((AppCore) ReferenceSimCore).ScheduleEvent(preparkovanie);
+
+            ((AppCore)ReferenceSimCore).PocetLudiOdisli++;
         }
     }
 }
