@@ -21,12 +21,13 @@ namespace AutoserviceGui
         public List<DataPoint> DataGrafStrategia1 { get; private set; }
         public List<DataPoint> DataGrafStrategia2 { get; private set; }
 
+       
         ////////////////////////////vlakno, ktore vykonava simulaciu. 
         //////////////////////////private readonly BackgroundWorker _workerSimulation = new BackgroundWorker();
         public void RefreshGui()
         {
-            RefreshWindowDispatcher();
-          
+           RefreshWindowDispatcher();
+
             if (!UltraMode)
             {
             //tuto vytiahnem vsetky udaje z _app... 
@@ -108,7 +109,7 @@ namespace AutoserviceGui
                                            Math.Round(_app.SG4_PriemernyCasOpravy(), 4)
                                            + " sekúnd. ";
 
-                t_u_pr_na_opravu.Content = "Priemerný čas strávený zákazníkom v systéme je " +
+                t_u_pr_systeme.Content = "Priemerný čas strávený zákazníkom v systéme je " +
                                            FormatToTime(_app.SG5_PriemernyCasVSysteme()) + ", alebo " +
                                            Math.Round(_app.SG5_PriemernyCasVSysteme(), 4)
                                            + " sekúnd. ";
@@ -184,7 +185,7 @@ namespace AutoserviceGui
             {
                 Application.Current.Dispatcher.Invoke(
                     DispatcherPriority.Background,
-                    new Action(delegate { })
+                  new Action(delegate { })
                 );
             }
         }
@@ -210,7 +211,6 @@ namespace AutoserviceGui
             InitializeGraph1();
             InitializeGraph2();
 
-            RunAllResults();
         }
 
         private void ResetGraph1()
@@ -576,5 +576,13 @@ namespace AutoserviceGui
             }
         }
 
+
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            RunAllResults(2);
+
+            listView1.ItemsSource = results;
+        }
     }
 }

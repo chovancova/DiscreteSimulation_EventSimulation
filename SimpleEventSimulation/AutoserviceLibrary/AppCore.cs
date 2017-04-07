@@ -94,18 +94,15 @@ namespace AutoserviceLibrary
             IS_AddValue2(S1_PriemernyCasCakania());
             IS_AddValue3(S5_PriemernyCasSysteme());
 
-            if(ActualReplication%100==0)
-               Gui?.RefreshGui();
+             Gui?.RefreshGui();
         }
 
         public override void SimulationEnd()
         {
-            Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,SG1_PriemernyCasCakania(), SG2_PrimernyPocet(), SG3_PriemernyCasVServise(), SG4_PriemernyCasOpravy(), SG11_PrimernyPocetNaKonciDna(), IS_NaZadanieObjednavky()[0],IS_NaZadanieObjednavky()[1], IS_NaOpravu()[0],IS_NaOpravu()[1], IS_VSysteme()[0], IS_VSysteme()[1]);
+            Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,SG1_PriemernyCasCakania(), SG2_PrimernyPocet(), SG3_PriemernyCasVServise(), SG4_PriemernyCasOpravy(), SG5_PriemernyCasVSysteme(),SG11_PrimernyPocetNaKonciDna(), IS_NaZadanieObjednavky()[0],IS_NaZadanieObjednavky()[1], IS_NaOpravu()[0],IS_NaOpravu()[1], IS_VSysteme()[0], IS_VSysteme()[1]);
 
             Gui?.RefreshGui();
-            //ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
-            //ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise());
-        }
+       }
 
         public override void ScheduleFirstEvent()
         {
@@ -687,7 +684,7 @@ namespace AutoserviceLibrary
 
     public struct ResultAutoservice
     {
-        public ResultAutoservice(int pocetPracovnikov1, int pocetPracovnikov2, double sg1PriemernyCasCakania, double sg2PrimernyPocet, double sg3PriemernyCasVServise, double sg4PriemernyCasOpravy, double sg11PrimernyPocetNaKonciDna, double isNaZadanieObjednavkyMin, double isNaZadanieObjednavkyMax, double isNaOpravyMin, double isNaOpravyMax, double isVSystemeMin, double isVSystemeMax)
+        public ResultAutoservice(int pocetPracovnikov1, int pocetPracovnikov2, double sg1PriemernyCasCakania, double sg2PrimernyPocet, double sg3PriemernyCasVServise, double sg4PriemernyCasOpravy, double sg5PriemernySysteme, double sg11PrimernyPocetNaKonciDna, double isNaZadanieObjednavkyMin, double isNaZadanieObjednavkyMax, double isNaOpravyMin, double isNaOpravyMax, double isVSystemeMin, double isVSystemeMax)
         {
             PocetPracovnikov1 = pocetPracovnikov1;
             PocetPracovnikov2 = pocetPracovnikov2;
@@ -695,6 +692,7 @@ namespace AutoserviceLibrary
             Sg2PrimernyPocet = sg2PrimernyPocet;
             Sg3PriemernyCasVServise = sg3PriemernyCasVServise;
             Sg4PriemernyCasOpravy = sg4PriemernyCasOpravy;
+            Sg5PriemernySysteme = sg5PriemernySysteme;
             Sg11PrimernyPocetNaKonciDna = sg11PrimernyPocetNaKonciDna;
             IS_NaZadanieObjednavkyMin = isNaZadanieObjednavkyMin;
             IS_NaZadanieObjednavkyMax = isNaZadanieObjednavkyMax;
@@ -711,6 +709,7 @@ namespace AutoserviceLibrary
         public double Sg2PrimernyPocet { get; set; }
         public double Sg3PriemernyCasVServise { get; set; }
         public double Sg4PriemernyCasOpravy { get; set; }
+        public double Sg5PriemernySysteme { get; set; }
 
         public double Sg11PrimernyPocetNaKonciDna { get; set; }
 
@@ -720,6 +719,36 @@ namespace AutoserviceLibrary
         public double IS_NaOpravyMax { get; set; }
         public double IS_VSystemeMin { get; set; }
         public double IS_VSystemeMax { get; set; }
+
+        public string ToStringHeader()
+        {
+            return
+                string.Format(
+                  "{0}\t {1}\t {2}\t {3}\t {4}\t {5}\t {6}\t {7}\t {8}\t {9}\t {10}\t {11}\t {12}\t {13}",
+                    nameof(PocetPracovnikov1),  nameof(PocetPracovnikov2),
+                    nameof(Sg1PriemernyCasCakania), nameof(Sg2PrimernyPocet), 
+                    nameof(Sg3PriemernyCasVServise),  nameof(Sg4PriemernyCasOpravy),
+                    nameof(Sg5PriemernySysteme), 
+                    nameof(Sg11PrimernyPocetNaKonciDna), nameof(IS_NaZadanieObjednavkyMin)
+                   , nameof(IS_NaZadanieObjednavkyMax), 
+                    nameof(IS_NaOpravyMin),  nameof(IS_NaOpravyMax), 
+                    nameof(IS_VSystemeMin),  nameof(IS_VSystemeMax));
+        }
+
+        public override string ToString()
+        {
+            return
+                string.Format(
+                    "{0}\t {1}\t {2}\t {3}\t {4}\t {5}\t {6}\t {7}\t {8}\t {9}\t {10}\t {11}\t {12}\t {13}",
+                    PocetPracovnikov1,  PocetPracovnikov2,
+                    Sg1PriemernyCasCakania, Sg2PrimernyPocet,
+                    Sg3PriemernyCasVServise,
+                    Sg4PriemernyCasOpravy, Sg5PriemernySysteme,
+                    Sg11PrimernyPocetNaKonciDna, 
+                    IS_NaZadanieObjednavkyMin, IS_NaZadanieObjednavkyMax,
+                     IS_NaOpravyMin, IS_NaOpravyMax,
+                     IS_VSystemeMin,  IS_VSystemeMax);
+        }
     }
 }
 

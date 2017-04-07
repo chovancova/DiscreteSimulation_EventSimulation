@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoserviceLibrary", "Autos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoserviceGui", "AutoserviceGui\AutoserviceGui.csproj", "{DF736C30-5D72-4D94-A687-7BAF2C2A6D0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoserviceAllResult", "AutoserviceAllResult\AutoserviceAllResult.csproj", "{0A846456-2ABF-476A-91EB-7ACC4E8C9080}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{DF736C30-5D72-4D94-A687-7BAF2C2A6D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF736C30-5D72-4D94-A687-7BAF2C2A6D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF736C30-5D72-4D94-A687-7BAF2C2A6D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A846456-2ABF-476A-91EB-7ACC4E8C9080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A846456-2ABF-476A-91EB-7ACC4E8C9080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A846456-2ABF-476A-91EB-7ACC4E8C9080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A846456-2ABF-476A-91EB-7ACC4E8C9080}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,5 +82,6 @@ Global
 		{A39F1F64-ED2B-46AE-9D02-C969BEEE2316} = {32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}
 		{7BE01B3E-E257-4514-808D-1569E157E441} = {32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}
 		{DF736C30-5D72-4D94-A687-7BAF2C2A6D0B} = {32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}
+		{0A846456-2ABF-476A-91EB-7ACC4E8C9080} = {32A91CC5-A8A9-4E28-86EF-E55266E8D6CE}
 	EndGlobalSection
 EndGlobal
