@@ -9,6 +9,7 @@ namespace AutoserviceLibrary
     public class AppCore : SimCore, IDisposable
     {
         public const int DlzkaDnaSekundy = 28800;
+        public ResultAutoservice Results { get; set; }
 
         public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2, AutoserviceGenerators gen,
             ISimulationGui gui) : base(gui)
@@ -18,14 +19,11 @@ namespace AutoserviceLibrary
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
             PocetPracovnikov1 = PocetVolnychPracovnikov1;
             PocetPracovnikov2 = PocetVolnychPracovnikov2;
-            InitializeQueues();
-            ResultSkupina1 = new Dictionary<int, double>();
-            ResultSkupina2 = new Dictionary<int, double>();
+            InitializeQueues();           
         }
 
         public AutoserviceGenerators Gen { get; }
-        public Dictionary<int, double> ResultSkupina1 { get; }
-        public Dictionary<int, double> ResultSkupina2 { get; }
+      
 
         public void NastavKonfiguraciu(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2)
         {
@@ -51,12 +49,9 @@ namespace AutoserviceLibrary
         }
 
         
-        public int PocetLudiOdisli{
-            get;
-            set;
-        }
+        public int PocetLudiOdisli{get;set;}
 
-
+        
 
         #region OVERRIDE METHODS
 
@@ -101,6 +96,8 @@ namespace AutoserviceLibrary
 
         public override void SimulationEnd()
         {
+            Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,SG1_PriemernyCasCakania(), SG2_PrimernyPocet(), SG3_PriemernyCasVServise(), SG4_PriemernyCasOpravy(), SG11_PrimernyPocetNaKonciDna(), IS_NaZadanieObjednavky()[0],IS_NaZadanieObjednavky()[1], IS_NaOpravu()[0],IS_NaOpravu()[1]);
+
             Gui?.RefreshGui();
             //ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
             //ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise());
@@ -610,4 +607,41 @@ namespace AutoserviceLibrary
            // throw new NotImplementedException();
         }
     }
+
+
+    public struct ResultAutoservice
+    {
+        public ResultAutoservice(int pocetPracovnikov1, int pocetPracovnikov2, double sg1PriemernyCasCakania, double sg2PrimernyPocet, double sg3PriemernyCasVServise, double sg4PriemernyCasOpravy, double sg11PrimernyPocetNaKonciDna, double isNaZadanieObjednavkyMin, double isNaZadanieObjednavkyMax, double isNaOpravyMin, double isNaOpravyMax)
+        {
+            PocetPracovnikov1 = pocetPracovnikov1;
+            PocetPracovnikov2 = pocetPracovnikov2;
+            Sg1PriemernyCasCakania = sg1PriemernyCasCakania;
+            Sg2PrimernyPocet = sg2PrimernyPocet;
+            Sg3PriemernyCasVServise = sg3PriemernyCasVServise;
+            Sg4PriemernyCasOpravy = sg4PriemernyCasOpravy;
+            Sg11PrimernyPocetNaKonciDna = sg11PrimernyPocetNaKonciDna;
+            IS_NaZadanieObjednavkyMin = isNaZadanieObjednavkyMin;
+            IS_NaZadanieObjednavkyMax = isNaZadanieObjednavkyMax;
+            IS_NaOpravyMin = isNaOpravyMin;
+            IS_NaOpravyMax = isNaOpravyMax;
+        }
+
+        public int PocetPracovnikov1 { get; set; }
+        public int PocetPracovnikov2 { get; set; }
+        public double Sg1PriemernyCasCakania { get; set; }
+
+        public double Sg2PrimernyPocet { get; set; }
+        public double Sg3PriemernyCasVServise { get; set; }
+        public double Sg4PriemernyCasOpravy { get; set; }
+
+        public double Sg11PrimernyPocetNaKonciDna { get; set; }
+
+        public double IS_NaZadanieObjednavkyMin { get; set; }
+        public double IS_NaZadanieObjednavkyMax { get; set; }
+        public double IS_NaOpravyMin { get; set; }
+        public double IS_NaOpravyMax { get; set; }
+    }
 }
+
+
+   

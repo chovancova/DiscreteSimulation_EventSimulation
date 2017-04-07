@@ -531,5 +531,24 @@ namespace AutoserviceGui
             Graph2Break = false;
 
         }
+
+
+        public void RunAllResults(int replikacii=35, int dlzka=2592000)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                for (int j = 16; j <= 26; j++)
+                {
+                    using (var a = new AppCore(i, j, new AutoserviceGenerators(), null))
+                    {
+                        a.Refresh = false;
+                        a.Simulate(replikacii, dlzka);
+
+
+                    }
+                }
+            }
+        }
+
     }
 }
