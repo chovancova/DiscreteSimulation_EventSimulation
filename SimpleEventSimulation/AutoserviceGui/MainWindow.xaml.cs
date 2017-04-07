@@ -309,36 +309,23 @@ namespace AutoserviceGui
             _app.SleepingTime = int.Parse(t_sleepMs.Text);
             
             int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text) * AppCore.DlzkaDnaSekundy;
-            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
             int pocetPR1 = int.Parse(t_pocetPracovnikov1_normal.Text);
             int pocetPR2 = int.Parse(t_pocetPracovnikov2_normal.Text);
 
             _app.NormalModeSimulation(1, dlzkaReplikacie, pocetPR1, pocetPR2);
         }
         
-        private void b_quickSimulation_Click(object sender, RoutedEventArgs e)
-        {
-            RunUltraMode();
-        }
+    
 
         private void b_runSimulation_Click(object sender, RoutedEventArgs e)
         {
-            RunNormalMode();
-
-            b_runSimulation.IsEnabled = false;
+            
+            b_u_start.IsEnabled = false;
             b_continue1.IsEnabled = false;
             b_runSimulation_Copy.IsEnabled = false;
-
+            RunNormalMode();
         }
 
-        private void b_analyticSimulation_Click(object sender, RoutedEventArgs e)
-        {
-            _initializeApp();
-
-            InitializeGraphsComponents();
-
-            //  _app.AnalyticSimulation();
-        }
         
         private void button_Copy4_Click(object sender, RoutedEventArgs e)
         {
@@ -360,26 +347,25 @@ namespace AutoserviceGui
             b_continue1.IsEnabled = false;
         }
 
-        private void b_changeSpeed_Click(object sender, RoutedEventArgs e)
-        {
-            _app.SleepingTime = int.Parse(t_sleepMs.Text);
-            _app.RefreshRate = int.Parse(t_refreshRAte.Text);
-        }
-
+    
         private void s_sleepMs_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+           
         }
 
         private void s_refreshRAte_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+           
         }
 
         private void t_sleepMs_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
+          
         }
 
         private void t_refreshRAte_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
+            
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -563,6 +549,11 @@ namespace AutoserviceGui
         {
             _stopResults = true;
             button2.IsEnabled = false;
+
+        }
+
+        private void t_g1_pocet_replikacii_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
 
         }
     }
