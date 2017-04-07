@@ -74,15 +74,20 @@ namespace AutoserviceGui
             {
                 double[] is1 = _app.IS_NaZadanieObjednavky();
                 t_u_is_cas_zadania_objednavky.Content = "90 % Interval spoľahlivosti - čas čakania v rade na zadanie objednávky < " +
-                     Math.Round(is1[0], 4) + ", " + Math.Round(is1[1], 4) + ">,    alebo <"
+                     Math.Round(is1[0], 3) + ", " + Math.Round(is1[1], 3) + ">,    alebo <"
                     + FormatToTime(Math.Round(is1[0], 4)) + ", " + FormatToTime(Math.Round(is1[1], 4)) + ">.";
 
                 double[] is2 = _app.IS_NaOpravu();
                 t_s_is_oprava.Content = "90 % Interval spoľahlivosti - čas čakania na opravu je < " +
-                      Math.Round(is2[0], 4) + "  ,  " + Math.Round(is2[1], 4) + " >,    alebo <"
+                      Math.Round(is2[0], 3) + "  ,  " + Math.Round(is2[1], 3) + " >,    alebo <"
                     + FormatToTime(Math.Round(is2[0], 4)) + ", " + FormatToTime(Math.Round(is2[1], 4)) + ">.";
 
-                t_u_pr_servise.Content = "Priemerný čas strávený zákazníkov v servise je " +
+                double[] is3 = _app.IS_VSysteme();
+                t_s_is_systeme.Content = "90 % Interval spoľahlivosti - čas strávený zákazníkov v systéme je < " +
+                      Math.Round(is3[0], 3) + "  ,  " + Math.Round(is3[1], 3) + " >,    alebo <"
+                    + FormatToTime(Math.Round(is3[0], 3)) + ", " + FormatToTime(Math.Round(is3[1], 3)) + ">.";
+
+                t_u_pr_servise.Content = "Priemerný čas strávený zákazníkom v servise je " +
                                          FormatToTime(_app.SG3_PriemernyCasVServise()) + ", alebo " +
                                          Math.Round(_app.SG3_PriemernyCasVServise(), 4) + " sekúnd. ";
 
@@ -103,17 +108,12 @@ namespace AutoserviceGui
                                            Math.Round(_app.SG4_PriemernyCasOpravy(), 4)
                                            + " sekúnd. ";
 
-                if (Math.Round(is2[1], 4) >= 18000)
-                {
-                    label_odporucanie.Content =
-                        "Konfigurácia nie je vhodná, pretože priemerný čas čakania zákazníkov na opravu je väčší než 5 hodín, presne o " +
-                        FormatToTimeMinutes((Math.Round(_app.SG4_PriemernyCasOpravy(), 4) - 18000)) + ". ";
-                }
-                else
-                {
-                    label_odporucanie.Content = "Konfigurácia spĺňa podmienku - priemerný čas čakania na opravu je menší než 5 hodín ("+
-                    FormatToTime((Math.Round(_app.SG4_PriemernyCasOpravy(), 4))) +").";
-                }
+                t_u_pr_na_opravu.Content = "Priemerný čas strávený zákazníkom v systéme je " +
+                                           FormatToTime(_app.SG5_PriemernyCasVSysteme()) + ", alebo " +
+                                           Math.Round(_app.SG5_PriemernyCasVSysteme(), 4)
+                                           + " sekúnd. ";
+                
+
                 if (Math.Round(is1[1], 4) >= 180)
                 {
                     label_odporucanie2.Content =
@@ -127,6 +127,18 @@ namespace AutoserviceGui
                    "Konfigurácia spĺňa podmienku -  priemerný čas čakania zákazníkov v rade na zadanie objednávky je menej než 3 minúty (" +
                    FormatToTimeMinutes((Math.Round(_app.SG1_PriemernyCasCakania(), 0) )) + "). ";
 
+                }
+
+                if (Math.Round(is2[1], 4) >= 18000)
+                {
+                    label_odporucanie.Content =
+                        "Konfigurácia nie je vhodná, pretože priemerný čas čakania zákazníkov na opravu je väčší než 5 hodín, presne o " +
+                        FormatToTimeMinutes((Math.Round(_app.SG4_PriemernyCasOpravy(), 4) - 18000)) + ". ";
+                }
+                else
+                {
+                    label_odporucanie.Content = "Konfigurácia spĺňa podmienku - priemerný čas čakania na opravu je menší než 5 hodín (" +
+                    FormatToTime((Math.Round(_app.SG4_PriemernyCasOpravy(), 4))) + ").";
                 }
 
                 if (!(Math.Round(is2[1], 4) > 18000)
@@ -150,7 +162,7 @@ namespace AutoserviceGui
             }
             catch (Exception e)
             {
-                return "";
+                return e.Message;
             }
         }
         private string FormatToTimeMinutes(double seconds)
@@ -190,6 +202,7 @@ namespace AutoserviceGui
 
         public MainWindow()
         {
+
             InitializeComponent();
             _initializeApp();
             _ultra_mode_set_enable_buttons(true, false, false, false);
@@ -197,7 +210,7 @@ namespace AutoserviceGui
             InitializeGraph1();
             InitializeGraph2();
 
-
+            RunAllResults();
         }
 
         private void ResetGraph1()
@@ -464,34 +477,49 @@ namespace AutoserviceGui
         private bool Graph1Break = false;
         private bool Graph2Break = false;
 
+        //private List<DataPoint> _data_graf1;
+
         public void RunGraphsResultStrategy1(int min, int max, int pracovnikov2, int replikacii, int dlzka)
         {
+           // _data_graf1 = new List<DataPoint>(max - min + 1);
+
             if (!Graph1Break)
             {
                 for (int i = min; i <= max; i++)
                 {
-                    using (var a = new AppCore(i, pracovnikov2, new AutoserviceGenerators(), null))
-                    {
+                    var a = new AppCore(i, pracovnikov2, new AutoserviceGenerators(), null);
+                    
                         a.Refresh = false;
                         a.Simulate(replikacii, dlzka);
-                        UpdateGraph1(i, a.SG2_PrimernyPocet());
-                    }
+                       // _data_graf1.Add(new DataPoint(i, a.SG2_PrimernyPocet()));
+                        // v core vyvolat ... obnovenie grafu
+                         UpdateGraph1(i, a.SG2_PrimernyPocet());
+                       // DataGrafStrategia1.Add(new DataPoint(i, a.SG2_PrimernyPocet()));
+                       // GraphStrategia1.InvalidatePlot();
+
+                    
                 }
             }
         }
 
+      //  private List<DataPoint> _data_graf2;
         public void RunGraphsResultStrategy2(int min, int max, int pracovnikov1, int replikacii, int dlzka)
         {
-           
+            //_data_graf2 = new List<DataPoint>(max-min+1);
+
             for (int i = min; i <= max; i++)
             {
-                if (!Graph2Break) { 
-                using (var a = new AppCore(pracovnikov1, i , new AutoserviceGenerators(), null))
+                if (!Graph2Break)
                 {
+                    var a = new AppCore(pracovnikov1, i, new AutoserviceGenerators(), null);
                     a.Refresh = false;
                     a.Simulate(replikacii, dlzka);
-                    UpdateGraph2(i, a.SG4_PriemernyCasOpravy());
-                }
+                        // v core vyvolat ... obnovenie grafu
+
+                        // _data_graf2.Add(new DataPoint(i, a.SG5_PriemernyCasVSysteme()));
+                        UpdateGraph2(i, a.SG5_PriemernyCasVSysteme());
+                       // DataGrafStrategia2.Add(new DataPoint(i, a.SG5_PriemernyCasVSysteme()));
+                       // GraphStrategia2.InvalidatePlot();
                 }
             }
         }
@@ -532,20 +560,18 @@ namespace AutoserviceGui
 
         }
 
-
+        List<ResultAutoservice> results = new List<ResultAutoservice>();
         public void RunAllResults(int replikacii=35, int dlzka=2592000)
         {
             for (int i = 1; i <= 10; i++)
             {
                 for (int j = 16; j <= 26; j++)
                 {
-                    using (var a = new AppCore(i, j, new AutoserviceGenerators(), null))
-                    {
+                    var a = new AppCore(i, j, new AutoserviceGenerators(), null);
+                    
                         a.Refresh = false;
                         a.Simulate(replikacii, dlzka);
-
-
-                    }
+                        results.Add(a.Results);
                 }
             }
         }

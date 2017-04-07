@@ -35,8 +35,6 @@ namespace AutoserviceLibrary.Events
             ((AppCore) ReferenceSimCore).S3_AddValue(AktualnyZakaznik.S3_SkonciCakanie_bytia_v_servise(EventTime));
             AktualnyZakaznik.S4_ZacniCakanie_oprava(EventTime);
 
-            if (AktualnyZakaznik.Typ != TypZakaznika.PokazeneAuto) throw new Exception("ZLY TYP zakaznik. ");
-
             //naplanujem preparkovanie auta
             var time = EventTime + ((AppCore) ReferenceSimCore).Gen.Generator5_Preparkovanie();
             var preparkovanie = new PreparkovanieAutoEvent(time, ReferenceSimCore, AktualnyZakaznik);

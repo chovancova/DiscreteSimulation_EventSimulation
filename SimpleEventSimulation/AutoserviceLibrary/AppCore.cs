@@ -61,10 +61,12 @@ namespace AutoserviceLibrary
             ResetGlobalStatistics();
             IS_Reset();
             IS_CakanieZadanieObjednavky_Reset();
+            IS_VSysteme_Reset();
             S1_Reset();
             S2_Reset();
             S3_Reset();
             S4_Reset();
+            S5_Reset();
             S11_Reset();
             ResetPracovnikov1();
             ResetPracovnikov2();
@@ -78,6 +80,7 @@ namespace AutoserviceLibrary
             S2_Reset();
             S3_Reset();
             S4_Reset();
+            S5_Reset();
             S11_Reset();
             ResetPracovnikov1();
             ResetPracovnikov2();
@@ -89,6 +92,7 @@ namespace AutoserviceLibrary
             SG_AddValue();
             IS_AddValue(S4_PriemernyCasOpravy());
             IS_AddValue2(S1_PriemernyCasCakania());
+            IS_AddValue3(S5_PriemernyCasSysteme());
 
             if(ActualReplication%100==0)
                Gui?.RefreshGui();
@@ -96,7 +100,7 @@ namespace AutoserviceLibrary
 
         public override void SimulationEnd()
         {
-            Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,SG1_PriemernyCasCakania(), SG2_PrimernyPocet(), SG3_PriemernyCasVServise(), SG4_PriemernyCasOpravy(), SG11_PrimernyPocetNaKonciDna(), IS_NaZadanieObjednavky()[0],IS_NaZadanieObjednavky()[1], IS_NaOpravu()[0],IS_NaOpravu()[1]);
+            Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,SG1_PriemernyCasCakania(), SG2_PrimernyPocet(), SG3_PriemernyCasVServise(), SG4_PriemernyCasOpravy(), SG11_PrimernyPocetNaKonciDna(), IS_NaZadanieObjednavky()[0],IS_NaZadanieObjednavky()[1], IS_NaOpravu()[0],IS_NaOpravu()[1], IS_VSysteme()[0], IS_VSysteme()[1]);
 
             Gui?.RefreshGui();
             //ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
@@ -401,7 +405,6 @@ namespace AutoserviceLibrary
         }
         
         #endregion
-
         #region S4 – Priemerný čas strávený zákazníkom čakaním na opravu.
 
         //	S4 – Priemerný čas strávený zákazníkom čakaním na opravu.
@@ -432,6 +435,37 @@ namespace AutoserviceLibrary
         }
 
         #endregion
+
+        #region S5 – Priemerný čas strávený zákazníkom v systéme.
+
+        //	S4 – Priemerný čas strávený zákazníkom čakaním na opravu.
+        ///(čas začína plynúť okamihom ukončenia prevzatia auta do servisu a končí prevzatím opraveného auta)
+        private int _S5_pocet_zakaznikov;
+        private double _S5_celkovy_cas_cakania;
+
+        public void S5_AddValue(double time)
+        {
+            _S5_pocet_zakaznikov++;
+            _S5_celkovy_cas_cakania += time;
+        }
+
+        /// <summary>
+        ///     S4 – Priemerný čas strávený zákazníkom čakaním na opravu.
+        /// </summary>
+        /// <returns></returns>
+        public double S5_PriemernyCasSysteme()
+        {
+            return _S5_pocet_zakaznikov != 0 ? _S5_celkovy_cas_cakania / _S5_pocet_zakaznikov : 0.0;
+        }
+
+        private void S5_Reset()
+        {
+            _S5_pocet_zakaznikov = 0;
+            _S5_celkovy_cas_cakania = 0.0;
+        }
+
+        #endregion   
+
 
         #region S11 – Priemerný počet zákazníkov  na konci dna
 
@@ -475,6 +509,7 @@ namespace AutoserviceLibrary
         private double _sg2Global;
         private double _sg3Global;
         private double _sg4Global;
+        private double _sg5Global;
         private double _sg11Global;
 
         private int _SG_pocetReplikacii;
@@ -486,6 +521,7 @@ namespace AutoserviceLibrary
             _sg2Global += S2_PrimernyPocet();
             _sg3Global += S3_PriemernyCasVServise();
             _sg4Global += S4_PriemernyCasOpravy();
+            _sg5Global += S5_PriemernyCasSysteme();
             _sg11Global += S11_PrimernyPocet();
         }
 
@@ -495,6 +531,7 @@ namespace AutoserviceLibrary
             _sg2Global = 0;
             _sg3Global = 0;
             _sg4Global = 0;
+            _sg5Global = 0;
             _sg11Global = 0;
         }
 
@@ -516,6 +553,10 @@ namespace AutoserviceLibrary
         public double SG4_PriemernyCasOpravy()
         {
             return _sg4Global/_SG_pocetReplikacii;
+        }
+        public double SG5_PriemernyCasVSysteme()
+        {
+            return _sg5Global/_SG_pocetReplikacii;
         }
 
         public double SG11_PrimernyPocetNaKonciDna()
@@ -567,7 +608,7 @@ namespace AutoserviceLibrary
 
         #endregion
 
-        #region INTERVAL SPOLAHLIVOSTI - cas cakanie na opravu
+        #region INTERVAL SPOLAHLIVOSTI - cas cakanie na zadanie objednavky
 
         private int _isCount2;
         private double _isSumSquare2;
@@ -600,6 +641,41 @@ namespace AutoserviceLibrary
             _isSum2 = 0;
         }
 
+        #endregion   
+        
+        #region INTERVAL SPOLAHLIVOSTI - cas cakanie na opravu
+
+        private int _isCount3;
+        private double _isSumSquare3;
+        private double _isSum3;
+
+        private void IS_AddValue3(double value)
+        {
+            _isCount3++;
+            _isSum3 += value;
+            _isSumSquare3 += Math.Pow(value, 2);
+        }
+
+        public double[] IS_VSysteme()
+        {
+            var priemer = _isSum2 / _isCount2;
+            var smerodajnaOdchylka = Math.Sqrt(_isSumSquare3 / _isCount3 - Math.Pow(_isSum3 / _isCount3, 2));
+
+            var interval = T90 * smerodajnaOdchylka / Math.Sqrt(_isCount3 - 1);
+            if (double.IsNaN(interval))
+            {
+                return new[] { priemer , priemer  };
+            }
+            return new[] { priemer- interval, interval+ priemer};
+        }
+
+        private void IS_VSysteme_Reset()
+        {
+            _isCount3 = 0;
+            _isSumSquare3 = 0;
+            _isSum3 = 0;
+        }
+
         #endregion
 
         public void Dispose()
@@ -611,7 +687,7 @@ namespace AutoserviceLibrary
 
     public struct ResultAutoservice
     {
-        public ResultAutoservice(int pocetPracovnikov1, int pocetPracovnikov2, double sg1PriemernyCasCakania, double sg2PrimernyPocet, double sg3PriemernyCasVServise, double sg4PriemernyCasOpravy, double sg11PrimernyPocetNaKonciDna, double isNaZadanieObjednavkyMin, double isNaZadanieObjednavkyMax, double isNaOpravyMin, double isNaOpravyMax)
+        public ResultAutoservice(int pocetPracovnikov1, int pocetPracovnikov2, double sg1PriemernyCasCakania, double sg2PrimernyPocet, double sg3PriemernyCasVServise, double sg4PriemernyCasOpravy, double sg11PrimernyPocetNaKonciDna, double isNaZadanieObjednavkyMin, double isNaZadanieObjednavkyMax, double isNaOpravyMin, double isNaOpravyMax, double isVSystemeMin, double isVSystemeMax)
         {
             PocetPracovnikov1 = pocetPracovnikov1;
             PocetPracovnikov2 = pocetPracovnikov2;
@@ -624,6 +700,8 @@ namespace AutoserviceLibrary
             IS_NaZadanieObjednavkyMax = isNaZadanieObjednavkyMax;
             IS_NaOpravyMin = isNaOpravyMin;
             IS_NaOpravyMax = isNaOpravyMax;
+            IS_VSystemeMin = isVSystemeMin;
+            IS_VSystemeMax = isVSystemeMax;
         }
 
         public int PocetPracovnikov1 { get; set; }
@@ -640,6 +718,8 @@ namespace AutoserviceLibrary
         public double IS_NaZadanieObjednavkyMax { get; set; }
         public double IS_NaOpravyMin { get; set; }
         public double IS_NaOpravyMax { get; set; }
+        public double IS_VSystemeMin { get; set; }
+        public double IS_VSystemeMax { get; set; }
     }
 }
 

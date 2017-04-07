@@ -29,6 +29,7 @@ namespace AutoserviceLibrary.Events
         public override void Execute()
         {
             ((AppCore) ReferenceSimCore).S4_AddValue(AktualnyZakaznik.S4_SkonciCakanie_oprava(EventTime));
+            ((AppCore)ReferenceSimCore).S5_AddValue(AktualnyZakaznik.S5_SkonciCakanie_system(EventTime));
             AktualnyZakaznik = null;
 
             var preparkovanie = new PreparkovanieAutoEvent(EventTime, ReferenceSimCore, null);

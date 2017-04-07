@@ -9,19 +9,22 @@
         Title="Autoservice" Height="606.36" Width="918">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="13*"/>
-            <ColumnDefinition Width="439*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="897*"/>
+            <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="26*"/>
-            <RowDefinition Height="29*"/>
-            <RowDefinition Height="56*"/>
-            <RowDefinition Height="428*"/>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="104*"/>
+            <RowDefinition Height="202*"/>
+            <RowDefinition Height="67*"/>
             <RowDefinition Height="31*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <TabControl x:Name="tabControl" Grid.RowSpan="6" Grid.ColumnSpan="3">
+        <TabControl x:Name="tabControl" Grid.RowSpan="9" Grid.ColumnSpan="3">
             <TabItem Header="Home" FontSize="14">
                 <Grid Background="#fff">
                     <Grid.RowDefinitions>
@@ -316,7 +319,7 @@
                         </TabItem>
                         <TabItem Header="Skupina 2 ">
                             <Grid Background="#fff">
-                                <oxy:Plot  x:Name="GraphStrategia2" Title="Priemerný čas strávený zákazníkom v servise na počte pracovníkov skupiny 2" Margin="0,40,0,0" >
+                                <oxy:Plot  x:Name="GraphStrategia2" Title="Priemerný čas strávený zákazníkom v systéme na počte pracovníkov skupiny 2" Margin="0,40,0,0" >
                                     <oxy:LineSeries>
                                         <oxy:LineSeries ItemsSource="{Binding DataGrafStrategia2}" />
                                     </oxy:LineSeries>
@@ -548,8 +551,10 @@
                         <RowDefinition Height="88*"/>
                         <RowDefinition Height="45*"/>
                         <RowDefinition Height="53*"/>
-                        <RowDefinition Height="181*"/>
-                        <RowDefinition Height="122*"/>
+                        <RowDefinition Height="208*"/>
+                        <RowDefinition Height="0*"/>
+                        <RowDefinition Height="89*"/>
+                        <RowDefinition Height="6*"/>
                     </Grid.RowDefinitions>
                     <Grid Margin="6,4,7,2" Background="#FFDBF4FF" Grid.Row="1" Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -579,20 +584,24 @@
                             <RowDefinition Height="30*"/>
                             <RowDefinition Height="30*"/>
                             <RowDefinition Height="30*"/>
-                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="30*"/>
+                            <RowDefinition Height="4*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="t_u_pr_servise" Content="Priemerný čas strávený zákazníkov v servise" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="2" Height="29" Width="847" Grid.RowSpan="2"/>
+                        <Label x:Name="t_u_pr_servise" Content="Priemerný čas strávený zákazníkom v servise" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="2" Height="29" Width="847"/>
                         <Label x:Name="t_u_pr_cakanie_zakaznik" Content="Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Width="857" FontWeight="Bold"/>
                         <Label x:Name="t_u_pr_pocet_v_rade" Content="Priemerný počet zákazníkov v rade čakajúcich zákazníkov" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.Row="3" Height="29" Width="847" FontWeight="Bold"/>
                         <Label x:Name="t_u_pr_na_opravu" Content="Priemerný čas strávený zákazníkov čakaním na opravu" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.Row="5" Height="29" Width="847" FontWeight="Bold"/>
                         <Label x:Name="t_u_pr_pocet_v_rade_na_konci_dna" Content="Priemerný počet zákazníkov v rade čakajúcich zákazníkov na konci dňa" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Grid.Row="4" Height="29" Width="847"/>
+                        <Label x:Name="t_u_pr_systeme" Content="Priemerný čas strávený zákazníkom v systéme" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.509,6.158" FontSize="14" Grid.Row="6" Height="29" Width="847"/>
                     </Grid>
-                    <Grid Margin="6,2,9,5" Background="#FFFFEEEE" Grid.Row="3" Grid.Column="1">
+                    <Grid Margin="6,2,9,0" Background="#FFFFEEEE" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
                         <Label x:Name="t_u_is_cas_zadania_objednavky" Content="90 % Interval spoľahlivosti - čas čakania v rade na zadanie objednávky" HorizontalAlignment="Left" VerticalAlignment="Top" Width="847" Height="33"/>
                         <Label x:Name="label31_Copy" Content="," HorizontalAlignment="Left" Margin="734,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.308,0.241" Width="11"/>
+                        <Label x:Name="t_s_is_oprava" Content="90 % Interval spoľahlivosti - čas čakania na opravu je" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,33,0,0"/>
+                        <Label x:Name="t_s_is_systeme" Content="90 % Interval spoľahlivosti - čas strávený zákazníkov v systéme je" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,62,0,0"/>
                     </Grid>
                     <Grid Margin="6,10,7,10" Background="WhiteSmoke" Grid.Row="2" Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -613,12 +622,9 @@
                         <Button x:Name="b_u_stop" Content="Stop" Margin="5,5,5,5" Background="#FFFFD3D3" Grid.Column="4" Grid.Row="1" Click="b_u_stop_Click"/>
                         <Button x:Name="b_u_start" Content="Start" Margin="5,5,5,5" Background="#FFD3FFD9" Grid.Row="1" Click="b_u_start_Click" Grid.Column="1"/>
                     </Grid>
-                    <Grid Margin="8,10,7,8" Background="#FFFFEEEE" Grid.Row="4" Grid.Column="1">
-                        <Label x:Name="t_s_is_oprava" Content="90 % Interval spoľahlivosti - čas čakania na opravu je" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    </Grid>
-                    <Label x:Name="label2" Content="Odporúčanie: " Grid.Column="1" HorizontalAlignment="Left" Margin="6,19,0,0" Grid.Row="6" VerticalAlignment="Top" Width="139" Height="31" FontStyle="Italic"/>
-                    <Label x:Name="label_odporucanie" Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="10,50,0,0" Grid.Row="6" VerticalAlignment="Top" Width="852" Height="35" FontStyle="Italic"/>
-                    <Label x:Name="label_odporucanie2" Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="10,77,0,0" Grid.Row="6" VerticalAlignment="Top" Width="852" Height="35" FontStyle="Italic"/>
+                    <Label x:Name="label2" Content="Odporúčanie: " Grid.Column="1" HorizontalAlignment="Left" Margin="6,0,0,0" Grid.Row="7" VerticalAlignment="Top" Width="139" Height="31" FontStyle="Italic"/>
+                    <Label x:Name="label_odporucanie" Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="10,31,0,0" Grid.Row="7" VerticalAlignment="Top" Width="852" Height="35" FontStyle="Italic"/>
+                    <Label x:Name="label_odporucanie2" Content="-" Grid.Column="1" HorizontalAlignment="Left" Margin="10,58,0,0" Grid.Row="7" VerticalAlignment="Top" Width="852" Height="35" FontStyle="Italic" Grid.RowSpan="2"/>
                 </Grid>
             </TabItem>
         </TabControl>

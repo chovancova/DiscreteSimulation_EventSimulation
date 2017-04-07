@@ -34,7 +34,6 @@ namespace AutoserviceLibrary.Events
             }
             else
             {
-                AktualnyZakaznik.Typ = TypZakaznika.OpraveneAuto;
                 //vlozim do frontu opravenych aut
                 ((AppCore) ReferenceSimCore).Front_OpraveneAuta_Pridaj(AktualnyZakaznik);
             }
