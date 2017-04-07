@@ -193,10 +193,25 @@ namespace AutoserviceGui
             InitializeComponent();
             _initializeApp();
             _ultra_mode_set_enable_buttons(true, false, false, false);
+            InitializeGraphsComponents();
+            InitializeGraph1();
+            InitializeGraph2();
 
 
         }
-        private void InitializeGraphsComponents()
+
+        private void ResetGraph1()
+        {
+            DataGrafStrategia1.Clear();
+            GraphStrategia1.InvalidatePlot();
+        }
+         private void ResetGraph2()
+        {
+            DataGrafStrategia2.Clear();
+            GraphStrategia2.InvalidatePlot();
+        }
+
+        private void InitializeGraph1()
         {
             DataGrafStrategia1 = new List<DataPoint>();
             GraphStrategia1.Series.Add(new LineSeries { ItemsSource = DataGrafStrategia1 });
@@ -215,7 +230,12 @@ namespace AutoserviceGui
                 TitleFontSize = 14,
                 AxisTitleDistance = 20
             });
+        }
 
+        private void InitializeGraph2()
+        {
+            DataGrafStrategia2= new List<DataPoint>();
+            GraphStrategia2.Series.Add(new LineSeries { ItemsSource = DataGrafStrategia2 });
             GraphStrategia2.Axes.Add(new LinearAxis
             {
                 Title = "Počet pracovníkov skupiny 2",
@@ -223,7 +243,7 @@ namespace AutoserviceGui
                 TitleFontSize = 14,
                 AxisTitleDistance = 1
             });
-            
+
             GraphStrategia2.Axes.Add(new LinearAxis
             {
                 Title = "Priemerný čas strávený zákazníkom v servise",
@@ -231,6 +251,13 @@ namespace AutoserviceGui
                 TitleFontSize = 14,
                 AxisTitleDistance = 20
             });
+        }
+
+        private void InitializeGraphsComponents()
+        {
+         
+
+            
             //////////////////////////////_workerSimulation.DoWork += WorkerProcess;
             //////////////////////////////_workerSimulation.RunWorkerCompleted += WorkerCompleted;
         }
@@ -432,6 +459,77 @@ namespace AutoserviceGui
             b_u_stop.IsEnabled = stop;
             b_u_continue.IsEnabled = continuebutton;
             b_u_start.IsEnabled = start;
+        }
+
+        private bool Graph1Break = false;
+        private bool Graph2Break = false;
+
+        public void RunGraphsResultStrategy1(int min, int max, int pracovnikov2, int replikacii, int dlzka)
+        {
+            if (!Graph1Break)
+            {
+                for (int i = min; i <= max; i++)
+                {
+                    using (var a = new AppCore(i, pracovnikov2, new AutoserviceGenerators(), null))
+                    {
+                        a.Refresh = false;
+                        a.Simulate(replikacii, dlzka);
+                        UpdateGraph1(i, a.SG2_PrimernyPocet());
+                    }
+                }
+            }
+        }
+
+        public void RunGraphsResultStrategy2(int min, int max, int pracovnikov1, int replikacii, int dlzka)
+        {
+           
+            for (int i = min; i <= max; i++)
+            {
+                if (!Graph2Break) { 
+                using (var a = new AppCore(pracovnikov1, i , new AutoserviceGenerators(), null))
+                {
+                    a.Refresh = false;
+                    a.Simulate(replikacii, dlzka);
+                    UpdateGraph2(i, a.SG4_PriemernyCasOpravy());
+                }
+                }
+            }
+        }
+
+        private void b_analyticSimulation_start_1_graf1_Click(object sender, RoutedEventArgs e)
+        {
+            Graph1Break = false;
+            ResetGraph1();
+            int min = int.Parse(t_g1_interval1_Copy.Text);
+            int max = int.Parse(t_g1_interval2_Copy.Text);
+            int pracovnikov2 = int.Parse(t_g1_pocetPracovnikov_Copy.Text);
+            int replikacie = int.Parse( t_g1_pocet_replikacii.Text);
+            int dlzka  = int.Parse(t_dlzkaJednejReplikacie.Text) * 8 * 60 * 60;
+            RunGraphsResultStrategy1(min, max, pracovnikov2, replikacie, dlzka);
+        }
+
+        private void b_analyticSimulation_stop_1_graf1_Click(object sender, RoutedEventArgs e)
+        {
+            Graph1Break = false;
+        }
+
+        private void b_analyticSimulation_start_1_graf2_Click(object sender, RoutedEventArgs e)
+        {
+            Graph2Break = false;
+            ResetGraph2();
+            int min = int.Parse(t_g2_interval1_Copy1.Text);
+            int max = int.Parse(t_g2_interval2_Copy1.Text);
+            int pracovnikov1 = int.Parse(t_g2_pocetPracovnikov_Copy1.Text);
+            int replikacie = int.Parse(t_g1_pocet_replikacii_Copy.Text);
+            int dlzka = int.Parse(t_dlzkaJednejReplikacie.Text) * 8 * 60 * 60;
+            RunGraphsResultStrategy2(min, max, pracovnikov1, replikacie, dlzka);
+
+        }
+
+        private void b_analyticSimulation_stop_1_graf2_Click(object sender, RoutedEventArgs e)
+        {
+            Graph2Break = false;
+
         }
     }
 }

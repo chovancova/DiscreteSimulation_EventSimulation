@@ -69,7 +69,7 @@ namespace SimulationLibrary
             }
             SimulationEnd();
             Done = true;
-            Gui.RefreshGui();
+            Gui?.RefreshGui();
 
         }
 

@@ -18,8 +18,8 @@
             <RowDefinition Height="19*"/>
             <RowDefinition Height="43*"/>
             <RowDefinition Height="37*"/>
-            <RowDefinition Height="330*"/>
-            <RowDefinition Height="107*"/>
+            <RowDefinition Height="406*"/>
+            <RowDefinition Height="31*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <TabControl x:Name="tabControl" Grid.RowSpan="7" Grid.ColumnSpan="3">
@@ -278,11 +278,11 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="39*"/>
-                                    <RowDefinition Height="425*"/>
+                                    <RowDefinition Height="44*"/>
+                                    <RowDefinition Height="461*"/>
                                 </Grid.RowDefinitions>
 
-                                <oxy:Plot  x:Name="GraphStrategia1" Title="Priemerný počet čakajúcich v rade na počte pracovníkov skupiny 1" Grid.Row="2" Grid.ColumnSpan="3" >
+                                <oxy:Plot  x:Name="GraphStrategia1" Title="Priemerný počet čakajúcich v rade na počte pracovníkov skupiny 1" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,37,0,0" Grid.RowSpan="2" >
                                     <oxy:LineSeries>
                                         <oxy:LineSeries ItemsSource="{Binding DataGrafStrategia1}" />
                                     </oxy:LineSeries>
@@ -290,22 +290,25 @@
                                 <Grid Grid.Column="1" Margin="3,2,6,12" Grid.Row="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="0*"/>
-                                        <ColumnDefinition Width="249*"/>
-                                        <ColumnDefinition Width="90*"/>
-                                        <ColumnDefinition Width="261*"/>
+                                        <ColumnDefinition Width="205*"/>
+                                        <ColumnDefinition Width="77*"/>
+                                        <ColumnDefinition Width="206*"/>
+                                        <ColumnDefinition Width="136*"/>
+                                        <ColumnDefinition Width="11*"/>
+                                        <ColumnDefinition Width="103*"/>
                                         <ColumnDefinition Width="20*"/>
-                                        <ColumnDefinition Width="100*"/>
-                                        <ColumnDefinition Width="19*"/>
-                                        <ColumnDefinition Width="100*"/>
+                                        <ColumnDefinition Width="103*"/>
                                         <ColumnDefinition Width="2*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label x:Name="label12_Copy" Content="Interval počtu pracovníkov 1. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="245" Grid.ColumnSpan="2"/>
+                                    <Label x:Name="label12_Copy" Content="Interval počtu prac. 1. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="198" Grid.ColumnSpan="2"/>
                                     <TextBox x:Name="t_g1_interval1_Copy" HorizontalAlignment="Left" Height="23" Margin="1,4,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.441,1.144" Grid.Column="2"/>
-                                    <Label x:Name="label13_Copy2" Content="Počet pracovníkov 2. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="197" Margin="19,0,0,0" Grid.Column="3"/>
-                                    <TextBox x:Name="t_g1_pocetPracovnikov_Copy" HorizontalAlignment="Left" Height="23" Margin="221,4,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="30" RenderTransformOrigin="0.441,1.144" Grid.Column="3"/>
+                                    <Label x:Name="label13_Copy2" Content="Počet prac. 2. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="148" Margin="10,0,0,0" Grid.Column="3"/>
+                                    <TextBox x:Name="t_g1_pocetPracovnikov_Copy" HorizontalAlignment="Left" Height="23" Margin="163,4,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="30" RenderTransformOrigin="0.441,1.144" Grid.Column="3"/>
                                     <TextBox x:Name="t_g1_interval2_Copy" HorizontalAlignment="Left" Height="23" Margin="42,4,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="29" RenderTransformOrigin="0.441,1.144" Grid.Column="2"/>
-                                    <Button x:Name="b_analyticSimulation_start_1_graf1" Content="Start" VerticalAlignment="Top" Height="29" Background="#FFC6FF96" Click="b_analyticSimulation_Click" Margin="3,0,5,0" Grid.Column="5"/>
-                                    <Button x:Name="b_analyticSimulation_stop_1_graf1" Content="Stop" VerticalAlignment="Top" Height="29" Background="#FFFFAA8A" Click="b_analyticSimulation_Click" Margin="6,0,0,0" Grid.Column="7"/>
+                                    <Button x:Name="b_analyticSimulation_start_1_graf1" Content="Start" VerticalAlignment="Top" Height="29" Background="#FFC6FF96" Margin="3,0,5,0" Grid.Column="6" Click="b_analyticSimulation_start_1_graf1_Click"/>
+                                    <Button x:Name="b_analyticSimulation_stop_1_graf1" Content="Stop" VerticalAlignment="Top" Height="29" Background="#FFFFAA8A" Margin="6,0,0,0" Grid.Column="8" Click="b_analyticSimulation_stop_1_graf1_Click"/>
+                                    <Label x:Name="label13_Copy4" Content="Replikácií" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="29" Width="84" Margin="10,0,0,0" Grid.Column="4"/>
+                                    <TextBox x:Name="t_g1_pocet_replikacii" HorizontalAlignment="Left" Height="23" Margin="99,5,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.441,1.144" Grid.Column="4"/>
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -319,22 +322,24 @@
                                 <Grid Margin="10,6,10,474">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="0*"/>
-                                        <ColumnDefinition Width="249*"/>
-                                        <ColumnDefinition Width="90*"/>
-                                        <ColumnDefinition Width="261*"/>
+                                        <ColumnDefinition Width="207*"/>
+                                        <ColumnDefinition Width="77*"/>
+                                        <ColumnDefinition Width="197*"/>
+                                        <ColumnDefinition Width="154*"/>
+                                        <ColumnDefinition Width="103*"/>
                                         <ColumnDefinition Width="20*"/>
-                                        <ColumnDefinition Width="100*"/>
-                                        <ColumnDefinition Width="19*"/>
-                                        <ColumnDefinition Width="100*"/>
+                                        <ColumnDefinition Width="103*"/>
                                         <ColumnDefinition Width="2*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label x:Name="label12_Copy1" Content="Interval počtu pracovníkov 2. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="245" Grid.ColumnSpan="2"/>
-                                    <TextBox x:Name="t_g1_interval1_Copy1" HorizontalAlignment="Left" Height="23" Margin="1,4,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.441,1.144" Grid.Column="2"/>
-                                    <Label x:Name="label13_Copy3" Content="Počet pracovníkov 1. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="197" Margin="19,0,0,0" Grid.Column="3"/>
-                                    <TextBox x:Name="t_g1_pocetPracovnikov_Copy1" HorizontalAlignment="Left" Height="23" Margin="221,4,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="30" RenderTransformOrigin="0.441,1.144" Grid.Column="3"/>
-                                    <TextBox x:Name="t_g1_interval2_Copy1" HorizontalAlignment="Left" Height="23" Margin="42,4,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="29" RenderTransformOrigin="0.441,1.144" Grid.Column="2"/>
-                                    <Button x:Name="b_analyticSimulation_start_1_graf2" Content="Start" VerticalAlignment="Top" Height="29" Background="#FFC6FF96" Click="b_analyticSimulation_Click" Margin="3,0,5,0" Grid.Column="5"/>
-                                    <Button x:Name="b_analyticSimulation_stop_1_graf2" Content="Stop" VerticalAlignment="Top" Height="29" Background="#FFFFAA8A" Click="b_analyticSimulation_Click" Margin="6,0,0,0" Grid.Column="7"/>
+                                    <Label x:Name="label12_Copy1" Content="Interval počtu prac. 2. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="200" Grid.ColumnSpan="2"/>
+                                    <TextBox x:Name="t_g2_interval1_Copy1" HorizontalAlignment="Left" Height="23" Margin="1,4,0,0" TextWrapping="Wrap" Text="16" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.441,1.144" Grid.Column="2"/>
+                                    <Label x:Name="label13_Copy3" Content="Počet pr. 1. skupiny:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="137" Grid.Column="3"/>
+                                    <TextBox x:Name="t_g2_pocetPracovnikov_Copy1" HorizontalAlignment="Left" Height="23" Margin="137,4,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="30" RenderTransformOrigin="0.441,1.144" Grid.Column="3"/>
+                                    <TextBox x:Name="t_g2_interval2_Copy1" HorizontalAlignment="Left" Height="23" Margin="42,4,0,0" TextWrapping="Wrap" Text="26" VerticalAlignment="Top" Width="29" RenderTransformOrigin="0.441,1.144" Grid.Column="2"/>
+                                    <Button x:Name="b_analyticSimulation_start_1_graf2" Content="Start" VerticalAlignment="Top" Height="29" Background="#FFC6FF96"  Margin="3,0,5,0" Grid.Column="5" Click="b_analyticSimulation_start_1_graf2_Click"/>
+                                    <Button x:Name="b_analyticSimulation_stop_1_graf2" Content="Stop" VerticalAlignment="Top" Height="29" Background="#FFFFAA8A" Margin="6,0,0,0" Grid.Column="7" Click="b_analyticSimulation_stop_1_graf2_Click"/>
+                                    <Label x:Name="label13_Copy5" Content="Replikácií" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="29" Width="84" Margin="7,0,0,0" Grid.Column="4"/>
+                                    <TextBox x:Name="t_g1_pocet_replikacii_Copy" HorizontalAlignment="Left" Height="23" Margin="96,4,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.441,1.144" Grid.Column="4"/>
                                 </Grid>
                             </Grid>
                         </TabItem>

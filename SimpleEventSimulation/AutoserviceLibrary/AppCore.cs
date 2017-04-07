@@ -6,7 +6,7 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary
 {
-    public class AppCore : SimCore
+    public class AppCore : SimCore, IDisposable
     {
         public const int DlzkaDnaSekundy = 28800;
 
@@ -96,12 +96,12 @@ namespace AutoserviceLibrary
             IS_AddValue2(S1_PriemernyCasCakania());
 
             if(ActualReplication%100==0)
-                Gui.RefreshGui();
+               Gui?.RefreshGui();
         }
 
         public override void SimulationEnd()
         {
-            Gui.RefreshGui();
+            Gui?.RefreshGui();
             //ResultSkupina1.Add(PocetPracovnikov1, SG2_PrimernyPocet());
             //ResultSkupina2.Add(PocetPracovnikov2, SG3_PriemernyCasVServise());
         }
@@ -604,5 +604,10 @@ namespace AutoserviceLibrary
         }
 
         #endregion
+
+        public void Dispose()
+        {
+           // throw new NotImplementedException();
+        }
     }
 }
