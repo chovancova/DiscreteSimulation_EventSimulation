@@ -1,9 +1,11 @@
-﻿namespace SimulationLibrary
+﻿using Priority_Queue;
+
+namespace SimulationLibrary
 {
     /// <summary>
     /// Abstrakná simulačná udalosť. 
     /// </summary>
-  public abstract class SimEvent 
+  public abstract class SimEvent : FastPriorityQueueNode
     {
         /// <summary>
         /// Čas vykonania udalosti. Slúži aj ako priorita. 

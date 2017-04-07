@@ -152,6 +152,8 @@ namespace AutoserviceGui
                     label2.Content = "Odporúčanie: NIE.";
                 }
             }
+            RefreshWindowDispatcher();
+
         }
 
         private string FormatToTime(double seconds)
@@ -191,12 +193,15 @@ namespace AutoserviceGui
         }
         private void UpdateGraph1(int x, double y)
         {
+            RefreshWindowDispatcher();
             DataGrafStrategia1.Add(new DataPoint(x, y));
             GraphStrategia1.InvalidatePlot();
         }
 
         private void UpdateGraph2(int x, double y)
         {
+            RefreshWindowDispatcher();
+
             DataGrafStrategia2.Add(new DataPoint(x, y));
             GraphStrategia2.InvalidatePlot();
         }
@@ -481,23 +486,21 @@ namespace AutoserviceGui
 
         public void RunGraphsResultStrategy1(int min, int max, int pracovnikov2, int replikacii, int dlzka)
         {
-           // _data_graf1 = new List<DataPoint>(max - min + 1);
-
-            if (!Graph1Break)
-            {
+            var a = new AppCore(new AutoserviceGenerators());
+           
                 for (int i = min; i <= max; i++)
+            {
+                if (!Graph1Break)
                 {
-                    var a = new AppCore(i, pracovnikov2, new AutoserviceGenerators(), null);
-                    
-                        a.Refresh = false;
-                        a.Simulate(replikacii, dlzka);
-                       // _data_graf1.Add(new DataPoint(i, a.SG2_PrimernyPocet()));
-                        // v core vyvolat ... obnovenie grafu
-                         UpdateGraph1(i, a.SG2_PrimernyPocet());
-                       // DataGrafStrategia1.Add(new DataPoint(i, a.SG2_PrimernyPocet()));
-                       // GraphStrategia1.InvalidatePlot();
+                    a.Gen = new AutoserviceGenerators();
+                    a.NastavKonfiguraciu(i, pracovnikov2);
+                    a.Simulate(replikacii, dlzka);
+                    RefreshWindowDispatcher();
+                    a.Refresh = false;
 
-                    
+                        a.Simulate(replikacii, dlzka);
+                   UpdateGraph1(i, a.SG2_PrimernyPocet());
+                    RefreshWindowDispatcher();
                 }
             }
         }
@@ -506,20 +509,19 @@ namespace AutoserviceGui
         public void RunGraphsResultStrategy2(int min, int max, int pracovnikov1, int replikacii, int dlzka)
         {
             //_data_graf2 = new List<DataPoint>(max-min+1);
-
+            var a = new AppCore(new AutoserviceGenerators());
             for (int i = min; i <= max; i++)
             {
                 if (!Graph2Break)
                 {
-                    var a = new AppCore(pracovnikov1, i, new AutoserviceGenerators(), null);
+                    a.NastavKonfiguraciu(pracovnikov1, i);
+                    a.Gen = new AutoserviceGenerators();
+                    a.SuperExtraUltraMode = true;
                     a.Refresh = false;
                     a.Simulate(replikacii, dlzka);
-                        // v core vyvolat ... obnovenie grafu
-
-                        // _data_graf2.Add(new DataPoint(i, a.SG5_PriemernyCasVSysteme()));
-                        UpdateGraph2(i, a.SG5_PriemernyCasVSysteme());
-                       // DataGrafStrategia2.Add(new DataPoint(i, a.SG5_PriemernyCasVSysteme()));
-                       // GraphStrategia2.InvalidatePlot();
+                    RefreshWindowDispatcher();
+                    UpdateGraph2(i, a.Results.Sg5PriemernySysteme);
+                    RefreshWindowDispatcher();
                 }
             }
         }
@@ -561,17 +563,29 @@ namespace AutoserviceGui
         }
 
         List<ResultAutoservice> results = new List<ResultAutoservice>();
-        public void RunAllResults(int replikacii=35, int dlzka=2592000)
+        private bool _stopResults  = false;
+
+        public void RunAllResults(int replikacii=1000, int dlzka=2592000)
         {
+            var a = new AppCore( new AutoserviceGenerators());
+            textBox.Text += "\n" + a.Results.ToStringHeader();
+            _stopResults = false; 
             for (int i = 1; i <= 10; i++)
             {
                 for (int j = 16; j <= 26; j++)
                 {
-                    var a = new AppCore(i, j, new AutoserviceGenerators(), null);
-                    
-                        a.Refresh = false;
-                        a.Simulate(replikacii, dlzka);
+                    if (!_stopResults)
+                    {
+                          a.Gen = new AutoserviceGenerators();
+                    a.NastavKonfiguraciu(i, j);
+                    a.Refresh = false;
+                    a.SuperExtraUltraMode = true;
+                    a.Simulate(replikacii, dlzka);
+                    RefreshWindowDispatcher();
+                    textBox.Text += "\n" + a.Results.ToString();
                         results.Add(a.Results);
+                    RefreshWindowDispatcher();
+                    }
                 }
             }
         }
@@ -580,9 +594,24 @@ namespace AutoserviceGui
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            RunAllResults(2);
+            button1.IsEnabled = false;
+            button2.IsEnabled = true;
 
-            listView1.ItemsSource = results;
+            int pocet = int.Parse(t_r_pocet_replikacii.Text);
+            RunAllResults(pocet);
+            button1.IsEnabled = true;
+        }
+
+        private void textBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            _stopResults = true;
+            button2.IsEnabled = false;
+
         }
     }
 }

@@ -6,14 +6,16 @@ using SimulationLibrary;
 
 namespace AutoserviceLibrary
 {
-    public class AppCore : SimCore, IDisposable
+    public class AppCore : SimCore
     {
         public const int DlzkaDnaSekundy = 28800;
         public ResultAutoservice Results { get; set; }
+        public ISimulationGui Gui { get; set; }
 
         public AppCore(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2, AutoserviceGenerators gen,
-            ISimulationGui gui) : base(gui)
+            ISimulationGui gui)
         {
+            Gui = gui; 
             Gen = gen;
             PocetVolnychPracovnikov1 = pocetVolnychPracovnikov1;
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
@@ -21,9 +23,18 @@ namespace AutoserviceLibrary
             PocetPracovnikov2 = PocetVolnychPracovnikov2;
             InitializeQueues();           
         }
+        public AppCore(AutoserviceGenerators gen)
+        {
+            Gen = gen;
+            PocetVolnychPracovnikov1 = 1;
+            PocetVolnychPracovnikov2 = 1;
+            PocetPracovnikov1 = PocetVolnychPracovnikov1;
+            PocetPracovnikov2 = PocetVolnychPracovnikov2;
+            InitializeQueues();           
+        }
 
-        public AutoserviceGenerators Gen { get; }
-      
+        public AutoserviceGenerators Gen { get; set; }
+
 
         public void NastavKonfiguraciu(int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2)
         {
@@ -93,20 +104,21 @@ namespace AutoserviceLibrary
             IS_AddValue(S4_PriemernyCasOpravy());
             IS_AddValue2(S1_PriemernyCasCakania());
             IS_AddValue3(S5_PriemernyCasSysteme());
-
-             Gui?.RefreshGui();
         }
 
         public override void SimulationEnd()
         {
             Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,SG1_PriemernyCasCakania(), SG2_PrimernyPocet(), SG3_PriemernyCasVServise(), SG4_PriemernyCasOpravy(), SG5_PriemernyCasVSysteme(),SG11_PrimernyPocetNaKonciDna(), IS_NaZadanieObjednavky()[0],IS_NaZadanieObjednavky()[1], IS_NaOpravu()[0],IS_NaOpravu()[1], IS_VSysteme()[0], IS_VSysteme()[1]);
-
-            Gui?.RefreshGui();
-       }
+         }
 
         public override void ScheduleFirstEvent()
         {
             ScheduleEvent(new ZaciatokReplikacieEvent(0, this, null));
+        }
+
+        public override void DoGraphics()
+        {
+            Gui?.RefreshGui();
         }
 
         #endregion
@@ -675,10 +687,7 @@ namespace AutoserviceLibrary
 
         #endregion
 
-        public void Dispose()
-        {
-           // throw new NotImplementedException();
-        }
+     
     }
 
 

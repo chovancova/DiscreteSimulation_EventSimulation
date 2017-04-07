@@ -81,7 +81,7 @@ namespace AutoserviceLibrary.Entities
             if (_zaciatokCakaniaBytiaVServise < 0) throw new Exception("Zle nastavene. ");
             if (_zaciatokCakaniaNaOpravu < 0) throw new Exception("Zle nastavene. ");
 
-            DobaVSysteme = DobaCakaniaNaOpravu + DobaCakaniaNaOpravu;
+            DobaVSysteme = time - _zaciatokCakaniaBytiaVServise;
             return DobaVSysteme;
         }
     }

@@ -280,15 +280,16 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="505*"/>
+                                    <RowDefinition Height="49*"/>
+                                    <RowDefinition Height="456*"/>
                                 </Grid.RowDefinitions>
 
-                                <oxy:Plot  x:Name="GraphStrategia1" Title="Priemerný počet čakajúcich v rade na počte pracovníkov skupiny 1" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,52,0,0" >
+                                <oxy:Plot  x:Name="GraphStrategia1" Title="Priemerný počet čakajúcich v rade na počte pracovníkov skupiny 1" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,3,0,0" >
                                     <oxy:LineSeries>
                                         <oxy:LineSeries ItemsSource="{Binding DataGrafStrategia1}" />
                                     </oxy:LineSeries>
                                 </oxy:Plot>
-                                <Grid Grid.Column="1" Margin="3,2,6,458" Grid.Row="1" Background="#FFFFFBF4">
+                                <Grid Grid.Column="1" Margin="3,2,6,2" Grid.Row="1" Background="#FFFFFBF4">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition Height="42*"/>
@@ -313,18 +314,22 @@
                                     <Button x:Name="b_analyticSimulation_start_1_graf1" Content="Start" VerticalAlignment="Top" Height="24" Background="#FFC6FF96" Margin="11,10,8,0" Grid.Column="5" Click="b_analyticSimulation_start_1_graf1_Click" Grid.Row="1"/>
                                     <Button x:Name="b_analyticSimulation_stop_1_graf1" Content="Stop" VerticalAlignment="Top" Height="24" Background="#FFFFAA8A" Margin="10,10,6,0" Grid.Column="6" Click="b_analyticSimulation_stop_1_graf1_Click" Grid.Row="1" Grid.ColumnSpan="2"/>
                                     <Label x:Name="label13_Copy4" Content="Replikácií" HorizontalAlignment="Left" Width="84" Margin="10,6,0,3" Grid.Column="4" Grid.Row="1"/>
-                                    <TextBox x:Name="t_g1_pocet_replikacii" HorizontalAlignment="Left" Height="23" Margin="103,10,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.441,1.144" Grid.Column="4" Grid.Row="1"/>
+                                    <TextBox x:Name="t_g1_pocet_replikacii" HorizontalAlignment="Left" Height="23" Margin="103,10,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.441,1.144" Grid.Column="4" Grid.Row="1"/>
                                 </Grid>
                             </Grid>
                         </TabItem>
                         <TabItem Header="Skupina 2 ">
                             <Grid Background="#fff">
-                                <oxy:Plot  x:Name="GraphStrategia2" Title="Priemerný čas strávený zákazníkom v systéme na počte pracovníkov skupiny 2" Margin="0,40,0,0" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="38*"/>
+                                    <RowDefinition Height="471*"/>
+                                </Grid.RowDefinitions>
+                                <oxy:Plot  x:Name="GraphStrategia2" Title="Priemerný čas strávený zákazníkom v systéme na počte pracovníkov skupiny 2" Margin="0,2,0,0" Grid.Row="1" >
                                     <oxy:LineSeries>
                                         <oxy:LineSeries ItemsSource="{Binding DataGrafStrategia2}" />
                                     </oxy:LineSeries>
                                 </oxy:Plot>
-                                <Grid Margin="10,6,10,474" Background="#FFFFF2FE">
+                                <Grid Margin="10,6,10,3" Background="#FFFFF2FE">
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                         <RowDefinition Height="26*"/>
@@ -525,18 +530,26 @@
             <TabItem Header="Results" HorizontalAlignment="Right" Height="23" VerticalAlignment="Top" Width="61"  FontSize="14" >
                 <Grid Background="#fff">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="53*"/>
-                        <RowDefinition Height="491*"/>
+                        <RowDefinition Height="39*"/>
+                        <RowDefinition Height="505*"/>
                     </Grid.RowDefinitions>
-                    <ListView Name="listView1" ItemsSource="{Binding results}" Margin="0,6,0,0" Grid.Row="1">
-                        <ListView.View>
-                            <GridView>
-                                <!-- The columns here -->
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Label x:Name="label5" Content="Quick Results - Combinations " HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210"/>
-                    <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="736,10,0,0" VerticalAlignment="Top" Width="158" Height="33" Click="button1_Click"/>
+                    <TextBox x:Name="textBox"  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+         ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="10" Grid.Row="1" TextWrapping="Wrap" TextChanged="textBox_TextChanged"/>
+                    <Grid Margin="10,6,10,503" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="285*"/>
+                            <ColumnDefinition Width="257*"/>
+                            <ColumnDefinition Width="178*"/>
+                            <ColumnDefinition Width="162*"/>
+                            <ColumnDefinition Width="0*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="label5" Content="Quick Results - All Combinations " HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" Width="236" FontWeight="Bold" Height="29" Grid.ColumnSpan="2"/>
+                        <Button x:Name="button1" Content="Run" HorizontalAlignment="Left" Margin="11,0,0,0" VerticalAlignment="Top" Width="158" Height="33" Click="button1_Click" Background="#FF70FDB7" Grid.Column="3"/>
+                        <Label x:Name="label6" Content="Počet replikácií:" HorizontalAlignment="Left" Margin="283,6,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
+                        <TextBox x:Name="t_r_pocet_replikacii" HorizontalAlignment="Left" Height="23" Margin="108,8,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="58" Grid.Column="2"/>
+                        <Button x:Name="button2" Content="Stop" HorizontalAlignment="Left" Margin="9,0,0,0" VerticalAlignment="Top" Width="153" Click="button2_Click" Height="33" Grid.Column="4"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Ultra Mode" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="110" FontSize="14" >

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoserviceLibrary;
 
@@ -30,18 +31,21 @@ namespace AutoserviceAllResult
 
     private static void RunAllResults(int replikacii = 35, int dlzka = 2592000, string filename = "data")
         {
-           using (var file =
+            using (var file =
                 new StreamWriter(filename + "_rep" +replikacii+"_"+".txt"))
             {
                 file.Write((new ResultAutoservice()).ToStringHeader() + "\n");
                 Console.WriteLine((new ResultAutoservice()).ToStringHeader());
                 Console.WriteLine();
+                var a = new AppCore(new AutoserviceGenerators());
 
                 for (int i = 1; i <= 10; i++)
                 {
                     for (int j = 16; j <= 26; j++)
                     {
-                        var a = new AppCore(i, j, new AutoserviceGenerators(), null);
+                        a.Gen = new AutoserviceGenerators();
+                        a.NastavKonfiguraciu(i,j);
+                        a.SuperExtraUltraMode = true; 
                         a.Refresh = false;
                         a.Simulate(replikacii, dlzka);
                         

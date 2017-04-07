@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Threading;
 using Priority_Queue;
 using RandomGenerators.Generators;
@@ -8,7 +9,7 @@ namespace SimulationLibrary
     public abstract class SimCore
     {
         public double CurrentTime { get; private set; }
-        private SimplePriorityQueue<SimEvent, double> _timeLine;
+        private FastPriorityQueue<SimEvent> _timeLine;
         public double RefreshRate { get; set; }
         public double SleepingTime { get; set; }
         public bool IsRunning { get; set; }
@@ -16,14 +17,13 @@ namespace SimulationLibrary
         public bool Stopped { get; set; }
         //ak je true - refreshujem po kazdom evente, ak false refreshujem po kazdej replikacii
         public bool Refresh { get; set; }
-        public ISimulationGui Gui { get; set; }
         public int ActualReplication { get; set; }
         public int NumberOfReplication { get; private set; }
       public bool Done { get; private set; }
-        public SimCore(ISimulationGui gui =  null)
+        public bool SuperExtraUltraMode { get; set; }
+        public SimCore()
         {
-            Gui = gui;
-            _timeLine = new SimplePriorityQueue<SimEvent, double>();
+            _timeLine = new FastPriorityQueue<SimEvent>(200);
             CurrentTime = 0.0f;
             Stopped = false;
             ActualReplication = 0;
@@ -31,25 +31,29 @@ namespace SimulationLibrary
             Refresh = false;
             SleepingTime = 20;
             RefreshRate = 20;
+            SuperExtraUltraMode = false;
         }
         public void ScheduleEvent(SimEvent eSimEvent, double time)
         {
-            if (CurrentTime > time)
-                throw new Exception("Scheadule Event is not possible. Current time > time.");
-            _timeLine.Enqueue(eSimEvent, time);
+            //if (CurrentTime > time)
+            //    throw new Exception("Scheadule Event is not possible. Current time > time.");
+            //  _timeLine.Enqueue(eSimEvent, time);
+            _timeLine.Enqueue(eSimEvent, (float) time);
         }
 
         public void ScheduleEvent(SimEvent eSimEvent)
         {
-            if (CurrentTime > eSimEvent.EventTime)
-                throw new Exception("Scheadule Event is not possible. Current time > time.");
-            _timeLine.Enqueue(eSimEvent, eSimEvent.EventTime);
+            //if (CurrentTime > eSimEvent.EventTime)
+            //    throw new Exception("Scheadule Event is not possible. Current time > time.");
+            _timeLine.Enqueue(eSimEvent, (float)eSimEvent.EventTime);
         }
         protected abstract void BeforeSimulation();
         public  abstract void BeforeReplication();
         public abstract void AfterReplication();
         public abstract void SimulationEnd();
         public abstract void ScheduleFirstEvent();
+        public abstract void DoGraphics();
+        
 
         public void Simulate(int numberOfReplication, double lenghtReplication)
         {
@@ -62,6 +66,8 @@ namespace SimulationLibrary
                 BeforeReplication();
                 DoSimulationReplication(lenghtReplication);
                 AfterReplication();
+                if (!SuperExtraUltraMode) DoGraphics();
+
                 if (Stopped)
                 {
                     break;
@@ -69,8 +75,7 @@ namespace SimulationLibrary
             }
             SimulationEnd();
             Done = true;
-            Gui?.RefreshGui();
-
+             if(!SuperExtraUltraMode) DoGraphics();
         }
 
         public void ResetCore()
@@ -78,33 +83,38 @@ namespace SimulationLibrary
             _timeLine.Clear();
             CurrentTime = 0.0;
         }
+
         
         public void DoSimulationReplication(double lenghtReplication)
         {
             SimEvent temp;
+
             ScheduleFirstEvent();
-            if(Refresh) ScheduleRefreshEvent();
+            if (!SuperExtraUltraMode) if (Refresh) ScheduleRefreshEvent();
             while (_timeLine.Count > 0 && CurrentTime < lenghtReplication)
             {
                 temp = _timeLine.Dequeue();
                 CurrentTime = temp.EventTime;
                 temp.Execute();
-                if(Refresh)
-                    Gui.RefreshGui();
-
-                if (Paused)
+                
+                if (!SuperExtraUltraMode)
                 {
-                    while (Paused)
+                    if (Refresh)
+                    DoGraphics();
+                    if (Paused)
                     {
-                        Thread.Sleep(200);
-                        Gui.RefreshGui();
-                    }   
+                        while (Paused)
+                        {
+                            Thread.Sleep(100);
+                            if (!SuperExtraUltraMode)
+                                DoGraphics();
+                        }
+                    }
+                    if (Stopped)
+                    {
+                        break;
+                    }
                 }
-                if (Stopped)
-                {
-                    break;
-                }
-
             }
         }
 

@@ -159,6 +159,9 @@ namespace SimpleEventSimulation.ShopSimulation
             this.ScheduleEvent(a, 0);
         }
 
-       
+        public override void DoGraphics()
+        {
+
+        }
     }
 }
