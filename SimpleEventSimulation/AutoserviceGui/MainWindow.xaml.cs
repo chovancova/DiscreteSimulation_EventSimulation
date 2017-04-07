@@ -65,85 +65,74 @@ namespace AutoserviceGui
                 //t_s_s11_Copy.Text = Math.Round(_app.S11_PrimernyPocet(), 4).ToString();
             }
           
-
-            if (UltraMode)
-            {
                 t_s_repl.Text = ""+ _app.ActualReplication;
-            }
+           
 
-            if (_app.Done)
-            {
-                double[] is1 = _app.IS_NaZadanieObjednavky();
+            
                 t_u_is_cas_zadania_objednavky.Content = "90 % Interval spoľahlivosti - čas čakania v rade na zadanie objednávky < " +
-                     Math.Round(is1[0], 3) + ", " + Math.Round(is1[1], 3) + ">,    alebo <"
-                    + FormatToTime(Math.Round(is1[0], 4)) + ", " + FormatToTime(Math.Round(is1[1], 4)) + ">.";
+                     Math.Round(_app.Results.IS_NaZadanieObjednavkyMin, 3) + ", " + Math.Round(_app.Results.IS_NaZadanieObjednavkyMax, 3) + ">,    alebo <"
+                    + FormatToTime(Math.Round(_app.Results.IS_NaZadanieObjednavkyMin, 4)) + ", " + FormatToTime(Math.Round(_app.Results.IS_NaZadanieObjednavkyMax, 4)) + ">.";
 
-                double[] is2 = _app.IS_NaOpravu();
                 t_s_is_oprava.Content = "90 % Interval spoľahlivosti - čas čakania na opravu je < " +
-                      Math.Round(is2[0], 3) + "  ,  " + Math.Round(is2[1], 3) + " >,    alebo <"
-                    + FormatToTime(Math.Round(is2[0], 4)) + ", " + FormatToTime(Math.Round(is2[1], 4)) + ">.";
+                      Math.Round(_app.Results.IS_NaOpravyMin, 3) + "  ,  " + Math.Round(_app.Results.IS_NaOpravyMax, 3) + " >,    alebo <"
+                    + FormatToTime(Math.Round(_app.Results.IS_NaOpravyMin, 4)) + ", " + FormatToTime(Math.Round(_app.Results.IS_NaOpravyMax, 4)) + ">.";
 
-                double[] is3 = _app.IS_VSysteme();
                 t_s_is_systeme.Content = "90 % Interval spoľahlivosti - čas strávený zákazníkov v systéme je < " +
-                      Math.Round(is3[0], 3) + "  ,  " + Math.Round(is3[1], 3) + " >,    alebo <"
-                    + FormatToTime(Math.Round(is3[0], 3)) + ", " + FormatToTime(Math.Round(is3[1], 3)) + ">.";
+                      Math.Round(_app.Results.IS_VSystemeMin, 3) + "  ,  " + Math.Round(_app.Results.IS_VSystemeMax, 3) + " >,    alebo <"
+                    + FormatToTime(Math.Round(_app.Results.IS_VSystemeMin, 3)) + ", " + FormatToTime(Math.Round(_app.Results.IS_VSystemeMax, 3)) + ">.";
 
                 t_u_pr_servise.Content = "Priemerný čas strávený zákazníkom v servise je " +
-                                         FormatToTime(_app.SG3_PriemernyCasVServise()) + ", alebo " +
-                                         Math.Round(_app.SG3_PriemernyCasVServise(), 4) + " sekúnd. ";
+                                         FormatToTime(_app.Results.Sg3PriemernyCasVServise) + ", alebo " +
+                                         Math.Round(_app.Results.Sg3PriemernyCasVServise, 4) + " sekúnd. ";
 
                 t_u_pr_cakanie_zakaznik.Content = "Priemerný čas čakania v rade čakajúcich zákazníkov na zadanie objednávky je "
-                    + FormatToTime(_app.SG1_PriemernyCasCakania()) + ", alebo " +
-                     Math.Round(_app.SG1_PriemernyCasCakania(), 4)
+                    + FormatToTime(_app.Results.Sg1PriemernyCasCakania) + ", alebo " +
+                     Math.Round(_app.Results.Sg1PriemernyCasCakania, 4)
                     + " sekúnd. ";
 
                 t_u_pr_pocet_v_rade.Content = "Priemerný počet zákazníkov v rade čakajúcich zákazníkov je "
-                                              + Math.Round(_app.SG2_PrimernyPocet(), 4);
+                                              + Math.Round(_app.Results.Sg2PrimernyPocet, 4);
 
                 t_u_pr_pocet_v_rade_na_konci_dna.Content =
                     "Priemerný počet zákazníkov v rade čakajúcich zákazníkov na konci dňa je " +
-                    Math.Round(_app.SG11_PrimernyPocetNaKonciDna(), 4);
+                    Math.Round(_app.Results.Sg11PrimernyPocetNaKonciDna, 4);
 
                 t_u_pr_na_opravu.Content = "Priemerný čas strávený zákazníkov čakaním na opravu je " +
-                                           FormatToTime(_app.SG4_PriemernyCasOpravy()) + ", alebo " +
-                                           Math.Round(_app.SG4_PriemernyCasOpravy(), 4)
+                                           FormatToTime(_app.Results.Sg4PriemernyCasOpravy) + ", alebo " +
+                                           Math.Round(_app.Results.Sg4PriemernyCasOpravy, 4)
                                            + " sekúnd. ";
 
                 t_u_pr_systeme.Content = "Priemerný čas strávený zákazníkom v systéme je " +
-                                           FormatToTime(_app.SG5_PriemernyCasVSysteme()) + ", alebo " +
-                                           Math.Round(_app.SG5_PriemernyCasVSysteme(), 4)
+                                           FormatToTime(_app.Results.Sg5PriemernySysteme) + ", alebo " +
+                                           Math.Round(_app.Results.Sg5PriemernySysteme, 4)
                                            + " sekúnd. ";
                 
 
-                if (Math.Round(is1[1], 4) >= 180)
+                if (Math.Round(_app.Results.IS_NaZadanieObjednavkyMax, 4) >= 180)
                 {
                     label_odporucanie2.Content =
-                        "Konfigurácia nie je vhodná, pretože priemerný čas čakania zákazníkov v rade na zadanie objednávky je väčší než 3 minúty (presne o  " +
-                        FormatToTimeMinutes((Math.Round(_app.SG1_PriemernyCasCakania(), 0) - 180)) + "). ";
+                        "Konfigurácia nie je vhodná, pretože IS priemerný čas čakania zákazníkov v rade na zadanie objednávky je väčší než 3 minúty.";
 
                 }
                 else
                 {
                     label_odporucanie2.Content =
-                   "Konfigurácia spĺňa podmienku -  priemerný čas čakania zákazníkov v rade na zadanie objednávky je menej než 3 minúty (" +
-                   FormatToTimeMinutes((Math.Round(_app.SG1_PriemernyCasCakania(), 0) )) + "). ";
+                        "Konfigurácia spĺňa podmienku -  IS priemerný čas čakania zákazníkov v rade na zadanie objednávky je menej než 3 minúty.";
 
                 }
 
-                if (Math.Round(is2[1], 4) >= 18000)
+                if (Math.Round(_app.Results.IS_NaOpravyMax, 4) >= 18000)
                 {
                     label_odporucanie.Content =
-                        "Konfigurácia nie je vhodná, pretože priemerný čas čakania zákazníkov na opravu je väčší než 5 hodín, presne o " +
-                        FormatToTimeMinutes((Math.Round(_app.SG4_PriemernyCasOpravy(), 4) - 18000)) + ". ";
+                        "Konfigurácia nie je vhodná, pretože IS priemerný čas čakania zákazníkov na opravu je väčší než 5 hodín.";
                 }
                 else
                 {
-                    label_odporucanie.Content = "Konfigurácia spĺňa podmienku - priemerný čas čakania na opravu je menší než 5 hodín (" +
-                    FormatToTime((Math.Round(_app.SG4_PriemernyCasOpravy(), 4))) + ").";
+                    label_odporucanie.Content = "Konfigurácia spĺňa podmienku -IS priemerný čas čakania na opravu je menší než 5 hodín.";
                 }
 
-                if (!(Math.Round(is2[1], 4) > 18000)
-                    && !(Math.Round(is1[1], 4) > 180))
+                if (!(Math.Round(_app.Results.IS_NaZadanieObjednavkyMax, 4) >= 180)
+                    && !(Math.Round(_app.Results.IS_NaOpravyMax, 4) >= 18000))
                 {
                     label2.Content = "Odporúčanie: ÁNO.";
                 }
@@ -151,7 +140,6 @@ namespace AutoserviceGui
                 {
                     label2.Content = "Odporúčanie: NIE.";
                 }
-            }
             RefreshWindowDispatcher();
 
         }
@@ -212,7 +200,6 @@ namespace AutoserviceGui
             InitializeComponent();
             _initializeApp();
             _ultra_mode_set_enable_buttons(true, false, false, false);
-            InitializeGraphsComponents();
             InitializeGraph1();
             InitializeGraph2();
 
@@ -271,31 +258,6 @@ namespace AutoserviceGui
             });
         }
 
-        private void InitializeGraphsComponents()
-        {
-         
-
-            
-            //////////////////////////////_workerSimulation.DoWork += WorkerProcess;
-            //////////////////////////////_workerSimulation.RunWorkerCompleted += WorkerCompleted;
-        }
-        //////////////////////////////druhe vlakno
-        ////////////////////////////private void WorkerProcess(object sender, DoWorkEventArgs e)
-        ////////////////////////////{
-        ////////////////////////////    //here will be _app.DoSomething() 
-        ////////////////////////////    //spustenie simulacie... 
-        ////////////////////////////}
-        ////////////////////////////void WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        ////////////////////////////{
-        ////////////////////////////    //todo co sa stane ked skonci .. 
-        ////////////////////////////}
-        ////////////////////////////public void StartSimulation()
-        ////////////////////////////{
-        ////////////////////////////    List<DataPoint>[] GrafPriebehuSimulacie = new[]
-        ////////////////////////////       {DataGrafStrategia1, DataGrafStrategia2};
-        ////////////////////////////    _workerSimulation.RunWorkerAsync();
-        ////////////////////////////}
-
         private AutoserviceGenerators _initializeGenerators()
         {
             return  new AutoserviceGenerators(
@@ -322,20 +284,12 @@ namespace AutoserviceGui
         private void _initializeApp()
         {
             AutoserviceGenerators generators = _initializeGenerators();
-
-            int dlzkaReplikacie = int.Parse(t_dlzkaJednejReplikacie.Text)*8*60*60;
-            int pocetReplikacii = int.Parse(t_pocetReplikacii.Text);
-            double maxSimulationTime = dlzkaReplikacie*pocetReplikacii;
-
-           // _app = new AppCore(int.Parse(t_pocetPracovnikov1.Text),
-           //     int.Parse(t_pocetPracovnikov2.Text), new AutoserviceGenerators(), this);
-            _app = new AppCore(int.Parse(t_pocetPracovnikov1.Text),
-                int.Parse(t_pocetPracovnikov2.Text), generators, this);
+            _app = new AppCore( generators, this);
         }
 
         public void RunUltraMode()
         {
-           _initializeApp();
+            _app = new AppCore(new AutoserviceGenerators(), this);
 
             UltraMode = true; //gui - what to render
 
@@ -562,8 +516,7 @@ namespace AutoserviceGui
 
         }
 
-        List<ResultAutoservice> results = new List<ResultAutoservice>();
-        private bool _stopResults  = false;
+        private bool _stopResults;
 
         public void RunAllResults(int replikacii=1000, int dlzka=2592000)
         {
@@ -582,8 +535,7 @@ namespace AutoserviceGui
                     a.SuperExtraUltraMode = true;
                     a.Simulate(replikacii, dlzka);
                     RefreshWindowDispatcher();
-                    textBox.Text += "\n" + a.Results.ToString();
-                        results.Add(a.Results);
+                    textBox.Text += "\n" + a.Results.ToStringDouble();
                     RefreshWindowDispatcher();
                     }
                 }

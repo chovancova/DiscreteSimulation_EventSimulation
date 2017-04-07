@@ -23,9 +23,10 @@ namespace AutoserviceLibrary
             PocetPracovnikov2 = PocetVolnychPracovnikov2;
             InitializeQueues();           
         }
-        public AppCore(AutoserviceGenerators gen)
+        public AppCore(AutoserviceGenerators gen, ISimulationGui gui=null)
         {
             Gen = gen;
+            Gui = gui;
             PocetVolnychPracovnikov1 = 1;
             PocetVolnychPracovnikov2 = 1;
             PocetPracovnikov1 = PocetVolnychPracovnikov1;
@@ -757,6 +758,25 @@ namespace AutoserviceLibrary
                     IS_NaZadanieObjednavkyMin, IS_NaZadanieObjednavkyMax,
                      IS_NaOpravyMin, IS_NaOpravyMax,
                      IS_VSystemeMin,  IS_VSystemeMax);
+        }
+        public  string ToStringDouble(int desatineMiesta=3)
+        {
+            return
+                string.Format(
+                    "{0}\t {1}\t {2}\t {3}\t {4}\t {5}\t {6}\t {7}\t {8}\t {9}\t {10}\t {11}\t {12}\t {13}",
+                    PocetPracovnikov1,  PocetPracovnikov2,
+                    Math.Round(Sg1PriemernyCasCakania, desatineMiesta), 
+                    Math.Round(Sg2PrimernyPocet, desatineMiesta),
+                    Math.Round(Sg3PriemernyCasVServise, desatineMiesta),
+                     Math.Round(Sg4PriemernyCasOpravy, desatineMiesta),
+                      Math.Round(Sg5PriemernySysteme, desatineMiesta),
+                     Math.Round(Sg11PrimernyPocetNaKonciDna, desatineMiesta),
+                     Math.Round(IS_NaZadanieObjednavkyMin, desatineMiesta),
+                      Math.Round(IS_NaZadanieObjednavkyMax, desatineMiesta),
+                      Math.Round(IS_NaOpravyMin, desatineMiesta),
+                       Math.Round(IS_NaOpravyMax, desatineMiesta),
+                      Math.Round(IS_VSystemeMin, desatineMiesta),
+                      Math.Round(IS_VSystemeMax, desatineMiesta));
         }
     }
 }
