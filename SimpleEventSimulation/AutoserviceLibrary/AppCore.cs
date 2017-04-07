@@ -109,7 +109,20 @@ namespace AutoserviceLibrary
 
         public override void SimulationEnd()
         {
-            Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,SG1_PriemernyCasCakania(), SG2_PrimernyPocet(), SG3_PriemernyCasVServise(), SG4_PriemernyCasOpravy(), SG5_PriemernyCasVSysteme(),SG11_PrimernyPocetNaKonciDna(), IS_NaZadanieObjednavky()[0],IS_NaZadanieObjednavky()[1], IS_NaOpravu()[0],IS_NaOpravu()[1], IS_VSysteme()[0], IS_VSysteme()[1]);
+            Results=new ResultAutoservice(PocetPracovnikov1, PocetPracovnikov2,
+                SG1_PriemernyCasCakania(),
+                SG2_PrimernyPocet(), 
+                SG3_PriemernyCasVServise(), 
+                SG4_PriemernyCasOpravy(), 
+                SG5_PriemernyCasVSysteme(),
+                SG11_PrimernyPocetNaKonciDna(), 
+                IS_NaZadanieObjednavky()[0],
+                IS_NaZadanieObjednavky()[1],
+                IS_NaOpravu()[0],
+                IS_NaOpravu()[1],
+                IS_VSysteme()[0], 
+                IS_VSysteme()[1]
+                );
          }
 
         public override void ScheduleFirstEvent()
@@ -668,7 +681,7 @@ namespace AutoserviceLibrary
 
         public double[] IS_VSysteme()
         {
-            var priemer = _isSum2 / _isCount2;
+            var priemer = _isSum3 / _isCount3;
             var smerodajnaOdchylka = Math.Sqrt(_isSumSquare3 / _isCount3 - Math.Pow(_isSum3 / _isCount3, 2));
 
             var interval = T90 * smerodajnaOdchylka / Math.Sqrt(_isCount3 - 1);

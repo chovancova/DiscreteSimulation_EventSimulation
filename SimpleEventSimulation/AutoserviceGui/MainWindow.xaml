@@ -83,9 +83,9 @@
                     </Grid.ColumnDefinitions>
                     <Grid Margin="4,8,10,8" Background="#FFDBF4FF" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="28*"/>
-                            <RowDefinition Height="8*"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240*"/>
@@ -95,12 +95,12 @@
                             <ColumnDefinition Width="11*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Label x:Name="t_l_aktualny_cas" Content="Aktuálny čas" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="27" Width="230" RenderTransformOrigin="0.57,0.01" Grid.Row="1"/>
-                        <Label x:Name="t_l_double_simulacny" Content="Simulačný čas v sekundach" VerticalAlignment="Top" FontSize="14" Grid.RowSpan="2" Height="29" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0"/>
-                        <Label x:Name="label1_Copy" Content="Zamestnanci:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,1,0,0" Height="29" Width="102" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"/>
+                        <Label x:Name="t_l_aktualny_cas" Content="Aktuálny čas" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Height="27" Width="230" RenderTransformOrigin="0.57,0.01" Grid.Row="1" Margin="5,2,0,0"/>
+                        <Label x:Name="t_l_double_simulacny" Content="Simulačný čas v sekundach" VerticalAlignment="Top" FontSize="14" Height="29" Grid.Column="1" Grid.Row="1" Margin="0,1,10,0"/>
+                        <Label x:Name="label1_Copy" Content="Zamestnanci:" HorizontalAlignment="Left" Margin="10,2,0,5" Width="102" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2"/>
                         <TextBox x:Name="t_pocetPracovnikov1_normal" HorizontalAlignment="Left" Height="23" Margin="103,0,0,1" TextWrapping="Wrap" Text="5" VerticalAlignment="Bottom" Width="40" RenderTransformOrigin="1.422,0.5" Grid.Row="1" Grid.Column="2"/>
-                        <Label x:Name="label3_Copy2" Content="Technici:" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" Height="26" Width="67" Grid.Row="1" Grid.Column="3" Grid.RowSpan="2"/>
-                        <TextBox x:Name="t_pocetPracovnikov2_normal" HorizontalAlignment="Left" Margin="69,0,0,7" TextWrapping="Wrap" Text="21" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="3" Grid.Row="1" Height="23" VerticalAlignment="Bottom" Grid.RowSpan="2"/>
+                        <Label x:Name="label3_Copy2" Content="Technici:" HorizontalAlignment="Left" Margin="0,3,0,0" Width="67" Grid.Row="1" Grid.Column="3" Height="26" VerticalAlignment="Top"/>
+                        <TextBox x:Name="t_pocetPracovnikov2_normal" HorizontalAlignment="Left" Margin="69,0,0,1" TextWrapping="Wrap" Text="21" Width="40" RenderTransformOrigin="0.441,1.144" Grid.Column="3" Grid.Row="1" Height="23" VerticalAlignment="Bottom"/>
                     </Grid>
                     <Grid Margin="10,10,18,0" Background="#FFEAFFF5" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Height="161" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
@@ -176,17 +176,21 @@
                         <Button x:Name="b_stop1" Content="Stop" Margin="10,9,10,10" Background="#FFFFD3D3" Grid.Column="4" Grid.Row="1" Click="button_Copy4_Click"/>
                         <Button x:Name="b_runSimulation_Copy" Content="Start" Margin="10,9,10,10" Background="#FFB0F396" Click="b_runSimulation_Click" Grid.Column="1" Grid.Row="1"/>
                     </Grid>
-                    <Grid Grid.Column="1" Margin="10,4,267,0" Grid.Row="3">
-                        <Slider x:Name="s_sleepMs" Value="20" Minimum="0" Maximum="1000" IsSnapToTickEnabled="True"  TickFrequency="25"  TickPlacement="BottomRight"  Height="32" Margin="153,0,0,0" VerticalAlignment="Top" FontSize="14" ValueChanged="s_sleepMs_ValueChanged"/>
-                        <Label x:Name="label32" Content="Sleep (ms):" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" FontSize="14" Height="27" RenderTransformOrigin="1.29,1.52"/>
-                        <TextBox x:Name="t_sleepMs"   Text="{Binding ElementName=s_sleepMs, Path=Value, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="20" Margin="84,7,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"  FontSize="14" TextChanged="t_sleepMs_TextChanged"/>
+                    <Grid Grid.ColumnSpan="2" Grid.Column="1" Margin="10,4,19,0" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0*"/>
+                            <ColumnDefinition Width="175*"/>
+                            <ColumnDefinition Width="184*"/>
+                            <ColumnDefinition Width="63*"/>
+                        </Grid.ColumnDefinitions>
+                        <Slider x:Name="s_sleepMs" Value="20" Minimum="0" Maximum="1000" IsSnapToTickEnabled="True"  TickFrequency="25"  TickPlacement="BottomRight"  Height="32" VerticalAlignment="Top" FontSize="14" ValueChanged="s_sleepMs_ValueChanged" Margin="153,0,12,0" Grid.ColumnSpan="2"/>
+                        <Label x:Name="label32" Content="Sleep (ms):" HorizontalAlignment="Left" VerticalAlignment="Top" Width="79" FontSize="14" Height="27" RenderTransformOrigin="1.29,1.52" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="t_sleepMs"   Text="{Binding Value, ElementName=s_sleepMs, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap"  VerticalAlignment="Top" Width="64"  FontSize="14" TextChanged="t_sleepMs_TextChanged" Margin="84,7,0,0" Grid.ColumnSpan="2"/>
+                        <Slider x:Name="s_refreshRAte" Value="60" Maximum="28800" Minimum="0" TickPlacement="BottomRight"  TickFrequency="3600" Height="27" VerticalAlignment="Top" FontSize="14" ValueChanged="s_refreshRAte_ValueChanged" Margin="194,2,9,0" Grid.Column="2"/>
+                        <Label x:Name="label32_Copy" Content="Refresh rate (s):" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" FontSize="14" Height="27" Margin="7,2,0,0" Grid.Column="2"/>
+                        <TextBox x:Name="t_refreshRAte" Text="{Binding Value, ElementName=s_refreshRAte, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="20" TextWrapping="Wrap"  VerticalAlignment="Top" Width="72" FontSize="14" TextChanged="t_refreshRAte_TextChanged" Margin="117,6,0,0" Grid.Column="2"/>
+                        <Button x:Name="button" Content="Change speed" HorizontalAlignment="Left" Margin="6,0,0,0" VerticalAlignment="Top" Width="117" Height="32" Background="#FFF7FFE9" Click="button_Click" Grid.Column="3"/>
                     </Grid>
-                    <Grid Grid.ColumnSpan="2" Grid.Column="1" Margin="356,0,141,0" Grid.Row="3">
-                        <Slider x:Name="s_refreshRAte" Value="60" Maximum="28800" Minimum="0" TickPlacement="BottomRight"  TickFrequency="3600" Height="27" Margin="187,6,0,0" VerticalAlignment="Top" FontSize="14" ValueChanged="s_refreshRAte_ValueChanged"/>
-                        <Label x:Name="label32_Copy" Content="Refresh rate (s):" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" FontSize="14" Height="27" Margin="0,6,0,0"/>
-                        <TextBox x:Name="t_refreshRAte" Text="{Binding ElementName=s_refreshRAte, Path=Value, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="20" Margin="110,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="72" FontSize="14" TextChanged="t_refreshRAte_TextChanged"/>
-                    </Grid>
-                    <Button x:Name="button" Content="Change speed" Grid.Column="2" HorizontalAlignment="Left" Margin="119,4,0,0" Grid.Row="3" VerticalAlignment="Top" Width="117" Height="32" Background="#FFF7FFE9" Click="button_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Graphs" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="68" FontSize="14">
@@ -463,14 +467,13 @@
                 <Grid Background="#fff">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"/>
-                        <RowDefinition Height="36*"/>
-                        <RowDefinition Height="7*"/>
-                        <RowDefinition Height="495*"/>
+                        <RowDefinition Height="45*"/>
+                        <RowDefinition Height="493*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
                     <TextBox x:Name="textBox"  ScrollViewer.HorizontalScrollBarVisibility="Auto"
-         ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="10,0,10,7" Grid.Row="3" TextWrapping="Wrap" TextChanged="textBox_TextChanged" Height="485" VerticalAlignment="Bottom"/>
-                    <Grid Margin="10,3,10,5" Grid.RowSpan="2" Grid.Row="1">
+         ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="10,3,10,7" Grid.Row="2" TextWrapping="Wrap" TextChanged="textBox_TextChanged"/>
+                    <Grid Margin="10,3,10,5" Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="285*"/>

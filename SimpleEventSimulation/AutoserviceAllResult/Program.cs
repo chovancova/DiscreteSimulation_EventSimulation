@@ -15,7 +15,7 @@ namespace AutoserviceAllResult
         {
             Console.WriteLine("Zadajte pocet replikacii");
             int pocet = Console.Read();
-            if (pocet != 0)
+            if (pocet == 0)
             {
                 RunAllResults(1000);
 
@@ -49,8 +49,8 @@ namespace AutoserviceAllResult
                         a.Refresh = false;
                         a.Simulate(replikacii, dlzka);
                         
-                        Console.WriteLine(a.Results.ToString().Replace(',', '.'));
-                        file.Write(a.Results.ToString().Replace(',', '.') + "\n");
+                        Console.WriteLine(a.Results.ToStringDouble(5));
+                        file.Write(a.Results.ToString() + "\n");
                     }
                 }
             }
