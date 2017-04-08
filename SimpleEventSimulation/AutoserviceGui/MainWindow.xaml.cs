@@ -28,7 +28,7 @@ namespace AutoserviceGui
         {
            RefreshWindowDispatcher();
 
-            if (!UltraMode)
+           // if (!UltraMode)
             {
             //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
