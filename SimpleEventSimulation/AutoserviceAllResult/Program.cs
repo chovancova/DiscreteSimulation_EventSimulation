@@ -37,12 +37,13 @@ namespace AutoserviceAllResult
                 file.Write((new ResultAutoservice()).ToStringHeader() + "\n");
                 Console.WriteLine((new ResultAutoservice()).ToStringHeader());
                 Console.WriteLine();
-                var a = new AppCore(new AutoserviceGenerators());
 
                 for (int i = 1; i <= 10; i++)
                 {
                     for (int j = 16; j <= 26; j++)
                     {
+                        var a = new AppCore(new AutoserviceGenerators());
+
                         a.Gen = new AutoserviceGenerators();
                         a.NastavKonfiguraciu(i,j);
                         a.SuperExtraUltraMode = true; 

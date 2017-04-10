@@ -31,7 +31,8 @@ namespace RandomGenerators.Generators
         public int GenerateInt()
         {
             if (_tmin == _tmax) return _tmin;
-            return _randomNumberGenerator.Next(_tmin,_tmax+1) ;
+           return _randomNumberGenerator.Next(_tmin,_tmax+1) ;
+            //return _randomNumberGenerator.Next(_tmax + 1) -_tmin ; 
         }
 
         //Pravdepodobnost vyskytu kazdehoh mozneho javu X

@@ -43,6 +43,7 @@ namespace AutoserviceLibrary
             PocetVolnychPracovnikov2 = pocetVolnychPracovnikov2;
             PocetPracovnikov1 = PocetVolnychPracovnikov1;
             PocetPracovnikov2 = PocetVolnychPracovnikov2;
+            Results = new ResultAutoservice();
         }
 
         public void UltraModeSimulation(int pocetReplikacii, int dlzkaReplikacie, int pocetVolnychPracovnikov1, int pocetVolnychPracovnikov2)

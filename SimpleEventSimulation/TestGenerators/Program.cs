@@ -16,8 +16,8 @@ namespace TestGenerators
         {
             //SIMULACNY CAS SU SEKUNDY
             var seed = new GeneratorSeed();
-            generator10_priemer(seed);
-
+           // generator10_priemer(seed);
+           generatorPriemerDiskretny(seed);
             //generator1(seed);
 
             //generator2(seed);
@@ -38,6 +38,18 @@ namespace TestGenerators
 
             //generator10(seed);
             Console.ReadKey();
+        }
+
+        private static void generatorPriemerDiskretny(GeneratorSeed seed)
+        {
+            UniformDiscreteDistribution gen = new UniformDiscreteDistribution(seed.GetRandomSeed(),0,10 );
+            int sucet = 0;
+            int count = 100000000; 
+            for (int i = 0; i < count; i++)
+            {
+                sucet += gen.GenerateInt();
+            }
+            Console.WriteLine((double)sucet/(count));
         }
 
         private static void generator10(GeneratorSeed seed)

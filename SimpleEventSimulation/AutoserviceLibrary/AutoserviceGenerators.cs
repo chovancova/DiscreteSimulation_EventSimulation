@@ -143,7 +143,7 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public int Generator2_PocetOprav()
         {
-            return _gen2.GenerateInt();//1; //_gen2.GenerateInt();
+            return _gen2.GenerateInt();
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace AutoserviceLibrary
         /// <returns></returns>
         public double Generator3_PrevzatieObjednavky()
         {
-            return  _gen3.GenerateDouble();
+            return _gen3.GenerateDouble();
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace AutoserviceLibrary
         /// <param name="seed"></param>
         public double Generator4_PrevzatieAuta()
         {
-            return _gen4.GenerateDouble();
+            return  _gen4.GenerateDouble();
         }
 
         /// <summary>

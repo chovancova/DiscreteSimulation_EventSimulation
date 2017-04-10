@@ -28,7 +28,7 @@ namespace AutoserviceGui
         {
            RefreshWindowDispatcher();
 
-           // if (!UltraMode)
+            //if (!UltraMode)
             {
             //tuto vytiahnem vsetky udaje z _app... 
             //v pripade tretieho rezumu updatnem grafy a poodobne..  
@@ -320,7 +320,7 @@ namespace AutoserviceGui
         private void b_runSimulation_Click(object sender, RoutedEventArgs e)
         {
             
-            b_u_start.IsEnabled = false;
+          //  b_u_start.IsEnabled = false;
             b_continue1.IsEnabled = false;
             b_runSimulation_Copy.IsEnabled = false;
             RunNormalMode();
@@ -370,7 +370,7 @@ namespace AutoserviceGui
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            _app.SleepingTime = int.Parse(t_sleepMs.Text);
+            _app.SleepingTime = double.Parse(t_sleepMs.Text);
             _app.RefreshRate = int.Parse(t_refreshRAte.Text);
         }
 
@@ -426,12 +426,14 @@ namespace AutoserviceGui
 
         public void RunGraphsResultStrategy1(int min, int max, int pracovnikov2, int replikacii, int dlzka)
         {
-            var a = new AppCore(new AutoserviceGenerators());
+           // var a = new AppCore(new AutoserviceGenerators());
            
                 for (int i = min; i <= max; i++)
             {
                 if (!Graph1Break)
                 {
+                    var a = new AppCore(new AutoserviceGenerators());
+
                     a.Gen = new AutoserviceGenerators();
                     a.NastavKonfiguraciu(i, pracovnikov2);
                     a.Simulate(replikacii, dlzka);
@@ -449,11 +451,13 @@ namespace AutoserviceGui
         public void RunGraphsResultStrategy2(int min, int max, int pracovnikov1, int replikacii, int dlzka)
         {
             //_data_graf2 = new List<DataPoint>(max-min+1);
-            var a = new AppCore(new AutoserviceGenerators());
+           // var a = new AppCore(new AutoserviceGenerators());
             for (int i = min; i <= max; i++)
             {
                 if (!Graph2Break)
                 {
+                    var a = new AppCore(new AutoserviceGenerators());
+
                     a.NastavKonfiguraciu(pracovnikov1, i);
                     a.Gen = new AutoserviceGenerators();
                     a.SuperExtraUltraMode = true;
@@ -506,8 +510,9 @@ namespace AutoserviceGui
 
         public void RunAllResults(int replikacii=1000, int dlzka=2592000)
         {
-            var a = new AppCore( new AutoserviceGenerators());
-            textBox.Text += "\n" + a.Results.ToStringHeader();
+            var a1 = new AppCore(new AutoserviceGenerators());
+
+            textBox.Text += "\n" + a1.Results.ToStringHeader();
             _stopResults = false; 
             for (int i = 1; i <= 10; i++)
             {
@@ -515,7 +520,9 @@ namespace AutoserviceGui
                 {
                     if (!_stopResults)
                     {
-                          a.Gen = new AutoserviceGenerators();
+                        var a = new AppCore(new AutoserviceGenerators());
+
+                        a.Gen = new AutoserviceGenerators();
                     a.NastavKonfiguraciu(i, j);
                     a.Refresh = false;
                     a.SuperExtraUltraMode = true;
